@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
-
+ 
 var qs = require('querystring')
   , http = require('http')
 
@@ -16,9 +16,9 @@ var qs = require('querystring')
 
 module.exports = function getBackpack (id, fn) {
   var options = {
-	hostname: 'api.steampowered.com',
-	path: '/IEconItems_440/GetPlayerItems/v0001/?key=0504CE7A41FE91E5345627BDE03831C6&SteamID=' + id,
-	method: 'GET'
+    hostname: 'api.steampowered.com',
+    path: '/IEconItems_440/GetPlayerItems/v0001/?key=0504CE7A41FE91E5345627BDE03831C6&SteamID=' + id,
+    method: 'GET'
   };
 
   http.request(options, function (res) {
@@ -29,7 +29,7 @@ module.exports = function getBackpack (id, fn) {
       body += chunk;
     });
 
-	  // request is finished, let's parse
+    // request is finished, parse and return obj.x
     res.on('end', function () { 
       try {
         var obj = JSON.parse(body);
@@ -37,12 +37,12 @@ module.exports = function getBackpack (id, fn) {
         return fn(new Error('Bad Steam response'));
       }
 
-	    // we have an invalid backpack url
+      // we have an invalid backpack url
       if(!obj.result.items) { 
-	    return fn(new Error('Something went wrong!'));
-	    }
+        return fn(new Error('Something went wrong!'));
+      }
 
-	    console.log('Pulled JSON response');
+      console.log('Pulled JSON response');
       fn(null, obj.result.items);
     });
   }).end()
