@@ -1,9 +1,3 @@
-
-/*
- * GET users listing.
- */
-
-
 /*
  * GET /backpack/:id (:id being 64bit steam id)
  */
