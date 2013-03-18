@@ -1,0 +1,11 @@
+<h1>Steam Results for </h1>
+<% if (results.length) { %>
+  <ul>
+    <% for (var i = 0; i < results.length; i++) { %>
+      <li><%= results[i].id %></li>
+      <li><%= results[i].quantity %></li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <p>No results</p>
+<% } %>
