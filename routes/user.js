@@ -11,7 +11,6 @@ exports.backpack = function(req, res, next) {
   var getBackpack = require('../backpack');
   getBackpack(req.params.id, function (err, backpackitems) {
     if (err) return next(err);
-    //res.render('search', { results: backpackitems, search: req.query.q });
 	res.render('backpack', { results: backpackitems, user: req.params.id });
   });
 };

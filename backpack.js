@@ -5,6 +5,8 @@
  
 var qs = require('querystring')
   , http = require('http')
+  , sanitize = require('validator').sanitize
+  , check = require('validator').check
 
 /**
  * Search function.
@@ -15,6 +17,16 @@ var qs = require('querystring')
  */
 
 module.exports = function getBackpack (id, fn) {
+  /*
+  * Sanitizes ID string
+  */
+  try {
+    id = sanitize(id).escape();
+  } catch(e) {
+    return fn(new Error('Invalid SteamID'));
+  }
+
+  // set URL options
   var options = {
     hostname: 'api.steampowered.com',
     path: '/IEconItems_440/GetPlayerItems/v0001/?key=0504CE7A41FE91E5345627BDE03831C6&SteamID=' + id,
@@ -35,11 +47,6 @@ module.exports = function getBackpack (id, fn) {
         var obj = JSON.parse(body);
       } catch (e) {
         return fn(new Error('Bad Steam response'));
-      }
-
-      // we have an invalid backpack url
-      if(!obj.result.items) { 
-        return fn(new Error('Something went wrong!'));
       }
 
       console.log('Pulled JSON response');
