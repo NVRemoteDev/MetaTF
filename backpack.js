@@ -9,9 +9,9 @@ var qs = require('querystring')
 /**
  * Search function.
  *
- * @param {String} search query
+ * @param {String} SteamID
  * @param {Function} callback
- * @api public
+ * @api private
  */
 
 module.exports = function getBackpack (id, fn) {
@@ -24,16 +24,23 @@ module.exports = function getBackpack (id, fn) {
   http.request(options, function (res) {
     res.setEncoding('utf8');
     var body = '';
+
     res.on('data', function (chunk) { // event handler when data is received from query
       body += chunk;
     });
 
-    res.on('end', function () {
+	// request is finished, let's parse
+    res.on('end', function () { 
       try {
         var obj = JSON.parse(body);
       } catch (e) {
         return fn(new Error('Bad Steam response'));
       }
+
+	  // we have an invalid backpack url
+      if(!obj.result.items) { 
+	    return fn(new Error('Something went wrong!'));
+	  }
 
 	  console.log('Pulled JSON response');
       fn(null, obj.result.items);
