@@ -50,7 +50,7 @@ module.exports = function getBackpack (id, fn) {
       }
 
       console.log('Pulled JSON response');
-      fn(null, obj.result.items);
+      fn(null, obj.result.items, obj.result.num_backpack_slots); // return no error, item data, backpack slot count
     });
   }).end()
 };

@@ -9,8 +9,8 @@
  */
 exports.backpack = function(req, res, next) {
   var getBackpack = require('../backpack');
-  getBackpack(req.params.id, function (err, backpackitems) {
+  getBackpack(req.params.id, function (err, backpackitems, backpackSlots) {
     if (err) return next(err);
-	res.render('backpack', { results: backpackitems, user: req.params.id });
+    res.render('backpack', { results: backpackitems, user: req.params.id, bpslots: backpackSlots });
   });
 };
