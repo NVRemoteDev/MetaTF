@@ -29,7 +29,7 @@ module.exports = function getBackpack (id, fn) {
       body += chunk;
     });
 
-	// request is finished, let's parse
+	  // request is finished, let's parse
     res.on('end', function () { 
       try {
         var obj = JSON.parse(body);
@@ -37,12 +37,12 @@ module.exports = function getBackpack (id, fn) {
         return fn(new Error('Bad Steam response'));
       }
 
-	  // we have an invalid backpack url
+	    // we have an invalid backpack url
       if(!obj.result.items) { 
 	    return fn(new Error('Something went wrong!'));
-	  }
+	    }
 
-	  console.log('Pulled JSON response');
+	    console.log('Pulled JSON response');
       fn(null, obj.result.items);
     });
   }).end()
