@@ -1,24 +1,22 @@
-
 /**
  * Module dependencies.
  */
-
-var qs = require('querystring')
-  , http = require('http')
+ 
+var http = require('http');
 
 /**
  * Pull backpack contents from Steam API function.
  *
  * @param {String} id = SteamID
- * @param {Function} fn = callback (error, items, backpackslots)
+ * @param {Function} fn = callback (error, items, slots)
  * @api private
  */
 
-module.exports = function getBackpack(id, fn) {
-  // set URL options to pull backpack
+module.exports = function getSchema(fn) {
+  //Schema
   var options = {
     hostname: 'api.steampowered.com',
-    path: '/IEconItems_440/GetPlayerItems/v0001/?key=0504CE7A41FE91E5345627BDE03831C6&SteamID=' + id,
+    path: '/IEconItems_440/GetSchema/v0001/?key=0504CE7A41FE91E5345627BDE03831C6',
     method: 'GET'
   };
   // Pull the backpack
@@ -39,7 +37,7 @@ module.exports = function getBackpack(id, fn) {
       }
       
       console.log('Pulled JSON response');
-      fn(null, obj.result.items, obj.result.num_backpack_slots); // return no error, item data, backpack slot count
+      fn(null, obj.result.items); // return no error, item data, backpack slot count
     });
   }).end()
 };

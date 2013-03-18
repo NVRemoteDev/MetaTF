@@ -37,6 +37,7 @@ app.configure(function(){
 
 app.get('/', routes.index);
 app.get('/backpack/:id', user.backpack);
+app.get('/schema', user.schema);
 
 /**
  * Listen
