@@ -1,5 +1,6 @@
 <h1>Steam Results for <%= user %></h1>
 <% if (results.length) { %>
+<p>Total backpack slots: <%= bpslots %>
   <ul>
     <% for (var i = 0; i < results.length; i++) { %>
       <li><%= results[i].defindex %> - <%= results[i].quantity %></li>
