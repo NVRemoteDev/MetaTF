@@ -1,11 +1,13 @@
-<h1>Steam Results for <%= user %></h1>
-<% if (results.length) { %>
-<p>Total backpack slots: <%= bpslots %></p>
-  <ul>
-    <% for (var i = 0; i < results.length; i++) { %>
-      <li><%= results[i].defindex %> - <%= results[i].quantity %></li>
+<% include header %>
+    <h1>Steam Results for <%= user %></h1>
+    <% if (results.length) { %>
+      <p>Total backpack slots: <%= bpslots %></p>
+      <ul>
+        <% for (var i = 0; i < results.length; i++) { %>
+          <li><%= results[i].defindex %> - <%= results[i].quantity %></li>
+        <% } %>
+      </ul>
+    <% } else { %>
+      <p>No results</p>
     <% } %>
-  </ul>
-<% } else { %>
-  <p>No results</p>
-<% } %>
+<% include footer %>
