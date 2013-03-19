@@ -1,0 +1,17 @@
+      <div class="navbar-inner">
+        <ul class="nav">
+          <a class="brand" href="/"><%= title %></a>
+          <% if (!user) { %>
+            <li class="active"><a href="/">Home</a></li>
+            <div class="pull-right">
+              <a href="/auth/steam"><img src="/static/steam_login.png" alt="Login with Steam" />
+            </div>
+          <% } else { %>
+            <li class="active">
+              <a href="/">Home</a>
+            </li>
+            <li><a href="/account">Account</a></li>
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+        <% } %>
+      </div>

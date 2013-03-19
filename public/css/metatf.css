@@ -1,0 +1,15 @@
+/**
+* Logo Font
+*/
+
+@font-face
+{
+  font-family: tf2;
+  src: url('/static/fonts/tf2.ttf');
+}
+
+.brand
+{
+  font-family: tf2;
+  font-size: x-large !important;
+}
