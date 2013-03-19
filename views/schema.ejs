@@ -3,7 +3,7 @@
 <% if (results.length) { %>
   <p>
     <% for (var i = 31; i < results.length; i++) { %>
-      <span><%= results[i].name %> <%= results[i].item_slot %> <br /> <img src="<%= results[i].image_url %>" /> </span>
+      <span> <img src="<%= results[i].image_url %>" /> <%= results[i].name %> </span>
     <% } %>
   </p>
 <% } else { %>
