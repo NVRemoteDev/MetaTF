@@ -1,17 +1,19 @@
     <div class="navbar">
       <div class="navbar-inner">
-        <ul class="nav">
-          <a class="brand" href="/">Meta.tf</a>
-          <% if (!user) { %>
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/auth/steam"><img src="/static/steam_login.png" alt="Login with Steam" /></a></li>
-          <% } else { %>
-            <li class="active">
-              <a href="/">Home</a>
-            </li>
-            <li><a href="/account">Account</a></li>
-            <li><a href="/logout">Log Out</a></li>
-          </ul>
+          
+            <ul class="nav">
+              <a class="brand" href="/">Meta.tf</a>
+              <li class="active"><a href="/">Home</a></li>
+              <% if (!user) { %>
+                <li><a href="/auth/steam"><img src="/static/steam_login.png" alt="Login with Steam" /></a></li>
+              <% } else { %>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/logout">Log Out</a></li>
+                <li><a href="/backpack/<%= user.identifier %>">Your backpack</a></li>
+            </ul>
+        <% } %>
+        <% for(var propertyName in user) { %>
+          <p><%= propertyName %></p>
         <% } %>
       </div>
     </div>

@@ -16,7 +16,7 @@ module.exports = function getSchema(fn) {
   //Schema
   var options = {
     hostname: 'api.steampowered.com',
-    path: '/IEconItems_440/GetSchema/v0001/?key=0504CE7A41FE91E5345627BDE03831C6',
+    path: '/IEconItems_440/GetSchema/v0001/?key=807715D1032417EF88DC269B03178CCA',
     method: 'GET'
   };
   // Pull the backpack

@@ -18,7 +18,7 @@ module.exports = function getBackpack(id, fn) {
   // set URL options to pull backpack
   var options = {
     hostname: 'api.steampowered.com',
-    path: '/IEconItems_440/GetPlayerItems/v0001/?key=0504CE7A41FE91E5345627BDE03831C6&SteamID=' + id,
+    path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + id,
     method: 'GET'
   };
   // Pull the backpack
