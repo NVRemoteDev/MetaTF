@@ -5,11 +5,13 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , trades = require('./routes/trades')
   , user = require('./routes/user')
   , http = require('http')
   , passport = require('passport')
-  , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
-  , path = require('path');
+  , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy;
+  //, mongoose = require('mongoose')
+  //, mongodb = require('mongodb');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -83,9 +85,24 @@ app.configure(function(){
  */
 
 app.get('/', routes.index);
-app.get('/backpack/', user.backpack);
-app.get('/backpack/:id', user.backpack);
+// TODO will be used to download TF2 Item schema.
 app.get('/schema', user.schema);
+// Trade routes
+app.get('/trades/:action/:id?', trades.index); // CRUD for trades
+app.get('/trades', function(req, res, next) { // View most recent trades if no action specified
+  res.redirect('/trades/view');
+});
+// User routes
+app.get('/user/', function(req, res, next) { // View SITE profile of logged in user
+  res.redirect('/account');
+});
+app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
+app.get('/backpack/', user.backpack); // View own backpack (must be logged in)
+app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
+
+/**
+* Steam Passport Routes
+*/
 
 // GET /auth/steam
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -114,7 +131,13 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
+app.get('/account', ensureAuthenticated, function(req, res) {
+  if(req.user) // If user is logged in, set req.user to their steam id (req.user if logged in is the steam openID)
+  {
+    var steamIdentifier = req.user.identifier;
+    steamIdentifier = steamIdentifier.split('/');
+    req.user = steamIdentifier[steamIdentifier.length-1];
+  }
   res.render('account', { user: req.user });
 });
 

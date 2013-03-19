@@ -16,14 +16,14 @@ var qs = require('querystring')
 
 module.exports = function getBackpack(id, req, fn) {
   // set URL options to pull backpack
-  if(!req.user) {
+  if(!req.user) { // Use a manually entered SteamID
     var options = {
       hostname: 'api.steampowered.com',
       path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + id,
       method: 'GET'
     };
   } else {
-    var options = {
+    var options = { // They're logged in, put our faux req.user is in (see routes)
       hostname: 'api.steampowered.com',
       path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + req.user,
       method: 'GET'
