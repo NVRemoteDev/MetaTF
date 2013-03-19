@@ -31,10 +31,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -83,6 +83,7 @@ app.configure(function(){
  */
 
 app.get('/', routes.index);
+app.get('/backpack/', user.backpack);
 app.get('/backpack/:id', user.backpack);
 app.get('/schema', user.schema);
 
@@ -136,5 +137,5 @@ http.createServer(app).listen(app.get('port'), function(){
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  res.redirect('/');
 }

@@ -9,11 +9,8 @@
               <% } else { %>
                 <li><a href="/account">Account</a></li>
                 <li><a href="/logout">Log Out</a></li>
-                <li><a href="/backpack/<%= user.identifier %>">Your backpack</a></li>
+                <li><a href="/backpack/<%= user %>">Your backpack</a></li>
             </ul>
-        <% } %>
-        <% for(var propertyName in user) { %>
-          <p><%= propertyName %></p>
         <% } %>
       </div>
     </div>

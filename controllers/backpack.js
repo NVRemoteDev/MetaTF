@@ -14,13 +14,21 @@ var qs = require('querystring')
  * @api private
  */
 
-module.exports = function getBackpack(id, fn) {
+module.exports = function getBackpack(id, req, fn) {
   // set URL options to pull backpack
-  var options = {
-    hostname: 'api.steampowered.com',
-    path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + id,
-    method: 'GET'
-  };
+  if(!req.user) {
+    var options = {
+      hostname: 'api.steampowered.com',
+      path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + id,
+      method: 'GET'
+    };
+  } else {
+    var options = {
+      hostname: 'api.steampowered.com',
+      path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + req.user,
+      method: 'GET'
+    };
+  }
   // Pull the backpack
   http.request(options, function (res) {
     res.setEncoding('utf8');
