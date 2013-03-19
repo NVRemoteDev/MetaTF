@@ -31,7 +31,7 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    /returnURL: 'http://www.meta.tf/auth/steam/return',
+    returnURL: 'http://www.meta.tf/auth/steam/return',
     realm: 'http://www.meta.tf'
     //returnURL: 'http://localhost:3000/auth/steam/return',
     //realm: 'http://localhost:3000'
