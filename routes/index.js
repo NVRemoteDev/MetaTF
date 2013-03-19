@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Meta.tf' });
+  res.render('index', { title: 'Meta.tf', user: req.user });
 };

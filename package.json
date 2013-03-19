@@ -4,7 +4,8 @@
 	"dependencies": {
 		"express": "*",
 		"ejs": ">=0.4.2",
-		"openid": "*",
+		"passport": "*",
+		"passport-steam": "*",
 		"validator": "*"
 	}
 }
