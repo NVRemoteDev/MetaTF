@@ -1,7 +1,11 @@
 <% include header %>
     <h1>Steam Results for <%= id %></h1>
     <% if (results.length) { %>
-      <p>Total backpack slots: <%= bpslots %></p>
+      <p>
+        Total backpack slots: <%= bpslots %>
+        <br />
+        Slots taken: <%= results.length %>
+      </p>
       <ul>
         <% for (var i = 0; i < results.length; i++) { %>
           <li><%= results[i].defindex %> - <%= results[i].quantity %></li>
