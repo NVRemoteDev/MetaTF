@@ -9,9 +9,9 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , passport = require('passport')
-  , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy;
+  , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
   //, mongoose = require('mongoose')
-  //, mongodb = require('mongodb');
+  , mongodb = require('mongodb');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -33,10 +33,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -97,7 +97,7 @@ app.get('/user/', function(req, res, next) { // View SITE profile of logged in u
   res.redirect('/account');
 });
 app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
-app.get('/backpack/', user.backpack); // View own backpack (must be logged in)
+app.get('/backpack/', ensureAuthenticated, user.backpack); // View own backpack (must be logged in)
 app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
 
 /**
@@ -121,9 +121,28 @@ app.get('/auth/steam',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/login' }),
+  passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    if(!req.user) return res.redirect('/');
+    var steamIdentifier = req.user.identifier;
+    steamIdentifier = steamIdentifier.split('/');
+    var jsonSteamId = { steamid: steamIdentifier[steamIdentifier.length-1] };
+    var userSteamId = steamIdentifier[steamIdentifier.length-1];
+    app.users.findOne({ steamid: userSteamId }, function (err, doc) {
+      if (err) return next(err);
+      if (!doc) {
+        app.users.insert(jsonSteamId, function (err, doc) {
+          if (err) return next(err);
+        });
+        app.users.findOne({ steamid: userSteamId }, function (err, doc) {
+          req.session.loggedIn = doc._id.toString();
+        });
+        res.redirect('/');
+      } else {
+        req.session.loggedIn = doc._id.toString();
+        res.redirect('/');
+      };
+    });
   });
 
 app.get('/logout', function(req, res){
@@ -132,26 +151,36 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/account', ensureAuthenticated, function(req, res) {
-  if(req.user) // If user is logged in, set req.user to their steam id (req.user if logged in is the steam openID)
-  {
-    var steamIdentifier = req.user.identifier;
-    steamIdentifier = steamIdentifier.split('/');
-    req.user = steamIdentifier[steamIdentifier.length-1];
-  }
   res.render('account', { user: req.user });
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
+  res.redirect('/auth/steam');
 });
 
 /**
  * Listen
  */
+var server = new mongodb.Server('127.0.0.1', 27017);
+new mongodb.Db('metatf', server).open(function (err, client) {
+  if (err) throw err;
+  console.log('\033[96m + \033[39m connected to mongodb');
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+  // set up collection shortcuts
+  app.users = new mongodb.Collection(client, 'users');
+
+  client.ensureIndex('users', 'steamid', function(err) {
+    if (err) throw err;
+    console.log('\033[96m + \033[93m ensured indexes');
+    /**
+    * Listen
+    */
+    http.createServer(app).listen(app.get('port'), function(){
+      console.log("Express server listening on port " + app.get('port'));
+    });
+  });
 });
+
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
