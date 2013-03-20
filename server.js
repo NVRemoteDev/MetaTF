@@ -12,7 +12,7 @@ var express = require('express')
   , passport = require('passport')
   , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
   //, mongoose = require('mongoose')
-  , mongodb = require('mongodb');
+  , mongodb = require('mongodb')
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -34,10 +34,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -124,33 +124,30 @@ app.get('/auth/steam',
 //   **CHECKS AGAINST DATABASE IF USER HAS ALREADY BEEN HERE, CREATES ENTRY IF NOT **
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }), function (req, res) {
-    loginWithDatabase;
     res.redirect('/');
   });
 
-  var loginWithDatabase = function(req, res, next) { // This function will return information from the database
-    if(!req.user) {
-      return;
-    }
-    var steamIdentifier = req.user.identifier; // req.user.identifier is set after logging in as steam; openID url
-    steamIdentifier = steamIdentifier.split('/');
-    var jsonSteamId = { steamid: steamIdentifier[steamIdentifier.length-1] }; // Use if we enter data to database, json format
-    var userSteamId = steamIdentifier[steamIdentifier.length-1]; // Used as our search
-    app.users.findOne({ steamid: userSteamId }, function (err, doc) { // Search Mongo
+  var loginToDatabase = function(req, res, next) { // This function will return information from the database
+    if(!req.user) { return; }  // User isn't logged in
+    // v req.user.identifier is set after logging into steam; openID url
+    var steamIdentifier = req.user.identifier.split('/'); 
+    var steamID = steamIdentifier[steamIdentifier.length-1]; // Used as our search criteria for mongo below
+    var jsonSteamId = { steamid: steamID }; // Used to enter steamID to mongodb below, json format
+    app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
       if (err) return next(err);
       if (!doc) { // no steamID found
         app.users.insert(jsonSteamId, function (err, doc) { // create a database entry for this user.
           if (err) return next(err);
-          app.users.findOne({ steamid: userSteamId }, function (err, doc) { // Search Mongo
-            req.session.loggedIn = doc._id.toString();
-            req.session.steamId = doc.steamid;
+          app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
+            if(err) return next(err);
+            // User is found, set steamid
+            req.session.steamid = doc.steamid;
             return next();
           });
         });
       } else {
         // User is found, set steamid
-        req.session.loggedIn = doc._id.toString();
-        req.session.steamId = doc.steamid;
+        req.session.steamid = doc.steamid;
         return next();
       };
     });
@@ -161,8 +158,8 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.get('/account', ensureAuthenticated, loginWithDatabase, function(req, res) {
-  steamid = req.session.steamId;
+app.get('/account', ensureAuthenticated, loginToDatabase, function(req, res) {
+  steamid = req.session.steamid;
   res.render('account', { title: 'Account', user: steamid });
 });
 
@@ -173,13 +170,15 @@ app.get('/login', function(req, res){
 /**
  * Listen
  */
-//var server = new mongodb.Server('127.0.0.1', 27017); // localhost
-// heroku
-var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
-mongodb.Db.connect(server, function (err, client) {
-// /heroku
 
-//new mongodb.Db('metatf', server).open(function (err, client) { // localhost
+// heroku
+//var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+//mongodb.Db.connect(server, function (err, client) {
+// /heroku
+// localhost
+var server = new mongodb.Server('127.0.0.1', 27017); 
+new mongodb.Db('metatf', server).open(function (err, client) {
+// /localhost
   if (err) throw err;
   console.log('\033[96m + \033[39m connected to mongodb');
 

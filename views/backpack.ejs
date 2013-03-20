@@ -2,9 +2,7 @@
     <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user %><% } %></h1>
     <% if (results.length) { %>
       <p>
-        Total backpack slots: <%= bpslots %>
-        <br />
-        Slots taken: <%= results.length %>
+        Backpack Used/Total Slots: Slots taken: <%= results.length %>/<%= bpslots %>
       </p>
       <ul>
         <% for (var i = 0; i < results.length; i++) { %>
