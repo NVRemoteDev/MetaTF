@@ -34,10 +34,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    //returnURL: 'http://www.meta.tf/auth/steam/return',
-    //realm: 'http://www.meta.tf'
-    returnURL: 'http://localhost:3000/auth/steam/return',
-    realm: 'http://localhost:3000'
+    returnURL: 'http://www.meta.tf/auth/steam/return',
+    realm: 'http://www.meta.tf'
+    //returnURL: 'http://localhost:3000/auth/steam/return',
+    //realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -179,12 +179,12 @@ app.get('/login', function(req, res){
  */
 
 // heroku
-//var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
-//mongodb.Db.connect(server, function (err, client) {
+var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+mongodb.Db.connect(server, function (err, client) {
 // /heroku
 // localhost
-var server = new mongodb.Server('127.0.0.1', 27017);
-new mongodb.Db('metatf', server).open(function (err, client) {
+//var server = new mongodb.Server('127.0.0.1', 27017);
+//new mongodb.Db('metatf', server).open(function (err, client) {
 // /localhost
   if (err) throw err;
   console.log('\033[96m + \033[39m connected to mongodb');
