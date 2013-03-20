@@ -16,16 +16,17 @@ var qs = require('querystring')
 
 module.exports = function getBackpack(id, req, fn) {
   // set URL options to pull backpack
-  if(!req.user) { // Use a manually entered SteamID
+  var steamid = req.session.steamid;
+  if(id) { // Not logged in, or they manually entered SteamID
     var options = {
       hostname: 'api.steampowered.com',
       path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + id,
       method: 'GET'
     };
   } else {
-    var options = { // They're logged in, put our faux req.user is in (see routes)
+    var options = { // They're logged in, put steamid in (req.session.steadmid)
       hostname: 'api.steampowered.com',
-      path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + req.user,
+      path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + req.session.steamid,
       method: 'GET'
     };
   }
@@ -45,7 +46,7 @@ module.exports = function getBackpack(id, req, fn) {
       } catch (e) {
         return fn(new Error('Bad Steam response'));
       }
-      
+
       console.log('Pulled JSON response');
       fn(null, obj.result.items, obj.result.num_backpack_slots); // return no error, item data, backpack slot count
     });

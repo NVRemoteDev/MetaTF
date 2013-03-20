@@ -81,6 +81,34 @@ app.configure(function(){
   app.use(app.router);
 });
 
+  var loginToDatabase = function(req, res, next) { // This function will return information from the database
+    if(!req.user) { return; }  // User isn't logged in
+    // v req.user.identifier is set after logging into steam; openID url
+    var steamIdentifier = req.user.identifier.split('/');
+    var steamID = steamIdentifier[steamIdentifier.length-1]; // Used as our search criteria for mongo below
+    var jsonSteamId = { steamid: steamID }; // Used to enter steamID to mongodb below, json format
+
+    app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
+      if (err) return next(err);
+
+      if (!doc) { // no steamID found
+        app.users.insert(jsonSteamId, function (err, doc) { // create a database entry for this user.
+          if (err) return next(err);
+          app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
+            if(err) return next(err);
+            // User is found, set steamid
+            req.session.steamid = doc.steamid;
+            return next();
+          });
+        });
+      } else {
+        // User is found, set steamid
+        req.session.steamid = doc.steamid;
+        return next();
+      }
+    });
+  };
+
 /**
  * Routes
  */
@@ -98,6 +126,11 @@ app.get('/user/', function(req, res, next) { // View SITE profile of logged in u
   res.redirect('/account');
 });
 app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
+
+/**
+ * Backpack routes
+ */
+
 app.get('/backpack/', ensureAuthenticated, user.backpack); // View own backpack (must be logged in)
 app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
 
@@ -121,44 +154,18 @@ app.get('/auth/steam',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-//   **CHECKS AGAINST DATABASE IF USER HAS ALREADY BEEN HERE, CREATES ENTRY IF NOT **
+//   ** CHECKS AGAINST DATABASE IF USER HAS ALREADY LOGGED IN AT THIS SITE, CREATES DB ENTRY IF NOT **
 app.get('/auth/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/' }), function (req, res) {
+  passport.authenticate('steam', { failureRedirect: '/' }), loginToDatabase, function (req, res) {
     res.redirect('/');
   });
-
-  var loginToDatabase = function(req, res, next) { // This function will return information from the database
-    if(!req.user) { return; }  // User isn't logged in
-    // v req.user.identifier is set after logging into steam; openID url
-    var steamIdentifier = req.user.identifier.split('/'); 
-    var steamID = steamIdentifier[steamIdentifier.length-1]; // Used as our search criteria for mongo below
-    var jsonSteamId = { steamid: steamID }; // Used to enter steamID to mongodb below, json format
-    app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
-      if (err) return next(err);
-      if (!doc) { // no steamID found
-        app.users.insert(jsonSteamId, function (err, doc) { // create a database entry for this user.
-          if (err) return next(err);
-          app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
-            if(err) return next(err);
-            // User is found, set steamid
-            req.session.steamid = doc.steamid;
-            return next();
-          });
-        });
-      } else {
-        // User is found, set steamid
-        req.session.steamid = doc.steamid;
-        return next();
-      };
-    });
-  };
 
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
 
-app.get('/account', ensureAuthenticated, loginToDatabase, function(req, res) {
+app.get('/account', ensureAuthenticated, function(req, res) {
   steamid = req.session.steamid;
   res.render('account', { title: 'Account', user: steamid });
 });
@@ -176,7 +183,7 @@ app.get('/login', function(req, res){
 //mongodb.Db.connect(server, function (err, client) {
 // /heroku
 // localhost
-var server = new mongodb.Server('127.0.0.1', 27017); 
+var server = new mongodb.Server('127.0.0.1', 27017);
 new mongodb.Db('metatf', server).open(function (err, client) {
 // /localhost
   if (err) throw err;
