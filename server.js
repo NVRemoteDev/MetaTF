@@ -33,10 +33,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    //returnURL: 'http://www.meta.tf/auth/steam/return',
-    //realm: 'http://www.meta.tf'
-    returnURL: 'http://localhost:3000/auth/steam/return',
-    realm: 'http://localhost:3000'
+    returnURL: 'http://www.meta.tf/auth/steam/return',
+    realm: 'http://www.meta.tf'
+    //returnURL: 'http://localhost:3000/auth/steam/return',
+    //realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -120,25 +120,26 @@ app.get('/auth/steam',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
+//   **CHECKS AGAINST DATABASE IF USER HAS ALREADY BEEN HERE, CREATES ENTRY IF NOT **
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
     if(!req.user) return res.redirect('/');
-    var steamIdentifier = req.user.identifier;
+    var steamIdentifier = req.user.identifier; // req.user.identifier is set after logging in as steam; openID url
     steamIdentifier = steamIdentifier.split('/');
-    var jsonSteamId = { steamid: steamIdentifier[steamIdentifier.length-1] };
-    var userSteamId = steamIdentifier[steamIdentifier.length-1];
-    app.users.findOne({ steamid: userSteamId }, function (err, doc) {
+    var jsonSteamId = { steamid: steamIdentifier[steamIdentifier.length-1] }; // Use if we enter data to database, json format
+    var userSteamId = steamIdentifier[steamIdentifier.length-1]; // Used as our search
+    app.users.findOne({ steamid: userSteamId }, function (err, doc) { // Search Mongo
       if (err) return next(err);
-      if (!doc) {
-        app.users.insert(jsonSteamId, function (err, doc) {
+      if (!doc) { // no steamID found
+        app.users.insert(jsonSteamId, function (err, doc) { // create a database entry for this user.
           if (err) return next(err);
         });
-        app.users.findOne({ steamid: userSteamId }, function (err, doc) {
+        app.users.findOne({ steamid: userSteamId }, function (err, doc) { // Repeat the search once user is registered to set var
           req.session.loggedIn = doc._id.toString();
         });
         res.redirect('/');
-      } else {
+      } else { // User is found, set session.logged in to database _id and continue.
         req.session.loggedIn = doc._id.toString();
         res.redirect('/');
       };
@@ -161,8 +162,13 @@ app.get('/login', function(req, res){
 /**
  * Listen
  */
-var server = new mongodb.Server('127.0.0.1', 27017);
-new mongodb.Db('metatf', server).open(function (err, client) {
+//var server = new mongodb.Server('127.0.0.1', 27017); // localhost
+// heroku
+var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+mongodb.Db.connect(server, function (err, client) {
+// /heroku
+
+//new mongodb.Db('metatf', server).open(function (err, client) {
   if (err) throw err;
   console.log('\033[96m + \033[39m connected to mongodb');
 
