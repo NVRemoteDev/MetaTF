@@ -92,14 +92,14 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore({ db: 'heroku_app13640489' })
+    store: new MongoStore({ db: sess_conf.db })
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-});
+});/*
 app.configure(process.env.NODE_ENV, function(){
   console.log("In production");
   app.set('port', process.env.PORT || 3000);
@@ -122,7 +122,7 @@ app.configure(process.env.NODE_ENV, function(){
   app.use(passport.initialize());
   //app.use(passport.session());
   app.use(app.router);
-});
+});*/
 
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
