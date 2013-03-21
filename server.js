@@ -24,6 +24,16 @@ var express = require('express')
 require('./db/connect').connectToMongoose();
 console.log('Schemas initialized');
 
+var sess_conf = {
+  db: {
+    db: 'heroku_app13640489',
+    host: 'mongodb://heroku_app13640489:6f4p7jp2lfgf02ps1mngomf1en@ds031277.m
+ongolab.com:31277/',
+    collection: 'usersessions' // optional, default: sessions
+  },
+  secret: 'dont be walmarting'
+};
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -103,8 +113,9 @@ app.configure(process.env.NODE_ENV, function(){
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser('dont be walmarting'));
   app.use(express.session({
-    secret: 'dont be walmarting',
-    store: new MongoStore({ db: 'heroku_app13640489' })
+    secret: sess_conf.secret,
+    maxAge: new Date(Date.now() + 3600000),
+    store: new MongoStore(sess_conf.db)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
