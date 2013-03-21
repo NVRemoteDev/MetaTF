@@ -5,14 +5,15 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , trades = require('./routes/trades')
+  , trade = require('./routes/trades')
   , user = require('./routes/user')
-  , auth = require('./models/auth')
   , http = require('http')
   , passport = require('passport')
   , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
-  //, mongoose = require('mongoose')
-  , mongodb = require('mongodb')
+  , mongoose = require('mongoose') // Mongoose includes below
+  , Schema = mongoose.Schema
+  , ObjectId = Schema.ObjectId;
+  //, Users = mongoose.model('Users');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -34,10 +35,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -81,33 +82,16 @@ app.configure(function(){
   app.use(app.router);
 });
 
-  var loginToDatabase = function(req, res, next) { // This function will return information from the database
-    if(!req.user) { return; }  // User isn't logged in
-    // v req.user.identifier is set after logging into steam; openID url
-    var steamIdentifier = req.user.identifier.split('/');
-    var steamID = steamIdentifier[steamIdentifier.length-1]; // Used as our search criteria for mongo below
-    var jsonSteamId = { steamid: steamID }; // Used to enter steamID to mongodb below, json format
-
-    app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
-      if (err) return next(err);
-
-      if (!doc) { // no steamID found
-        app.users.insert(jsonSteamId, function (err, doc) { // create a database entry for this user.
-          if (err) return next(err);
-          app.users.findOne({ steamid: steamID }, function (err, doc) { // Search Mongo
-            if(err) return next(err);
-            // User is found, set steamid
-            req.session.steamid = doc.steamid;
-            return next();
-          });
-        });
-      } else {
-        // User is found, set steamid
-        req.session.steamid = doc.steamid;
-        return next();
-      }
-    });
-  };
+var checkIfUserAddToDbIfNot = function(req, res, next) {
+  var steamIdentifier = req.user.identifier.split('/');
+  var steamID = steamIdentifier[steamIdentifier.length-1];
+  require('./controllers/user_controller').get(steamID, function(err, doc) {
+    if (!doc) { // User not found
+      require('./controllers/user_controller').create(steamID);
+    }
+  });
+  return next();
+};
 
 /**
  * Routes
@@ -117,7 +101,7 @@ app.get('/', routes.index);
 // TODO will be used to download TF2 Item schema.
 app.get('/schema', user.schema);
 // Trade routes
-app.get('/trades/:action/:id?', trades.index); // CRUD for trades
+app.get('/trades/:action/:id?', trade.index); // CRUD for trades
 app.get('/trades', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trades/view');
 });
@@ -154,9 +138,9 @@ app.get('/auth/steam',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-//   ** CHECKS AGAINST DATABASE IF USER HAS ALREADY LOGGED IN AT THIS SITE, CREATES DB ENTRY IF NOT **
+//   ** CHECKS AGAINST DATABASE VIA loginToDatabase IF USER HAS ALREADY LOGGED IN AT THIS SITE, CREATES DB ENTRY IF NOT **
 app.get('/auth/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/' }), loginToDatabase, function (req, res) {
+  passport.authenticate('steam', { failureRedirect: '/' }), checkIfUserAddToDbIfNot, function (req, res) {
     res.redirect('/');
   });
 
@@ -178,30 +162,11 @@ app.get('/login', function(req, res){
  * Listen
  */
 
-// heroku
-var server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
-mongodb.Db.connect(server, function (err, client) {
-// /heroku
-// localhost
-//var server = new mongodb.Server('127.0.0.1', 27017);
-//new mongodb.Db('metatf', server).open(function (err, client) {
-// /localhost
-  if (err) throw err;
-  console.log('\033[96m + \033[39m connected to mongodb');
-
-  // set up collection shortcuts
-  app.users = new mongodb.Collection(client, 'users');
-
-  client.ensureIndex('users', 'steamid', function(err) {
-    if (err) throw err;
-    console.log('\033[96m + \033[93m ensured indexes');
-    /**
-    * Listen
-    */
-    http.createServer(app).listen(app.get('port'), function(){
-      console.log("Express server listening on port " + app.get('port'));
-    });
-  });
+require('./db/connect').connectToMongoose();
+require('./models/schemas.js').initialize(); // initialize Mongoose schema models
+console.log('Schemas initialized');
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
 });
 
 
