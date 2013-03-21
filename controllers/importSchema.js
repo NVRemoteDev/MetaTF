@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
- 
+
 var http = require('http');
 
 /**
@@ -12,7 +12,7 @@ var http = require('http');
  * @api private
  */
 
-module.exports = function getSchema(fn) {
+module.exports.getSchema = function (write, fn) {
   //Schema
   var options = {
     hostname: 'api.steampowered.com',
@@ -29,16 +29,20 @@ module.exports = function getSchema(fn) {
     });
 
     // request is finished, parse data, pull schema, return item names and information via obj.x
-    res.on('end', function () { 
+    res.on('end', function () {
       var obj;
       try {
         obj = JSON.parse(body); // player object
       } catch (e) {
         return fn(new Error('Bad Steam response'));
       }
-      
+
       console.log('Pulled JSON response');
-      fn(null, obj.result.items); // return no error, item data, backpack slot count
+      if(write) {
+        fn(null, obj.result); // We'll be writing, so return the whole schema
+      } else {
+        fn(null, obj.result.items); // Just viewing items.
+      }
     });
   }).end();
 };

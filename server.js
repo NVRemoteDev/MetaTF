@@ -9,6 +9,7 @@ var express = require('express')
   , routes = require('./routes/index')
   , trade = require('./routes/trade_route')
   , user = require('./routes/user_route')
+  , adminroutes = require('./routes/admin_route')
   , http = require('http')
   , passport = require('passport')
   , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
@@ -38,10 +39,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   }, 
   function(identifier, profile, done) {
     // asynchronous verification, sets req.session.user to steamID
@@ -74,7 +75,12 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'dont be walmarting' }));
+  app.use(
+  if (!process.env.NODE_ENV) {
+    express.session({ secret: 'dont be walmarting' }));
+  } else {
+    express.cookieSession({ secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
+  }
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
@@ -97,18 +103,28 @@ var checkIfUserAddToDbIfNot = function(req, res, next) {
  */
 
 app.get('/', routes.index);
-// TODO will be used to download TF2 Item schema.
-app.get('/schema', user.schema);
-// Trade routes
+app.get('/schema', user.schema); // Shows current Schema
+
+/**
+ * Trade routes
+ */
 app.get('/trades/:action/:id?', trade.index);
 app.get('/trades', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trades/view');
 });
-// User routes
+
+/**
+ * User routes
+ */
+
 app.get('/user/', function(req, res, next) { // View SITE profile of logged in user
   res.redirect('/account');
 });
 app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
+app.get('/account', ensureAuthenticated, function(req, res) {
+  steamID = req.user;
+  res.render('account', { title: 'Account', user: steamID });
+});
 
 /**
  * Backpack routes
@@ -116,6 +132,12 @@ app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
 
 app.get('/backpack/', ensureAuthenticated, user.backpack); // View own backpack (must be logged in)
 app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
+
+/**
+ * Admin Routes
+ */
+
+app.get('/admin/:action?/:user?', ensureAuthenticated, ensureAdmin, adminroutes.index);
 
 /**
 * Steam Passport Routes
@@ -146,16 +168,6 @@ app.get('/auth/steam/return',
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
-});
-
-app.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) {
-  steamID = req.user;
-  res.render('admin', { title: 'Admin Area', user: steamID });
-});
-
-app.get('/account', ensureAuthenticated, function(req, res) {
-  steamID = req.user;
-  res.render('account', { title: 'Account', user: steamID });
 });
 
 app.get('/login', function(req, res){

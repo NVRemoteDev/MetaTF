@@ -18,9 +18,8 @@ exports.backpack = function(req, res, next) {
 };
 
 exports.schema = function(req, res, next) {
-  var getSchema = require('../controllers/importSchema');
   if(req.user) var steamID = req.user;
-  getSchema(function (err, schema) {
+  require('../controllers/importSchema').getSchema(null, function (err, schema) { // not writing, first arg is null
     if (err) return next(err);
     res.render('schema', { title: 'Schema', results: schema, user: steamID });
   });

@@ -8,7 +8,7 @@
 
 // Create
 exports.create = function (steamID) {
-  if (steamID === "76561197991291041") {
+  if (steamID === "76561197991291041") { // Add me as an admin for when database resets.
     user.isadmin = 'yes';
   }
   user.steamid = steamID;
