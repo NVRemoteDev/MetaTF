@@ -39,11 +39,11 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
-  }, 
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
+  },
   function(identifier, profile, done) {
     // asynchronous verification, sets req.session.user to steamID
     process.nextTick(function () {
@@ -65,7 +65,7 @@ var app = express();
  * Configuration
  */
 
-app.configure(function(){
+app.configure('development', function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
@@ -75,18 +75,32 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser());
-  app.use(
-  if (!process.env.NODE_ENV) {
-    express.session({ secret: 'dont be walmarting' }));
-  } else {
-    express.cookieSession({ secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
-  }
+  app.use(express.session({ secret: 'dont be walmarting' }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
 });
+app.configure('production', function(){
+  app.set('port', process.env.PORT || 3000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'ejs');
+  app.set('view cache', true);
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use('/static', express.static(__dirname + '/public'));
+  app.use(express.cookieParser());
+  app.use(express.cookieSession({ secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
+  // Initialize Passport!  Also use passport.session() middleware, to support
+  // persistent login sessions (recommended).
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
+});
+
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
   var steamID = req.user;
