@@ -6,6 +6,7 @@ module.exports = function() {
       steamid : { type: String, unique: true }
     , regdate : { type: Date, default: Date.now }
     , avatar  : { type: String, default: 'none' }
+    , openId  : { type: String }
   });
   mongoose.model('Users', Users);
 };
