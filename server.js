@@ -98,7 +98,7 @@ app.configure('production', function(){
   app.use(express.cookieParser('dont be walmarting'));
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore({ db: 'session' })
+    store: new MongoStore({ db: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/session' })
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
