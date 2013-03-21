@@ -93,8 +93,8 @@ app.configure('production', function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use('/static', express.static(__dirname + '/public'));
-  app.use(express.cookieParser());
-  app.use(express.session({ store: sessionStore, secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
+  app.use(express.cookieParser('dont be walmarting'));
+  app.use(express.cookieSession({ secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
