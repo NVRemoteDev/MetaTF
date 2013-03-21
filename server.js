@@ -70,7 +70,7 @@ var app = express();
  * Configuration
  */
 
-app.configure('development', function(){
+app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
@@ -90,7 +90,7 @@ app.configure('development', function(){
   app.use(passport.session());
   app.use(app.router);
 });
-app.configure('production', function(){
+app.configure(process.env.NODE_ENV || 'production', function(){
   console.log("In production");
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
