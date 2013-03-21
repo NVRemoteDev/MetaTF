@@ -15,9 +15,8 @@ var express = require('express')
   , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
   , mongoose = require('mongoose') // Mongoose includes below
   , Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId;
-  //, Users = mongoose.model('Users');
-
+  , ObjectId = Schema.ObjectId
+  , MongoStore = require('connect-mongo')(express);
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -39,10 +38,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification, sets req.session.user to steamID
@@ -75,7 +74,10 @@ app.configure('development', function(){
   app.use(express.methodOverride());
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'dont be walmarting' }));
+  app.use(express.session({
+    secret: 'dont be walmarting',
+    store: new MongoStore({ db: 'session' })
+  }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
@@ -94,11 +96,14 @@ app.configure('production', function(){
   app.use(express.methodOverride());
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser('dont be walmarting'));
-  app.use(express.cookieSession({ secret: 'dont be walmarting', cookie: { maxAge: 10 * 60 * 60 * 1000 }}));
+  app.use(express.session({
+    secret: 'dont be walmarting',
+    store: new MongoStore({ db: 'session' })
+  }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
-  app.use(passport.session());
+  //app.use(passport.session());
   app.use(app.router);
 });
 
