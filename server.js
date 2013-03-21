@@ -27,8 +27,11 @@ console.log('Schemas initialized');
 var sess_conf = {
   db: {
     db: 'heroku_app13640489',
-    host: 'heroku_app13640489:6f4p7jp2lfgf02ps1mngomf1en@ds031277.mongolab.com:31277',
-    collection: 'usersessions' // optional, default: sessions
+    host: 'ds031277.mongolab.com',
+    collection: 'usersessions', // optional, default: sessions
+    username: 'heroku_app13640489',
+    password: '6f4p7jp2lfgf02ps1mngomf1en',
+    port: '31277'
   },
   secret: 'dont be walmarting'
 };
