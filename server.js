@@ -18,6 +18,12 @@ var express = require('express')
   , ObjectId = Schema.ObjectId
   , MongoStore = require('connect-mongo')(express);
 
+/**
+ * Connect to MongoDB
+ */
+require('./db/connect').connectToMongoose();
+console.log('Schemas initialized');
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -198,8 +204,6 @@ app.get('/login', function(req, res){
  * Listen
  */
 
-require('./db/connect').connectToMongoose();
-console.log('Schemas initialized');
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
