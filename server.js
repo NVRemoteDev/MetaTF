@@ -27,8 +27,7 @@ console.log('Schemas initialized');
 var sess_conf = {
   db: {
     db: 'heroku_app13640489',
-    host: 'mongodb://heroku_app13640489:6f4p7jp2lfgf02ps1mngomf1en@ds031277.m
-ongolab.com:31277/',
+    host: 'heroku_app13640489:6f4p7jp2lfgf02ps1mngomf1en@ds031277.mongolab.com:31277',
     collection: 'usersessions' // optional, default: sessions
   },
   secret: 'dont be walmarting'
