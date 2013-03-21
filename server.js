@@ -89,7 +89,8 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore(sess_conf.db)
+    store: new MongoStore(sess_conf.db),
+    maxAge: new Date(Date.now() + 3600000)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
