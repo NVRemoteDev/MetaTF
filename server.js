@@ -98,7 +98,7 @@ app.configure('production', function(){
   app.use(express.cookieParser('dont be walmarting'));
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore({ db: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/session' })
+    store: new MongoStore({ db: 'heroku_app13640489' })
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
