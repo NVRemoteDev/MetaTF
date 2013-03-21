@@ -26,12 +26,7 @@ console.log('Schemas initialized');
 
 var sess_conf = {
   db: {
-    db: 'heroku_app13640489',
-    host: 'mongodb://ds031277.mongolab.com',
-    collection: 'usersessions', // optional, default: sessions
-    username: 'heroku_app13640489',
-    password: '6f4p7jp2lfgf02ps1mngomf1en',
-    port: '31277'
+    mongoose_connection: mongoose.connections[0]
   },
   secret: 'dont be walmarting'
 };
@@ -94,7 +89,7 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore({ db: sess_conf.db })
+    store: new MongoStore(sess_conf.db)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
