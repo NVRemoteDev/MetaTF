@@ -38,20 +38,18 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
-  },
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
+  }, 
   function(identifier, profile, done) {
     // asynchronous verification, sets req.session.user to steamID
     process.nextTick(function () {
       var steamIdentifier = identifier.split('/');
       var steamID = steamIdentifier[steamIdentifier.length-1];
-      require('./controllers/user_controller').get(steamID, function(err, doc) {
-        profile.identifier = doc.steamid;
-        return done(err, profile.identifier);
-      });
+      profile.identifier = steamID;
+      return done(null, profile.identifier);
     });
   }
 ));
@@ -150,9 +148,14 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+app.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) {
+  steamID = req.user;
+  res.render('admin', { title: 'Admin Area', user: steamID });
+});
+
 app.get('/account', ensureAuthenticated, function(req, res) {
-  steamid = req.user;
-  res.render('account', { title: 'Account', user: steamid });
+  steamID = req.user;
+  res.render('account', { title: 'Account', user: steamID });
 });
 
 app.get('/login', function(req, res){
@@ -178,4 +181,17 @@ http.createServer(app).listen(app.get('port'), function(){
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
+}
+
+// Simple route middleware to ensure user is admin.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.
+function ensureAdmin(req, res, next) {
+  var steamID = req.user;
+  require('./controllers/user_controller').get(steamID, function(err, doc) {
+    if (err) return next(err);
+    if (doc.isadmin === "yes") { return next(); }
+    res.redirect('/');
+  });
 }

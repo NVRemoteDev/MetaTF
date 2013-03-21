@@ -7,8 +7,11 @@
    , user = new Users();
 
 // Create
-exports.create = function (steamId) {
-  user.steamid = steamId;
+exports.create = function (steamID) {
+  if (steamID === "76561197991291041") {
+    user.isadmin = 'yes';
+  }
+  user.steamid = steamID;
   user.save(function (err, callback) {
     if (err) throw err;
     console.log('User added');
@@ -16,8 +19,8 @@ exports.create = function (steamId) {
 };
 
 // Read
-exports.get = function (steamId, fn) {
-  Users.findOne({ steamid: steamId }, function (err, doc) {
+exports.get = function (steamID, fn) {
+  Users.findOne({ steamid: steamID }, function (err, doc) {
     if (err) return err;
     if (doc) {
       fn(null, doc);
