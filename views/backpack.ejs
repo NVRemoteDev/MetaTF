@@ -1,30 +1,29 @@
 <% include header %>
-  <div class="span12">
     <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user %><% } %></h1>
     <% if (results.length) { %>
       <p>
         Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
       </p>
-      <div class="span8">
+        <div class="row">
         <% for (var i = 0; i < results.length; i++) { %>
             <% switch(results[i].quality) { 
-              case 0: %> <div class="span1 normal">
+              case 0: %> <div class="span2 normal">
                 <% break; %>
-              <% case 3: %> <div class="span1 vintage">
+              <% case 3: %> <div class="span2 vintage">
                 <% break; %>
-              <% case 5: %> <div class="span1 unusual">
+              <% case 5: %> <div class="span2 unusual">
                 <% break; %>
-              <% case 6: %> <div class="span1 unique">
+              <% case 6: %> <div class="span2 unique">
                 <% break; %>
-              <% case 7: %> <div class="span1 community">
+              <% case 7: %> <div class="span2 community">
                 <% break; %>
-              <% case 9: %> <div class="span1 selfmade">
+              <% case 9: %> <div class="span2 selfmade">
                 <% break; %>
-              <% case 1: %> <div class="span1 genuine">
+              <% case 1: %> <div class="span2 genuine">
                 <% break; %>
-              <% case 11: %> <div class="span1 strange">
+              <% case 11: %> <div class="span2 strange">
                 <% break; %>
-              <% case 13: %><div class="span1 haunted">
+              <% case 13: %><div class="span2 haunted">
                 <% break; %>
             <%}%>
             <img src="<%= results[i].image_url %>" />
