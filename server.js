@@ -51,10 +51,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification, sets req.session.user to steamID
@@ -90,37 +90,15 @@ app.configure(function(){
   app.use(express.session({
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
-    maxAge: new Date(Date.now() + 3600000)
+    maxAge: new Date(Date.now() + 36000000),
+    expires: new Date(Date.now() + 36000000)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-});/*
-app.configure(process.env.NODE_ENV, function(){
-  console.log("In production");
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.set('view cache', true);
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use('/static', express.static(__dirname + '/public'));
-  app.use(express.cookieParser('dont be walmarting'));
-  app.use(express.session({
-    secret: sess_conf.secret,
-    maxAge: new Date(Date.now() + 3600000),
-    store: new MongoStore(sess_conf.db)
-  }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  //app.use(passport.session());
-  app.use(app.router);
-});*/
+});
 
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
