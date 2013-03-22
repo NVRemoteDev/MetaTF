@@ -13,3 +13,52 @@
   font-family: tf2;
   font-size: x-large !important;
 }
+
+/**
+* Item quality classes
+*/
+.normal {
+  padding:0px;
+  margin:0px;
+  background-color: #b2b2b2;
+}
+.unique {
+  padding:0px;
+  margin:0px;
+  background-color:#ffd700;
+}
+.unusual {
+  padding:0px;
+  margin:0px;
+  background-color:#8650ac
+}
+.genuine {
+  padding:0px;
+  margin:0px;
+  background-color:#4d7455;
+}
+.community {
+  padding:0px;
+  margin:0px;
+  background-color:#70b04a;
+}
+.strange {
+  padding:0px;
+  margin:0px;
+  background-color:#cf6a32;
+}
+.haunted {
+  padding:0px;
+  margin:0px;
+  background-color:#fff;
+}
+.selfmade {
+  padding:0px;
+  margin:0px;
+  background-color:#70b04a;
+}
+.vintage {
+  padding:0px;
+  margin:0px;
+  background-color:#476291;
+}

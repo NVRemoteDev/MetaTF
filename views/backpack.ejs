@@ -3,11 +3,30 @@
     <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user %><% } %></h1>
     <% if (results.length) { %>
       <p>
-        Backpack Used/Total Slots: Slots taken: <%= results.length %>/<%= bpslots %>
+        Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
       </p>
       <div class="span6">
         <% for (var i = 0; i < results.length; i++) { %>
-          <div class="span2" style="padding:0px;margin:0px;">
+            <% switch(results[i].quality) { 
+              case 0: %> <div class="span2 normal">
+                <% break; %>
+              <% case 3: %> <div class="span2 vintage">
+                <% break; %>
+              <% case 5: %> <div class="span2 unusual">
+                <% break; %>
+              <% case 6: %> <div class="span2 unique">
+                <% break; %>
+              <% case 7: %> <div class="span2 community">
+                <% break; %>
+              <% case 9: %> <div class="span2 selfmade">
+                <% break; %>
+              <% case 1: %> <div class="span2 genuine">
+                <% break; %>
+              <% case 11: %> <div class="span2 strange">
+                <% break; %>
+              <% case 13: %><div class="span2 haunted">
+                <% break; %>
+            <%}%>
             <img src="<%= results[i].image_url %>" />
           </div>
         <% } %>
