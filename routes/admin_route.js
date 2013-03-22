@@ -5,8 +5,7 @@
 exports.index = function(req, res, next) {
   var action = req.params.action;
   if(action === 'updateSchema') {
-    //TODO download Schema
-    require('../controllers/downloadSchema_controller').download();
+    require('../controllers/downloadSchema_controller').download(); // Downloads and writes schema
     var message = 'Downloading and writing schema.';
     steamID = req.user;
     res.render('admin', { title: 'Admin Area', user: steamID, message: message });

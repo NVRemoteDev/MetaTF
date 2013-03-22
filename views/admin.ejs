@@ -2,11 +2,29 @@
   <h1>Welcome to <%= title %></h1>
   <% if (locals.message) { %> <p><%= message %></p> <% } %>
   <!-- Admin Functions -->
-  <ul>
-    <li><a href="/admin/updateSchema">Download/Update Schema</a> (Process intensive, use only when needed)</li>
+  <ul class="unstyled">
+    <li>
+      <h3>Admin Functions</h1>
+      <a href="/admin/updateSchema">Download/Update Schema</a> (Process intensive, use only when needed)
+    </li>
   </ul>
+  <hr />
+  <form action="/admin/addModerator/" method="get">
+    <fieldset>
+      <h4>Add a Moderator...</h4>
+      <label>SteamID:</label>
+      <input type="text" name="steamid" placeholder="Type something..." /><br />
+      <span class="help-block">Use a SteamID: i.e: 76561197991291XXX</span>
+      <button type="submit" class="btn">Submit</button>
+    </fieldset>
+  </form>
   <form action="/admin/addAdmin/" method="get">
-    SteamID(Numbers not vanity): <input type="text" name="steamid" />
-    <input type="Submit" />
+    <fieldset>
+      <h4>Add an Admin...</h4>
+      <label>SteamID:</label>
+      <input type="text" name="steamid" placeholder="Type something..." /><br />
+      <span class="help-block">Use a SteamID: i.e: 76561197991291XXX</span>
+      <button type="submit" class="btn">Submit</button>
+    </fieldset>
   </form>
 <% include footer %>

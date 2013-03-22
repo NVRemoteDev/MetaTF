@@ -19,17 +19,10 @@ var express = require('express')
   , MongoStore = require('connect-mongo')(express);
 
 /**
- * Connect to MongoDB
+ * Connect to MongoDB/Mongoose
  */
 require('./db/connect').connectToMongoose();
 console.log('Schemas initialized');
-
-var sess_conf = {
-  db: {
-    mongoose_connection: mongoose.connections[0]
-  },
-  secret: 'dont be walmarting'
-};
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -76,6 +69,13 @@ var app = express();
 /**
  * Configuration
  */
+ // For connect-mongo db sessions
+ var sess_conf = {
+  db: {
+    mongoose_connection: mongoose.connections[0]
+  },
+  secret: 'dont be walmarting'
+};
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -99,7 +99,6 @@ app.configure(function(){
   app.use(passport.session());
   app.use(app.router);
 });
-
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
   var steamID = req.user;
@@ -207,9 +206,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 // Simple route middleware to ensure user is admin.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.
+//   See ensureAuthenticated() for more information
 function ensureAdmin(req, res, next) {
   var steamID = req.user;
   require('./controllers/user_controller').get(steamID, function(err, doc) {
