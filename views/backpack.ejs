@@ -1,15 +1,19 @@
 <% include header %>
+  <div class="span12">
     <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user %><% } %></h1>
     <% if (results.length) { %>
       <p>
         Backpack Used/Total Slots: Slots taken: <%= results.length %>/<%= bpslots %>
       </p>
-      <ul>
+      <div class="span6">
         <% for (var i = 0; i < results.length; i++) { %>
-          <li><%= results[i].defindex %> - <%= results[i].quantity %></li>
+          <div class="span2" style="padding:0px;margin:0px;">
+            <img src="<%= results[i].image_url %>" />
+          </div>
         <% } %>
-      </ul>
+      </div>
     <% } else { %>
       <p>No results</p>
     <% } %>
+  </div>
 <% include footer %>

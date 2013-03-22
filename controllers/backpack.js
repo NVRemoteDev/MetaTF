@@ -24,7 +24,7 @@ module.exports = function getBackpack(id, req, fn) {
       method: 'GET'
     };
   } else {
-    var options = { // They're logged in, put steamid in (req.session.steadmid)
+    var options = { // They're logged in, and they didn't enter a backpack SteamID
       hostname: 'api.steampowered.com',
       path: '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + steamID,
       method: 'GET'

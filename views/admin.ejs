@@ -13,18 +13,23 @@
     <fieldset>
       <h4>Add a Moderator...</h4>
       <label>SteamID:</label>
-      <input type="text" name="steamid" placeholder="Type something..." /><br />
+      <div class="input-append">
+        <input type="text" name="steamid" placeholder="Type something..." />
+        <button type="submit" class="btn">Submit</button>
+      </div>
+      <br />
       <span class="help-block">Use a SteamID: i.e: 76561197991291XXX</span>
-      <button type="submit" class="btn">Submit</button>
     </fieldset>
   </form>
   <form action="/admin/addAdmin/" method="get">
     <fieldset>
       <h4>Add an Admin...</h4>
       <label>SteamID:</label>
-      <input type="text" name="steamid" placeholder="Type something..." /><br />
+      <div class="input-append">
+        <input type="text" name="steamid" placeholder="Type something..." />
+        <button type="submit" class="btn">Submit</button>
+      </div>
       <span class="help-block">Use a SteamID: i.e: 76561197991291XXX</span>
-      <button type="submit" class="btn">Submit</button>
     </fieldset>
   </form>
 <% include footer %>
