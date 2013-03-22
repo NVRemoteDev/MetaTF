@@ -69,12 +69,11 @@ var app = express();
 /**
  * Configuration
  */
- // For connect-mongo db sessions
- var sess_conf = {
+// For connect-mongo db sessions
+var sess_conf = {
   db: {
     mongoose_connection: mongoose.connections[0]
-  },
-  secret: 'dont be walmarting'
+  }
 };
 
 app.configure(function(){
@@ -84,22 +83,21 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use('/static', express.static(__dirname + '/public'));
   app.use(express.cookieParser());
   app.use(express.session({
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
     cookie: {
-      maxAge: new Date(Date.now() + 36000000),
-      expires: new Date(Date.now() + 36000000)
+      maxAge: new Date(Date.now() + 36000000)
     }
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(express.methodOverride());
   app.use(app.router);
+  app.use('/static', express.static(__dirname + '/public'));
 });
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
