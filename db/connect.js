@@ -3,7 +3,7 @@
  */
 
  var mongoose = require('mongoose')
-   , server = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/metatf';
+   , server = process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/metatf';
 /**
  * Connect to MongoDB
  */
