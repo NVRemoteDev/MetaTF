@@ -88,11 +88,11 @@ app.configure(function(){
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
     cookie: {
-      maxAge: new Date(Date.now() + 120960000),
-      expires: new Date(Date.now() + 120960000)
+      maxAge: new Date(Date.now() + 1209600000),
+      expires: new Date(Date.now() + 1209600000)
     },
-    maxAge : new Date(Date.now() + 120960000),
-    expires: new Date(Date.now() + 120960000)
+    maxAge : new Date(Date.now() + 1209600000),
+    expires: new Date(Date.now() + 1209600000)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
