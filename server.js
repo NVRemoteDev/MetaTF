@@ -50,7 +50,7 @@ passport.use(new SteamStrategy( {
     //realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
-    // asynchronous verification, sets req.session.user to steamID
+    // asynchronous verification
     process.nextTick(function () {
       var steamIdentifier = identifier.split('/');
       var steamID = steamIdentifier[steamIdentifier.length-1];
@@ -88,9 +88,11 @@ app.configure(function(){
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
     cookie: {
-      maxAge: new Date(Date.now() + 360000000),
-      expires: new Date(Date.now() + 360000000)
-    }
+      maxAge: new Date(Date.now() + 360000000000),
+      expires: new Date(Date.now() + 360000000000)
+    },
+    maxAge : new Date(Date.now() + 360000000000),
+    expires: new Date(Date.now() + 360000000000)
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
