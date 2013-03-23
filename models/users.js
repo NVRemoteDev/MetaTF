@@ -9,10 +9,10 @@ var Schema = mongoose.Schema;
  */
 module.exports = function() {
   var Users = new Schema({
-      steamid : { type: String, unique: true, required: true }
+      steamid : { type: String }
     , regdate : { type: Date, default: Date.now }
-    , avatar  : { type: String, default: 'none' }
-    , isadmin : { type: String, default: 'no' }
+    , avatar  : { type: String, default: "none" }
+    , isadmin : { type: String, default: "no" }
   });
-  mongoose.model('Users', Users);
+  mongoose.model("Users", Users);
 };

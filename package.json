@@ -8,6 +8,7 @@
 		"passport-steam": "*",
 		"validator": "*",
 		"mongoose" : "*",
-		"connect-mongo" : "latest"
+		"connect-mongo" : "latest",
+		"mongodb" : "latest"
 	}
 }

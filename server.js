@@ -44,10 +44,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification
@@ -88,11 +88,11 @@ app.configure(function(){
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
     cookie: {
-      maxAge: new Date(Date.now() + 1209600000),
-      expires: new Date(Date.now() + 1209600000)
+      maxAge: new Date(Date.now() + 1209600000), // DO NOT CHANGE
+      expires: new Date(Date.now() + 1209600000) // DO NOT CHANGE
     },
-    maxAge : new Date(Date.now() + 1209600000),
-    expires: new Date(Date.now() + 1209600000)
+    maxAge : new Date(Date.now() + 1209600000), // DO NOT CHANGE
+    expires: new Date(Date.now() + 1209600000) // DO NOT CHANGE
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
@@ -106,8 +106,10 @@ app.configure(function(){
 var checkIfUserAddToDbIfNot = function(req, res, next) {
   var steamID = req.user;
   require('./controllers/user_controller').get(steamID, function(err, doc) {
+    console.log(doc);
     if (!doc) { // User not found
       require('./controllers/user_controller').create(steamID);
+      console.log('User added');
     }
   });
   return next();

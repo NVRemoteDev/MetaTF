@@ -8,13 +8,16 @@
 
 // Create
 exports.create = function (steamID) {
-  if (steamID === "76561197991291041") { // Add me as an admin for when database resets.
+  if (steamID == 76561197991291041) { // Add me as an admin for when database resets.
     user.isadmin = 'yes';
+  } else {
+    user.isadmin = 'no';
   }
   user.steamid = steamID;
   user.save(function (err, callback) {
     if (err) throw err;
-    console.log('User added');
+    console.log('User ' + user.steamid + ' added');
+    console.log('Admin: ' + user.isadmin);
   });
 };
 
