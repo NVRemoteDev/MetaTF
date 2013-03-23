@@ -82,25 +82,25 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use(express.methodOverride());
   app.use(express.bodyParser());
   app.use(express.cookieParser());
+  app.use('/static', express.static(__dirname + '/public'));
   app.use(express.session({
     secret: 'dont be walmarting',
-    store: new MongoStore(sess_conf.db)/*,
+    store: new MongoStore(sess_conf.db),
     cookie: {
       maxAge: new Date(Date.now() + 1209600000), // DO NOT CHANGE
       expires: new Date(Date.now() + 1209600000) // DO NOT CHANGE
     },
     maxAge : new Date(Date.now() + 1209600000), // DO NOT CHANGE
-    expires: new Date(Date.now() + 1209600000) // DO NOT CHANGE*/
+    expires: new Date(Date.now() + 1209600000) // DO NOT CHANGE
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(express.methodOverride());
   app.use(app.router);
-  app.use('/static', express.static(__dirname + '/public'));
 });
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
@@ -198,7 +198,6 @@ app.get('/login', function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
