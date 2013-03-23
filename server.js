@@ -114,7 +114,9 @@ var checkIfUserAddToDbIfNot = function(req, res, next) {
  * Routes
  */
 
-app.get('/', routes.index);
+app.get('/', routes.index, function(err, req, res, next) {
+  req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
+});
 app.get('/schema', user.schema); // Shows current Schema
 
 /**
