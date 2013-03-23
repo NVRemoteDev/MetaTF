@@ -3,11 +3,11 @@
  */
 
  var mongoose = require('mongoose')
-   , Users = mongoose.model("Users")
-   , user = new Users();
+   , Users = mongoose.model("Users");
 
 // Create
 exports.create = function (steamID) {
+  var user = new Users();
   if (steamID == 76561197991291041) { // Add me as an admin for when database resets.
     user.isadmin = 'yes';
   } else {

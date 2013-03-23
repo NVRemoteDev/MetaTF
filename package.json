@@ -2,12 +2,11 @@
 	"name": "metatf-web",
 	"version" : "0.0.3",
 	"dependencies": {
-		"express": "*",
+		"express": "latest",
 		"ejs": ">=0.4.2",
-		"passport": "*",
-		"passport-steam": "*",
-		"validator": "*",
-		"mongoose" : "*",
+		"passport": "latest",
+		"passport-steam": "latest",
+		"mongoose" : "latest",
 		"connect-mongo" : "latest",
 		"mongodb" : "latest"
 	}
