@@ -88,7 +88,8 @@ app.configure(function(){
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),
     cookie: {
-      maxAge: new Date(Date.now() + 36000000)
+      maxAge: new Date(Date.now() + 360000000),
+      expires: new Date(Date.now() + 360000000)
     }
   }));
   // Initialize Passport!  Also use passport.session() middleware, to support
@@ -114,9 +115,7 @@ var checkIfUserAddToDbIfNot = function(req, res, next) {
  * Routes
  */
 
-app.get('/', routes.index, function(err, req, res, next) {
-  req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
-});
+app.get('/', routes.index);
 app.get('/schema', user.schema); // Shows current Schema
 
 /**
