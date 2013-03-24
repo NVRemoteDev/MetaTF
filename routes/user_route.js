@@ -22,9 +22,9 @@ exports.backpack = function(req, res, next) {
       contents += data.toString();
     });
     stream.on('end', function() {
-      if(obj.length !== null && backpackitems.length !== null || backpackitems.length !== undefined)
+      var obj = JSON.parse(contents);
+      if(obj !== undefined && backpackitems !== undefined)
       {
-        var obj = JSON.parse(contents);
         for(var i=0; i < obj.items.length; i++) {
           for(var x=0; x < backpackitems.length; x++)
           {
@@ -33,11 +33,11 @@ exports.backpack = function(req, res, next) {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
             }
-         }
-       }
-       res.render('backpack', { title: 'Backpack', results: backpackitems,
-          id: req.params.id, bpslots: backpackSlots, user: steamID });
+          }
+        }
       }
+      res.render('backpack', { title: 'Backpack', results: backpackitems,
+        id: req.params.id, bpslots: backpackSlots, user: steamID });
     });
   });
 };

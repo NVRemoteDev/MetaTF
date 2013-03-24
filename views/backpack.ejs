@@ -1,6 +1,6 @@
 <% include header %>
     <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user %><% } %></h1>
-    <% if (results.length) { %>
+    <% if (results) { %>
       <p>
         Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
       </p>
