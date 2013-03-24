@@ -13,6 +13,8 @@ module.exports = function() {
     , regdate : { type: Date, default: Date.now }
     , avatar  : { type: String, default: "none" }
     , isadmin : { type: String, default: "no" }
+    , openid  : { type: String }
+    , tradeids  : { type: [] }
   });
   mongoose.model("Users", Users);
 };

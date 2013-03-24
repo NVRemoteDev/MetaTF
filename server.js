@@ -51,11 +51,20 @@ passport.use(new SteamStrategy( {
   },
   function(identifier, profile, done) {
     // asynchronous verification
+    // Here we can also add data to the req.user object for reference
     process.nextTick(function () {
       var steamIdentifier = identifier.split('/');
       var steamID = steamIdentifier[steamIdentifier.length-1];
-      profile.identifier = steamID;
-      return done(null, profile.identifier);
+      require('./controllers/user_controller').get(steamID, function(err, doc) {
+        if (!doc) { // User not found
+          require('./controllers/user_controller').create(steamID);
+          console.log('User added');
+        }
+        require('./controllers/user_controller').get(steamID, function(err, doc) {
+          //profile.identifier = steamID;
+          return done(null, doc);
+        });
+      });
     });
   }
 ));
