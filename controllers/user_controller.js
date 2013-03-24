@@ -6,9 +6,8 @@
    , Users = mongoose.model("Users");
 
 // Create
-exports.create = function (steamID) {
+exports.create = function (steamID, callback) {
   var user = new Users();
-
   if (steamID == 76561197991291041) { // Add me as an admin for when database resets.
     user.isadmin = 'yes';
   } else {
@@ -17,12 +16,11 @@ exports.create = function (steamID) {
   user.steamid = steamID;
   user.save(function (err, callback) {
     if (err) throw err;
-    console.log('User ' + user.steamid + ' added');
-    console.log('Admin: ' + user.isadmin);
   });
 };
 
 // Read
+//nothing is literally nothing. Hacky method of getting a user to the database at the right time.
 exports.get = function (steamID, fn) {
   Users.findOne({ steamid: steamID }, function (err, doc) {
     if (err) return err;

@@ -44,10 +44,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification
@@ -55,15 +55,23 @@ passport.use(new SteamStrategy( {
     process.nextTick(function () {
       var steamIdentifier = identifier.split('/');
       var steamID = steamIdentifier[steamIdentifier.length-1];
+      //NOT WORKING TODO
       require('./controllers/user_controller').get(steamID, function(err, doc) {
-        if (!doc) { // User not found
-          require('./controllers/user_controller').create(steamID);
-          console.log('User added');
+        if (err) throw err;
+        profile.name = null; // null the default profile variables
+        profile.emails = null;
+        // Set our req.user.* variables
+        if (!doc) {
+          profile.steamid = steamID;
+          profile.regdate = new Date().toTimeString();
+          profile.admin = 'no';
+          return done(null, profile);
+        } else {
+          profile.steamid = steamID;
+          profile.regdate = doc.regdate.toTimeString();
+          profile.admin = doc.isadmin;
+          return done(null, profile);
         }
-        require('./controllers/user_controller').get(steamID, function(err, doc) {
-          //profile.identifier = steamID;
-          return done(null, doc);
-        });
       });
     });
   }
@@ -113,12 +121,10 @@ app.configure(function(){
 });
 
 var checkIfUserAddToDbIfNot = function(req, res, next) {
-  var steamID = req.user;
+  var steamID = req.user.steamid;
   require('./controllers/user_controller').get(steamID, function(err, doc) {
-    console.log(doc);
     if (!doc) { // User not found
       require('./controllers/user_controller').create(steamID);
-      console.log('User added');
     }
   });
   return next();
@@ -148,8 +154,8 @@ app.get('/user/', function(req, res, next) { // View SITE profile of logged in u
 });
 app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
 app.get('/account', ensureAuthenticated, function(req, res) {
-  steamID = req.user;
-  res.render('account', { title: 'Account', user: steamID });
+  profile = req.user;
+  res.render('account', { title: 'Account', user: profile });
 });
 
 /**
@@ -187,7 +193,9 @@ app.get('/auth/steam',
 //   which, in this example, will redirect the user to the home page.
 //   ** CHECKS AGAINST DATABASE VIA checkIfUserAddToDbIfNot **
 app.get('/auth/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/' }), checkIfUserAddToDbIfNot, function (req, res) {
+  passport.authenticate('steam', { failureRedirect: '/' }), checkIfUserAddToDbIfNot,
+   function (req, res) {
+    console.log(req.user);
     res.redirect('/');
   });
 
