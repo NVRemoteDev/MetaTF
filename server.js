@@ -195,7 +195,6 @@ app.get('/auth/steam',
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }), checkIfUserAddToDbIfNot,
    function (req, res) {
-    console.log(req.user);
     res.redirect('/');
   });
 
@@ -229,7 +228,7 @@ function ensureAuthenticated(req, res, next) {
 // Simple route middleware to ensure user is admin.
 //   See ensureAuthenticated() for more information
 function ensureAdmin(req, res, next) {
-  var steamID = req.user;
+  var steamID = req.user.steamid;
   require('./controllers/user_controller').get(steamID, function(err, doc) {
     if (err) return next(err);
     if (doc.isadmin === "yes") { return next(); }
