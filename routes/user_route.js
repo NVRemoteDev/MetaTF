@@ -12,7 +12,7 @@
 exports.backpack = function(req, res, next) {
   var getBackpack = require('../controllers/backpack');
   getBackpack(req.params.id, req, function (err, backpackitems, backpackSlots) {
-    if (req.user) var steamID = req.user;
+    if (req.user) var steamID = req.user.steamid;
     if (err) return next(err);
     var fileName = './models/tf2item_schema.txt';
     var contents = '';
@@ -41,7 +41,7 @@ exports.backpack = function(req, res, next) {
 
 exports.schema = function(req, res, next) {
   require('../controllers/importSchema').getSchema(null, function (err, schema) { // not writing, first arg is null
-    if(req.user) var steamID = req.user;
+    if(req.user) var steamID = req.user.steamid;
     if (err) return next(err);
     res.render('schema', { title: 'Schema', results: schema, user: steamID });
   });
