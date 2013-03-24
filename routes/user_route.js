@@ -22,7 +22,7 @@ exports.backpack = function(req, res, next) {
       contents += data.toString();
     });
     stream.on('end', function() {
-      if(obj !== null && backpackitems !== null || backpackitems !== undefined)
+      if(obj.length !== null && backpackitems.length !== null || backpackitems.length !== undefined)
       {
         var obj = JSON.parse(contents);
         for(var i=0; i < obj.items.length; i++) {
