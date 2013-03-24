@@ -16,7 +16,7 @@ var qs = require('querystring')
 
 module.exports = function getBackpack(id, req, fn) {
   // set URL options to pull backpack
-  var steamID = req.user;
+  var steamID = req.user.steamid;
   if (id) { // Not logged in, or they manually entered SteamID
     var options = {
       hostname: 'api.steampowered.com',
