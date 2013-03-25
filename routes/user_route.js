@@ -78,7 +78,7 @@ exports.backpack = function(req, res, next) {
         }
         return 'false';
       }
-      if(req.user.steamid) {
+      if(req.user !== undefined) {
         require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
         if (err) throw err;
           res.render('backpack', { title: 'Backpack', results: backpackitems,
