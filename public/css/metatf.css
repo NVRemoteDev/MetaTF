@@ -82,6 +82,7 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-bottom: 12px;
+  width: 100px !important;
 }
 /**
  * Navbar
