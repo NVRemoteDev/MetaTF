@@ -21,7 +21,7 @@
   padding:0px;
   margin:0px;
   background-color: rgb(178, 178, 178);
-  background-color: rgba(178, 178, 178, .6);
+  background-color: rgba(178, 178, 178, .3);
 }
 .unique {
   padding:0px;
@@ -83,6 +83,7 @@
   border-radius: 5px;
   margin-bottom: 12px;
   width: 100px !important;
+  height: 100px !important;
 }
 /**
  * Navbar

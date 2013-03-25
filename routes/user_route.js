@@ -37,7 +37,7 @@ exports.backpack = function(req, res, next) {
             {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
-              var binary = (convertToBinary(backpackitems[x].inventory));
+              var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
               var bpPosition = convertToNumber(binary);
               backpackitems[x].bpposition = bpPosition;
             }
@@ -51,14 +51,14 @@ exports.backpack = function(req, res, next) {
           binary += (binaryNumber % 2).toString();
           binaryNumber = Math.floor(binaryNumber / 2);
         }
-        binary = binary.match(/.{1,16}/g);
+        binary = binary.match(/.{1,16}/g); // Splits the binary number into two 16 digit: array[0] = 16, array[1] = 16
         return binary[0];
       }
       function convertToNumber(number)
       {
         number = number.split("").reverse().join("");
         var total = 0;
-        var a = number.match(/.{1,1}/g);
+        var a = number.match(/.{1,1}/g); // Splits the binary number into one array, each index is one number
         for(var y = 0; y < a.length; y++)
         {
           total += (Math.pow(2, (a.length - (y+1) )) * a[y]);
