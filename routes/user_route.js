@@ -12,7 +12,7 @@
  */
 exports.backpack = function(req, res, next) {
   var PullFromSteamApi = require('../models/steamapi_model');
-  var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
+  var steamID = req.params.id; // If no :id param use the logged in user's SteamID (required to see without :id)
 
   PullFromSteamApi(steamID, req, 'backpack', function (err, backpack) { //.result.items,
     if (err) return next(err);
