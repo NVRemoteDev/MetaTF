@@ -41,7 +41,7 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
-      require('../controllers/user_controller').get(steamID, function(err, doc) {
+      require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
       if (err) throw err;
         res.render('backpack', { title: 'Backpack', results: backpackitems,
         id: req.params.id, bpslots: backpackslots, user: doc });
