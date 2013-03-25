@@ -78,16 +78,16 @@ exports.backpack = function(req, res, next) {
         }
         return 'false';
       }
-      require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
-      if (err) throw err;
-      if(doc) {
-        res.render('backpack', { title: 'Backpack', results: backpackitems,
-        id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems });
+      if(req.user.steamid) {
+        require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
+        if (err) throw err;
+          res.render('backpack', { title: 'Backpack', results: backpackitems,
+          id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems });
+        });
       } else {
         res.render('backpack', { title: 'Backpack', results: backpackitems,
         id: req.params.id, bpslots: backpackslots, user: null, newItems: backpackHasNewIems });
       }
-      });
     });
   });
 };
