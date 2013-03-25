@@ -30,16 +30,40 @@ exports.backpack = function(req, res, next) {
       var obj = JSON.parse(contents);
       if(obj !== undefined && backpackitems !== undefined)
       {
-        for(var i=0; i < obj.items.length; i++) {
+        for(var i=0; i < obj.items.length; i++) { // Match backpack item defindex to schema name
           for(var x=0; x < backpackitems.length; x++)
           {
             if (obj.items[i].defindex === backpackitems[x].defindex)
             {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
+              var binary = (convertToBinary(backpackitems[x].inventory));
+              var bpPosition = convertToNumber(binary);
+              backpackitems[x].bpposition = bpPosition;
             }
           }
         }
+      }
+      function convertToBinary(binaryNumber)
+      {
+        var binary = '';
+        while(binaryNumber > 0) {
+          binary += (binaryNumber % 2).toString();
+          binaryNumber = Math.floor(binaryNumber / 2);
+        }
+        binary = binary.match(/.{1,16}/g);
+        return binary[0];
+      }
+      function convertToNumber(number)
+      {
+        number = number.split("").reverse().join("");
+        var total = 0;
+        var a = number.match(/.{1,1}/g);
+        for(var y = 0; y < a.length; y++)
+        {
+          total += (Math.pow(2, (a.length - (y+1) )) * a[y]);
+        }
+        return total;
       }
       require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
       if (err) throw err;

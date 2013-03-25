@@ -26,50 +26,56 @@
 .unique {
   padding:0px;
   margin:0px;
-  background-color:rgba(255, 215, 0);
+  background-color:rgb(255, 215, 0);
   background-color:rgba(255, 215, 0, .6);
 }
 .unusual {
   padding:0px;
   margin:0px;
-  background-color:rgba(134, 80, 172);
+  background-color:rgb(134, 80, 172);
   background-color:rgba(134, 80, 172, .6);
 }
 .genuine {
   padding:0px;
   margin:0px;
-  background-color:rgba(77, 116, 85);
+  background-color:rgb(77, 116, 85);
   background-color:rgba(77, 116, 85, .6);
 }
 .community {
   padding:0px;
   margin:0px;
-  background-color:rgba(112, 176, 74);
+  background-color:rgb(112, 176, 74);
   background-color:rgba(112, 176, 74, .6);
 }
 .strange {
   padding:0px;
   margin:0px;
-  background-color:rgba(207, 106, 50);
+  background-color:rgb(207, 106, 50);
   background-color:rgba(207, 106, 50, .6);
 }
 .haunted {
   padding:0px;
   margin:0px;
-  background-color:rgba(255, 255, 255);
-  background-color:rgba(255, 255, 255, .6);
+  background-color:rgb(56, 243, 171);
+  background-color:rgba(56, 243, 171, .6);
 }
 .selfmade {
   padding:0px;
   margin:0px;
-  background-color: rgba(112, 176, 74);
-  background-color: rgba(112, 176, 74, .6);
+  background-color:rgb(112, 176, 74);
+  background-color:rgba(112, 176, 74, .6);
 }
 .vintage {
   padding:0px;
   margin:0px;
-  background-color: rgba(71, 98, 145);
-  background-color: rgba(71, 98, 145, .6);
+  background-color:rgb(71, 98, 145);
+  background-color:rgba(71, 98, 145, .6);
+}
+.valve {
+  padding:0px;
+  margin:0px;
+  background-color:rgb(165, 15, 121);
+  background-color:rgba(165, 15, 121, .6);
 }
 .backgroundmodifiers {
   -webkit-border-radius: 5px;

@@ -4,34 +4,36 @@
       <p>
         Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
       </p>
-        <div class="row">
+      <div class="row">
         <% for (var i = 0; i < results.length; i++) { %>
+          <% if (results[i].inventory !== 0) { %>
             <% switch(results[i].quality) { 
-              case 0: %> <div class="span2 normal backgroundmodifiers">
+              case 0: %> <div class="span2 normal backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 3: %> <div class="span2 vintage backgroundmodifiers">
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 5: %> <div class="span2 unusual backgroundmodifiers">
+              <% case 8: %> <div class="span2 valve backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 6: %> <div class="span2 unique backgroundmodifiers">
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 7: %> <div class="span2 community backgroundmodifiers">
+              <% case 6: %> <div class="span2 unique backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 9: %> <div class="span2 selfmade backgroundmodifiers">
+              <% case 7: %> <div class="span2 community backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 1: %> <div class="span2 genuine backgroundmodifiers">
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 11: %> <div class="span2 strange backgroundmodifiers">
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
-              <% case 13: %><div class="span2 haunted backgroundmodifiers">
+              <% case 11: %> <div class="span2 strange backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
+                <% break; %>
+              <% case 13: %><div class="span2 haunted backgroundmodifiers"><div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                 <% break; %>
             <%}%>
-            <img src="<%= results[i].image_url %>" />
-          </div>
+          <%}%>
+          <img src="<%= results[i].image_url %>" /></div>
         <% } %>
-      </div>
-    <% } else { %>
-      <p>No results, or profile is private</p>
-    <% } %>
-  </div>
+      <% } else { %>
+        <p>No results, or profile is private</p>
+      <% } %>
+    </div>
 <% include footer %>
