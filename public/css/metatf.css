@@ -20,45 +20,65 @@
 .normal {
   padding:0px;
   margin:0px;
-  background-color: #b2b2b2;
+  background-color: rgb(178, 178, 178);
+  background-color: rgba(178, 178, 178, .6);
 }
 .unique {
   padding:0px;
   margin:0px;
-  background-color:#ffd700;
+  background-color:rgba(255, 215, 0);
+  background-color:rgba(255, 215, 0, .6);
 }
 .unusual {
   padding:0px;
   margin:0px;
-  background-color:#8650ac
+  background-color:rgba(134, 80, 172);
+  background-color:rgba(134, 80, 172, .6);
 }
 .genuine {
   padding:0px;
   margin:0px;
-  background-color:#4d7455;
+  background-color:rgba(77, 116, 85);
+  background-color:rgba(77, 116, 85, .6);
 }
 .community {
   padding:0px;
   margin:0px;
-  background-color:#70b04a;
+  background-color:rgba(112, 176, 74);
+  background-color:rgba(112, 176, 74, .6);
 }
 .strange {
   padding:0px;
   margin:0px;
-  background-color:#cf6a32;
+  background-color:rgba(207, 106, 50);
+  background-color:rgba(207, 106, 50, .6);
 }
 .haunted {
   padding:0px;
   margin:0px;
-  background-color:#fff;
+  background-color:rgba(255, 255, 255);
+  background-color:rgba(255, 255, 255, .6);
 }
 .selfmade {
   padding:0px;
   margin:0px;
-  background-color:#70b04a;
+  background-color: rgba(112, 176, 74);
+  background-color: rgba(112, 176, 74, .6);
 }
 .vintage {
   padding:0px;
   margin:0px;
-  background-color:#476291;
+  background-color: rgba(71, 98, 145);
+  background-color: rgba(71, 98, 145, .6);
+}
+.backgroundmodifiers {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+/**
+ * Navbar
+ */
+#navbarName {
+  color: #79ac35;
 }

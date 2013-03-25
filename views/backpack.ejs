@@ -7,23 +7,23 @@
         <div class="row">
         <% for (var i = 0; i < results.length; i++) { %>
             <% switch(results[i].quality) { 
-              case 0: %> <div class="span2 normal">
+              case 0: %> <div class="span2 normal backgroundmodifiers">
                 <% break; %>
-              <% case 3: %> <div class="span2 vintage">
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers">
                 <% break; %>
-              <% case 5: %> <div class="span2 unusual">
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers">
                 <% break; %>
-              <% case 6: %> <div class="span2 unique">
+              <% case 6: %> <div class="span2 unique backgroundmodifiers">
                 <% break; %>
-              <% case 7: %> <div class="span2 community">
+              <% case 7: %> <div class="span2 community backgroundmodifiers">
                 <% break; %>
-              <% case 9: %> <div class="span2 selfmade">
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers">
                 <% break; %>
-              <% case 1: %> <div class="span2 genuine">
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers">
                 <% break; %>
-              <% case 11: %> <div class="span2 strange">
+              <% case 11: %> <div class="span2 strange backgroundmodifiers">
                 <% break; %>
-              <% case 13: %><div class="span2 haunted">
+              <% case 13: %><div class="span2 haunted backgroundmodifiers">
                 <% break; %>
             <%}%>
             <img src="<%= results[i].image_url %>" />
@@ -31,7 +31,7 @@
         <% } %>
       </div>
     <% } else { %>
-      <p>No results</p>
+      <p>No results, or profile is private</p>
     <% } %>
   </div>
 <% include footer %>
