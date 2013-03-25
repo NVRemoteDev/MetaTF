@@ -7,20 +7,25 @@
    , fs = require('fs');
 
 /**
- * GET /backpack/:id (:id being 64bit steam id)
+ * GET /backpack/:id? (:id being 64bit steam id)
+ * Downloads user backpack items from Steam API
  */
 exports.backpack = function(req, res, next) {
-  var getBackpack = require('../controllers/backpack');
-  getBackpack(req.params.id, req, function (err, backpackitems, backpackSlots) {
-    if (req.user) var steamID = req.user.steamid;
+  var PullFromSteamApi = require('../models/steamapi_model');
+  var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
+
+  PullFromSteamApi(steamID, req, 'backpack', function (err, backpack) { //.result.items,
     if (err) return next(err);
     var fileName = './models/tf2item_schema.txt';
     var contents = '';
+    var backpackitems = backpack.result.items;
+    var backpackslots = backpack.result.num_backpack_slots;
 
     var stream = fs.createReadStream(fileName, {flags: 'r', encoding: 'utf-8'});
     stream.on('data', function(data) {
       contents += data.toString();
     });
+
     stream.on('end', function() {
       var obj = JSON.parse(contents);
       if(obj !== undefined && backpackitems !== undefined)
@@ -36,16 +41,23 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
-      res.render('backpack', { title: 'Backpack', results: backpackitems,
-        id: req.params.id, bpslots: backpackSlots, user: steamID });
+      require('../controllers/user_controller').get(steamID, function(err, doc) {
+      if (err) throw err;
+        res.render('backpack', { title: 'Backpack', results: backpackitems,
+        id: req.params.id, bpslots: backpackslots, user: doc });
+      });
     });
   });
 };
 
 exports.schema = function(req, res, next) {
-  require('../controllers/importSchema').getSchema(null, function (err, schema) { // not writing, first arg is null
+  var PullFromSteamApi = require('../models/steamapi_model');
+  PullFromSteamApi(null, req, 'schema', function (err, schema) { // not writing, first arg is null
     if(req.user) var steamID = req.user.steamid;
     if (err) return next(err);
-    res.render('schema', { title: 'Schema', results: schema, user: steamID });
+    require('../controllers/user_controller').get(steamID, function(err, doc) {
+      if (err) throw err;
+      res.render('schema', { title: 'Schema', results: schema.result.items, user: doc });
+    });
   });
 };

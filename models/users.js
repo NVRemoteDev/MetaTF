@@ -15,6 +15,9 @@ module.exports = function() {
     , isadmin : { type: String, default: 'no' }
     , openid  : { type: String }
     , tradeids  : { type: [] }
+    , personaname : { type: String, default: 'New user' }
+    , avatarmedium : { type: String, default: 'none' }
+    , avatarfull : { type: String, default: 'none' }
   });
   mongoose.model("Users", Users);
 };

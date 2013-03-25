@@ -33,11 +33,24 @@ exports.get = function (steamID, fn) {
 };
 
 // Update
-exports.update = function (steamId) {
-  //TODO
+exports.update = function (steamID, whatToUpdate) {
+  Users.findOne({ steamid: steamID }, function (err, doc) {
+    if (err) return err;
+    whatToUpdate = JSON.parse(JSON.stringify(whatToUpdate));
+
+    if (doc && whatToUpdate !== undefined) {
+      for (var propertyName in whatToUpdate)
+      {
+        doc[propertyName] = whatToUpdate[propertyName];
+      }
+      doc.save(function (err, callback) {
+        if (err) throw err;
+      });
+    }
+  });
 };
 
 // Destroy
-exports.destroy = function (steamId) {
+exports.destroy = function (steamID) {
   //TODO
 };
