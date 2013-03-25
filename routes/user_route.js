@@ -12,7 +12,7 @@
  */
 exports.backpack = function(req, res, next) {
   var PullFromSteamApi = require('../models/steamapi_model');
-  var steamID = req.params.id; // If no :id param use the logged in user's SteamID (required to see without :id)
+  var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
 
   PullFromSteamApi(steamID, req, 'backpack', function (err, backpack) { //.result.items,
     if (err) return next(err);
@@ -80,8 +80,13 @@ exports.backpack = function(req, res, next) {
       }
       require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
       if (err) throw err;
+      if(doc) {
         res.render('backpack', { title: 'Backpack', results: backpackitems,
         id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems });
+      } else {
+        res.render('backpack', { title: 'Backpack', results: backpackitems,
+        id: req.params.id, bpslots: backpackslots, user: null, newItems: backpackHasNewIems });
+      }
       });
     });
   });
