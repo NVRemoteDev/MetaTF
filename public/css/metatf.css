@@ -20,70 +20,88 @@
 .normal {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(100, 100, 100);
   background-color: rgb(178, 178, 178);
   background-color: rgba(178, 178, 178, .3);
 }
 .unique {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(255, 215, 0);
   background-color:rgb(255, 215, 0);
-  background-color:rgba(255, 215, 0, .6);
+  background-color:rgba(255, 215, 0, .4);
 }
 .unusual {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(134, 80, 172);
   background-color:rgb(134, 80, 172);
-  background-color:rgba(134, 80, 172, .6);
+  background-color:rgba(134, 80, 172, .4);
 }
 .genuine {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(77, 116, 85);
   background-color:rgb(77, 116, 85);
-  background-color:rgba(77, 116, 85, .6);
+  background-color:rgba(77, 116, 85, .4);
 }
 .community {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(112, 176, 74);
   background-color:rgb(112, 176, 74);
-  background-color:rgba(112, 176, 74, .6);
+  background-color:rgba(112, 176, 74, .4);
 }
 .strange {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(207, 106, 50);
   background-color:rgb(207, 106, 50);
-  background-color:rgba(207, 106, 50, .6);
+  background-color:rgba(207, 106, 50, .4);
 }
 .haunted {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(56, 243, 171);
   background-color:rgb(56, 243, 171);
-  background-color:rgba(56, 243, 171, .6);
+  background-color:rgba(56, 243, 171, .4);
 }
 .selfmade {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(112, 176, 74);
   background-color:rgb(112, 176, 74);
-  background-color:rgba(112, 176, 74, .6);
+  background-color:rgba(112, 176, 74, .4);
 }
 .vintage {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(71, 98, 145);
   background-color:rgb(71, 98, 145);
-  background-color:rgba(71, 98, 145, .6);
+  background-color:rgba(71, 98, 145, .4);
 }
 .valve {
   padding:0px;
   margin:0px;
+  border:3px solid rgb(165, 15, 121);
   background-color:rgb(165, 15, 121);
-  background-color:rgba(165, 15, 121, .6);
+  background-color:rgba(165, 15, 121, .4);
 }
 .backgroundmodifiers {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-bottom: 12px;
-  width: 70px !important;
-  height: 70px !important;
+  width: 85px !important;
+  height: 85px !important;
+  margin-left: 10px !important;
+}
+.backpackrow {
+  width:1024px !important;
+  margin-left:0px !important;
+}
+.newitem {
+  margin-bottom:20px;
 }
 /**
  * Navbar

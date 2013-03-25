@@ -18,6 +18,7 @@ exports.backpack = function(req, res, next) {
     if (err) return next(err);
     var fileName = './models/tf2item_schema.txt';
     var contents = '';
+    var backpackHasNewIems = 'false';
     var backpackitems = backpack.result.items;
     var backpackslots = backpack.result.num_backpack_slots;
 
@@ -38,8 +39,10 @@ exports.backpack = function(req, res, next) {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
               var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
-              var bpPosition = convertToNumber(binary);
+              var bpPosition = convertToNumber(binary[0]); // Get the backpack position of the item
+              var isItNew = findIfNumberIsNew(binary[1]);
               backpackitems[x].bpposition = bpPosition;
+              backpackitems[x].isnew = isItNew;
             }
           }
         }
@@ -52,11 +55,11 @@ exports.backpack = function(req, res, next) {
           binaryNumber = Math.floor(binaryNumber / 2);
         }
         binary = binary.match(/.{1,16}/g); // Splits the binary number into two 16 digit: array[0] = 16, array[1] = 16
-        return binary[0];
+        return binary;
       }
       function convertToNumber(number)
       {
-        number = number.split("").reverse().join("");
+        number = number.split("").reverse().join(""); // Reverse the array
         var total = 0;
         var a = number.match(/.{1,1}/g); // Splits the binary number into one array, each index is one number
         for(var y = 0; y < a.length; y++)
@@ -65,10 +68,20 @@ exports.backpack = function(req, res, next) {
         }
         return total;
       }
+      function findIfNumberIsNew(number)
+      {
+        number = number.split("").reverse().join(""); // Reverse the array
+        var a = number.match(/.{1,1}/g); // Splits the binary number into one array, each index is one number
+        if(a[1] == 1) { // The item is new if a[1] = 1, not new if a[1] = 0
+          backpackHasNewIems = 'true';
+          return 'new';
+        }
+        return 'false';
+      }
       require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
       if (err) throw err;
         res.render('backpack', { title: 'Backpack', results: backpackitems,
-        id: req.params.id, bpslots: backpackslots, user: doc });
+        id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems });
       });
     });
   });

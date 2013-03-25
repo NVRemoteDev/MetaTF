@@ -4,68 +4,100 @@
       <p>
         Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
       </p>
-      <div class="row">
+      <% if(newItems === 'true') { %>
+        <div class="row backpackrow newitem">
+        <h3>New items:</h3>
+        <% for (var y=0; y < results.length; y++) {
+          if (results[y].isnew === 'new') {
+            switch(results[y].quality) { 
+              case 0: %> <div class="span2 normal backgroundmodifiers">
+              <% break; %>
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers">
+              <% break; %>
+              <% case 8: %> <div class="span2 valve backgroundmodifiers">
+              <% break; %>
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers">
+              <% break; %>
+              <% case 6: %> <div class="span2 unique backgroundmodifiers">
+              <% break; %>
+              <% case 7: %> <div class="span2 community backgroundmodifiers">
+              <% break; %>
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers">
+              <% break; %>
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers">
+              <% break; %>
+              <% case 11: %> <div class="span2 strange backgroundmodifiers">
+              <% break; %>
+              <% case 13: %><div class="span2 haunted backgroundmodifiers">
+              <% break; %>
+            <%}%>
+            <img src="<%= results[y].image_url %>" /></div>
+          <%}
+        }
+      }%>
+      </div>
+      <div class="row backpackrow">
+      <h3>Backpack:</h3>
         <% var lastFound = 0; %>
         <% var currentFound = 0; %>
-        <% for (var x = 0; x < bpslots; x++) { %>
+        <% var currenPage = 1; %>
+        <% var x = 0; %>
+        <% for (x = 0; x < bpslots; x++) { %>
           <% for (var i = 0; i < bpslots; i++) { %>
             <% if (results[i] !== undefined) { %>
-              <% if (results[i].bpposition === x) { %>
+              <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
                 <% while(currentFound > (lastFound + 1)) { %>
                   <div class="span2 normal backgroundmodifiers"></div>
                   <%currentFound--;%>
                 <% } %>
-                <% if (x % 50 === 0) {
-                  %><br /><%
-                }%>
                 <% switch(results[i].quality) { 
                   case 0: %> <div class="span2 normal backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 3: %> <div class="span2 vintage backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 8: %> <div class="span2 valve backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 5: %> <div class="span2 unusual backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 6: %> <div class="span2 unique backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 7: %> <div class="span2 community backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 9: %> <div class="span2 selfmade backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 1: %> <div class="span2 genuine backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 11: %> <div class="span2 strange backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 13: %><div class="span2 haunted backgroundmodifiers">
-                    <div id="bpposition" style="position:absolute;"><%= results[i].bpposition %></div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                 <%}%>
                 <img src="<%= results[i].image_url %>" /></div>
+                <% if (x % 50 === 0) { %>
+                  <p>Page <%= ++currenPage %></p>
+                <%}%>
               <%}%>
             <%}%>
           <%}%>
         <%}%>
+        <% while(lastFound < bpslots) { %>
+          <div class="span2 normal backgroundmodifiers"></div>
+          <% if ((bpslots - lastFound-1) % 50 === 0 && (bpslots - lastFound - 1 !== 0)) { %>
+            <p>Page <%= ++currenPage %></p>
+          <% } 
+          lastFound++;
+        }%>
       <% } else { %>
         <p>No results, or profile is private</p>
       <% } %>
