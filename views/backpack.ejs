@@ -15,28 +15,28 @@
         <% for (var y = 0; y < resultLength; y++) {
           if (results[y].isnew === 'new') {
             switch(results[y].quality) { 
-              case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
-              <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+              <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
               <% break; %>
             <%}%>
-            <img src="<%= results[y].image_url %>" /></div>
+            </div>
           <%}
         }
       }%>
