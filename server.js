@@ -1,4 +1,4 @@
-var require('newrelic');
+require('newrelic');
 /**
  * Module requirements.
  */
