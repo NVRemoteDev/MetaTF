@@ -103,7 +103,7 @@
         <% while(lastFound < bpslots) { %>
           <div class="span2 normal backgroundmodifiers"></div>
           <% if ((bpslots - lastFound-1) % 50 === 0 && (bpslots - lastFound - 1 !== 0)) { %>
-            <p>Page <%= ++currenPage %></p>
+            <p>Page <%= ++currentPage %></p>
           <% } 
           lastFound++;
         }%>
