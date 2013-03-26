@@ -31,10 +31,10 @@ exports.backpack = function(req, res, next) {
       var obj = JSON.parse(contents);
       if(obj !== undefined && backpackitems !== undefined)
       {
-        var objLength = obj.items.length; //precache length
+        var objLength = obj.items.length; // precache the length
         var bpItemsLength = backpackitems.length;
-        for(var i=0; i < objLength; i++) { // Match backpack item defindex to schema name
-          for(var x=0; x < bpItemsLength; x++)
+        for(var i=0; i < objLength; i++) { // Schema
+          for(var x=0; x < bpItemsLength; x++) // Backpack
           {
             if (obj.items[i].defindex === backpackitems[x].defindex)
             {
