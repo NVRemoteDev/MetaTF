@@ -9,13 +9,7 @@ var qs = require('querystring')
  * Pull contents from steam API
  */
 
-module.exports = function PullFromSteamApi(steamID, req, api, fn) {
-  if(api !== 'schema') {
-    if(!steamID) // no user entered, use logged in user's details
-    {
-      steamID = req.user.steamid;
-    }
-  }
+module.exports = function PullFromSteamApi(steamID, api, fn) {
   var useApiString = '';
   switch(api) {
     case 'backpack' : useApiString = '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + steamID;

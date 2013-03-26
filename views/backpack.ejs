@@ -1,5 +1,9 @@
 <% include header %>
-    <h1>Steam Results for <% if(id) { %><%= id %> <% } else { %><%= user.steamid %><% } %></h1>
+    <% if(bpowner) { %>
+      <h1><img src="<%= bpowner.avatarfull %>" /> <%= bpowner.personaname %>'s Backpack</h1>
+    <%} else {%>
+      <h1>Loading user's profile.</h1>
+    <%}%>
     <% if (results) { %>
       <p>
         Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
@@ -40,7 +44,8 @@
       <h3>Backpack:</h3>
         <% var lastFound = 0; %>
         <% var currentFound = 0; %>
-        <% var currenPage = 1; %>
+        <% var currentPage = 1; %>
+        <% var blankslotcount = 0; %>
         <% var x = 0; %>
         <% for (x = 0; x < bpslots; x++) { %>
           <% for (var i = 0; i < bpslots; i++) { %>
@@ -48,8 +53,12 @@
               <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
                 <% while(currentFound > (lastFound + 1)) { %>
+                  <% if (blankslotcount % 50 === 0) {
+                    %> <p>Page <%= currentPage++ %></p> <%
+                  }%>
                   <div class="span2 normal backgroundmodifiers"></div>
                   <%currentFound--;%>
+                  <%blankslotcount++;%>
                 <% } %>
                 <% switch(results[i].quality) { 
                   case 0: %> <div class="span2 normal backgroundmodifiers">
@@ -85,7 +94,7 @@
                 <%}%>
                 <img src="<%= results[i].image_url %>" /></div>
                 <% if (x % 50 === 0) { %>
-                  <p>Page <%= ++currenPage %></p>
+                  <p>Page <%= ++currentPage %></p>
                 <%}%>
               <%}%>
             <%}%>

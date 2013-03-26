@@ -104,22 +104,13 @@ app.configure(function(){
   app.use(app.router);
 });
 
-// Adds user to DB if user is not already present
-var checkIfUserAddToDbIfNot = function(req, res, next) {
-  var steamID = req.user.steamid;
-  require('./controllers/user_controller').get(steamID, function(err, doc) {
-    if (!doc) { // User not found
-      require('./controllers/user_controller').create(steamID);
-    }
-  });
-  return next();
-};
-
 // Pulls user information from Steam API and adds that information to database
+// THERE IS ANOTHER INSTANCE OF THIS IN /models/user_route.js
+// THAT IS USED FOR ALL OTHER INSTANCES OUTSIDE server.js
 var pullUserDataFromSteamAPI = function(req, res, next) {
   var steamID = req.user.steamid;
   var PullFromSteamApi = require('./models/steamapi_model');
-  PullFromSteamApi(steamID, req, 'user', function(err, userData) {
+  PullFromSteamApi(steamID, 'user', function(err, userData) {
     var playerData = userData.response.players[0];
     var addData =
     { "avatar" : playerData.avatar,
@@ -128,6 +119,19 @@ var pullUserDataFromSteamAPI = function(req, res, next) {
       "personaname" : playerData.personaname
     };
     require('./controllers/user_controller').update(steamID, addData); // Send data as JSON
+  });
+  return next();
+};
+
+// Adds user to DB if user is not already present
+// THERE IS ANOTHER INSTANCE OF THIS IN /models/user_route.js
+// THAT IS USED FOR ALL OTHER INSTANCES OUTSIDE server.js
+var checkIfUserAddToDbIfNot = function(req, res, next) {
+  var steamID = req.user.steamid;
+  require('./controllers/user_controller').get(steamID, function(err, doc) {
+    if (!doc) { // User not found
+      require('./controllers/user_controller').create(steamID);
+    }
   });
   return next();
 };

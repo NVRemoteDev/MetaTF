@@ -20,7 +20,6 @@ exports.create = function (steamID, callback) {
 };
 
 // Read
-//nothing is literally nothing. Hacky method of getting a user to the database at the right time.
 exports.get = function (steamID, fn) {
   Users.findOne({ steamid: steamID }, function (err, doc) {
     if (err) return err;

@@ -14,7 +14,7 @@ exports.backpack = function(req, res, next) {
   var PullFromSteamApi = require('../models/steamapi_model');
   var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
 
-  PullFromSteamApi(steamID, req, 'backpack', function (err, backpack) { //.result.items,
+  PullFromSteamApi(steamID, 'backpack', function (err, backpack) { //.result.items,
     if (err) return next(err);
     var fileName = './models/tf2item_schema.txt';
     var contents = '';
@@ -47,6 +47,7 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
+
       function convertToBinary(binaryNumber)
       {
         var binary = '';
@@ -57,6 +58,7 @@ exports.backpack = function(req, res, next) {
         binary = binary.match(/.{1,16}/g); // Splits the binary number into two 16 digit: array[0] = 16, array[1] = 16
         return binary;
       }
+
       function convertToNumber(number)
       {
         number = number.split("").reverse().join(""); // Reverse the array
@@ -68,6 +70,7 @@ exports.backpack = function(req, res, next) {
         }
         return total;
       }
+
       function findIfNumberIsNew(number)
       {
         number = number.split("").reverse().join(""); // Reverse the array
@@ -78,15 +81,26 @@ exports.backpack = function(req, res, next) {
         }
         return 'false';
       }
+
       if(req.user !== undefined) {
         require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
         if (err) throw err;
-          res.render('backpack', { title: 'Backpack', results: backpackitems,
-          id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems });
+          require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
+          require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
+          require('../controllers/user_controller').get(req.params.id, function(err, backpackOwner) {
+            if (err) throw err;
+            res.render('backpack', { title: 'Backpack', results: backpackitems,
+              id: req.params.id, bpslots: backpackslots, user: doc, bpowner: backpackOwner, newItems: backpackHasNewIems });
+          });
         });
-      } else {
-        res.render('backpack', { title: 'Backpack', results: backpackitems,
-        id: req.params.id, bpslots: backpackslots, user: null, newItems: backpackHasNewIems });
+      } else { // Not a logged in user.
+        require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
+        require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
+        require('../controllers/user_controller').get(req.params.id, function(err, backpackOwner) {
+          if (err) throw err;
+          res.render('backpack', { title: 'Backpack', results: backpackitems,
+            id: req.params.id, bpslots: backpackslots, user: null, bpowner: backpackOwner, newItems: backpackHasNewIems });
+        });
       }
     });
   });
@@ -94,11 +108,15 @@ exports.backpack = function(req, res, next) {
 
 exports.schema = function(req, res, next) {
   var PullFromSteamApi = require('../models/steamapi_model');
-  PullFromSteamApi(null, req, 'schema', function (err, schema) { // not writing, first arg is null
+  PullFromSteamApi(null, 'schema', function (err, schema) { // not writing, first arg is null
     if(req.user) var steamID = req.user.steamid;
     if (err) return next(err);
     require('../controllers/user_controller').get(steamID, function(err, doc) {
       if (err) throw err;
+      if (!doc)
+      {
+        res.render('schema', { title: 'Schema', results: schema.result.items, user: null });
+      }
       res.render('schema', { title: 'Schema', results: schema.result.items, user: doc });
     });
   });
