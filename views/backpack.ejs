@@ -12,7 +12,7 @@
       <% if(newItems === 'true') { %>
         <div class="row backpackrow newitem">
         <h3>New items:</h3>
-        <% for (var y=0; y < resultLength; y++) {
+        <% for (var y = 0; y < resultLength; y++) {
           if (results[y].isnew === 'new') {
             switch(results[y].quality) { 
               case 0: %> <div class="span2 normal backgroundmodifiers">
@@ -47,8 +47,8 @@
         <% var currentFound = 0; %>
         <% var currentPage = 1; %>
         <% var usedASlot = 0; %>
-        <% for (x = 0; x < bpslots; x++) { %>
-          <% for (var i = 0; i < bpslots; i++) { %>
+        <% for (x = 0; x < resultLength; x++) { %>
+          <% for (var i = 0; i < resultLength; i++) { %>
             <% if (results[i] !== undefined) { %>
               <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
