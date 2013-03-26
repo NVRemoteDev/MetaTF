@@ -12,13 +12,15 @@ exports.pullUserDataFromSteamAPI = function(id) {
   var steamID = id;
   var PullFromSteamApi = require('../models/steamapi_model');
   PullFromSteamApi(steamID, 'user', function(err, userData) {
-    var playerData = userData.response.players[0];
-    var addData =
-    { "avatar" : playerData.avatar,
-      "avatarmedium" : playerData.avatarmedium,
-      "avatarfull" : playerData.avatarfull,
-      "personaname" : playerData.personaname
-    };
-    require('../controllers/user_controller').update(steamID, addData); // Send data as JSON
+    if(userData) {
+      var playerData = userData.response.players[0];
+      var addData =
+      { "avatar" : playerData.avatar,
+        "avatarmedium" : playerData.avatarmedium,
+        "avatarfull" : playerData.avatarfull,
+        "personaname" : playerData.personaname
+      };
+      require('../controllers/user_controller').update(steamID, addData); // Send data as JSON
+    }
   });
 };
