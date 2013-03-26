@@ -93,7 +93,7 @@
                   <% break; %>
                 <%}%>
                 <img src="<%= results[i].image_url %>" /></div>
-                <% if (x % 50 === 0) { %>
+                <% if (usedASlot % 50 === 0) { %>
                   <p>Page <%= ++currentPage %></p>
                 <%}%>
               <%}%>
