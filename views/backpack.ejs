@@ -45,21 +45,21 @@
         <% var lastFound = 0; %>
         <% var currentFound = 0; %>
         <% var currentPage = 1; %>
-        <% var blankslotcount = 0; %>
-        <% var x = 0; %>
+        <% var usedASlot = 0; %>
         <% for (x = 0; x < bpslots; x++) { %>
           <% for (var i = 0; i < bpslots; i++) { %>
             <% if (results[i] !== undefined) { %>
               <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
                 <% while(currentFound > (lastFound + 1)) { %>
-                  <% if (blankslotcount % 50 === 0) {
-                    %> <p>Page <%= currentPage++ %></p> <%
-                  }%>
                   <div class="span2 normal backgroundmodifiers"></div>
+                  <% ++usedASlot; %>
+                  <% if (usedASlot % 50 === 0) { %>
+                    <p>Page <%= ++currentPage %></p>
+                  <%}%>
                   <%currentFound--;%>
-                  <%blankslotcount++;%>
                 <% } %>
+                <% usedASlot++ %>
                 <% switch(results[i].quality) { 
                   case 0: %> <div class="span2 normal backgroundmodifiers">
                     <% lastFound = results[i].bpposition; %>
@@ -68,7 +68,7 @@
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                   <% case 8: %> <div class="span2 valve backgroundmodifiers">
-                    <% lastFound = results[i].bpposition; %>
+                    <% lastfound = results[i].bpposition; %>
                   <% break; %>
                   <% case 5: %> <div class="span2 unusual backgroundmodifiers">
                     <% lastFound = results[i].bpposition; %>
