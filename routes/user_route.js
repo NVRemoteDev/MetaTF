@@ -40,11 +40,16 @@ exports.backpack = function(req, res, next) {
             {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
-              var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
-              var bpPosition = convertToNumber(binary[0]); // Get the backpack position of the item
-              var isItNew = findIfNumberIsNew(binary[1]);
-              backpackitems[x].bpposition = bpPosition;
-              backpackitems[x].isnew = isItNew;
+              if(backpackitems[x].inventory !==0) { //In some very rare cases 0 can be an inventory number.
+                var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
+                var bpPosition = convertToNumber(binary[0]); // Get the backpack position of the item
+                var isItNew = findIfNumberIsNew(binary[1]);
+                backpackitems[x].bpposition = bpPosition;
+                backpackitems[x].isnew = isItNew;
+              } else {
+                backpackitems[x].bpposition = 300;
+                backpackitems[x].isnew = 'new';
+              }
             }
           }
         }
@@ -91,6 +96,7 @@ exports.backpack = function(req, res, next) {
           require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
           require('../controllers/user_controller').get(req.params.id, function(err, backpackOwner) {
             if (err) throw err;
+            console.log('rendering');
             res.render('backpack', { title: 'Backpack', results: backpackitems,
               id: req.params.id, bpslots: backpackslots, user: doc, bpowner: backpackOwner, newItems: backpackHasNewIems });
           });
@@ -100,6 +106,7 @@ exports.backpack = function(req, res, next) {
         require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
         require('../controllers/user_controller').get(req.params.id, function(err, backpackOwner) {
           if (err) throw err;
+          console.log('rendering');
           res.render('backpack', { title: 'Backpack', results: backpackitems,
             id: req.params.id, bpslots: backpackslots, user: null, bpowner: backpackOwner, newItems: backpackHasNewIems });
         });
