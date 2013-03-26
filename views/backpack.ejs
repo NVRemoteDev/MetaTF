@@ -5,13 +5,14 @@
       <h1>Loading user's profile.</h1>
     <%}%>
     <% if (results) { %>
+      <% var resultLength = results.length %>
       <p>
-        Backpack Used/Total Slots: <%= results.length %>/<%= bpslots %>
+        Backpack Used/Total Slots: <%= resultLength %>/<%= bpslots %>
       </p>
       <% if(newItems === 'true') { %>
         <div class="row backpackrow newitem">
         <h3>New items:</h3>
-        <% for (var y=0; y < results.length; y++) {
+        <% for (var y=0; y < resultLength; y++) {
           if (results[y].isnew === 'new') {
             switch(results[y].quality) { 
               case 0: %> <div class="span2 normal backgroundmodifiers">
