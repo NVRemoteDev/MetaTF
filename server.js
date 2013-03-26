@@ -171,7 +171,10 @@ app.get('/account', ensureAuthenticated, pullUserDataFromSteamAPI, function(req,
  * Backpack routes
  */
 
-app.get('/backpack/', ensureAuthenticated, user.backpack); // View own backpack (must be logged in)
+app.get('/backpack', ensureAuthenticated, function(req, res, next) { // View SITE profile of logged in user
+  steamID = req.user.steamid;
+  res.redirect('/backpack/' + steamID);
+});
 app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
 
 /**
