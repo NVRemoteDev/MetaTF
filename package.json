@@ -1,6 +1,6 @@
 {
 	"name": "metatf-web",
-	"version" : "0.0.3",
+	"version" : "0.0.4",
 	"dependencies": {
 		"express": "latest",
 		"ejs": ">=0.4.2",
@@ -8,6 +8,7 @@
 		"passport-steam": "latest",
 		"mongoose" : "latest",
 		"connect-mongo" : "latest",
-		"mongodb" : "latest"
+		"mongodb" : "latest",
+		"newrelic" : "latest"
 	}
 }
