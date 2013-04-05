@@ -54,7 +54,7 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
-      obj = null;
+      //obj = null;
 
       /**
        * Converts a TF2 Schema number into a binary number, which is used to get the backpack position
@@ -113,7 +113,6 @@ exports.backpack = function(req, res, next) {
             if (err) throw err;
             res.render('backpack', { title: 'Backpack', results: backpackitems,
               id: req.params.id, bpslots: backpackslots, user: doc, bpowner: backpackOwner, newItems: backpackHasNewIems });
-            doc = null;
           });
         });
       } else { // Not a logged in user; no navbar params

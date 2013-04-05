@@ -77,7 +77,6 @@
                   <% break; %>
                   <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
-                    <% results[i] = null; %>
                   <% break; %>
                   <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
@@ -107,13 +106,14 @@
         <% while(lastFound < bpslots) { %>
           <div class="span2 normal backgroundmodifiers"></div>
           <% usedASlot++; %>
-          <% if (usedASlot % 50 === 0) {%>
+          <% if (usedASlot % 50 === 0) { %>
             <% if(lastFound + 1 !== bpslots) {%>
               <p>Page <%= ++currentPage %></p>
             <%}
-           } 
+          }
           lastFound++;
         }%>
+        <% results = null; %>
         <% console.log("Finished rendering."); %>
       <% } else { %>
         <p>No results, or profile is private</p>
