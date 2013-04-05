@@ -52,13 +52,14 @@
             <% if (results[i] !== undefined) { %>
               <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
+                <!-- Adds page number, accounts for empty slots between items -->
                 <% while(currentFound > (lastFound + 1)) { %>
                   <div class="span2 normal backgroundmodifiers"></div>
                   <% ++usedASlot; %>
                   <% if (usedASlot % 50 === 0) { %>
                     <p>Page <%= ++currentPage %></p>
                   <%}%>
-                  <%currentFound--;%>
+                  <% currentFound--; %>
                 <% } %>
                 <% usedASlot++ %>
                 <% switch(results[i].quality) { 
@@ -76,6 +77,7 @@
                   <% break; %>
                   <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
+                    <% results[i] = null; %>
                   <% break; %>
                   <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
@@ -101,9 +103,10 @@
             <%}%>
           <%}%>
         <%}%>
+        <!-- Account for blank slots, add page breaks when necessary -->
         <% while(lastFound < bpslots) { %>
           <div class="span2 normal backgroundmodifiers"></div>
-          <%usedASlot++;%>
+          <% usedASlot++; %>
           <% if (usedASlot % 50 === 0) {%>
             <% if(lastFound + 1 !== bpslots) {%>
               <p>Page <%= ++currentPage %></p>

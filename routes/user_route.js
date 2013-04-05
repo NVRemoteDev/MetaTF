@@ -29,8 +29,9 @@ exports.backpack = function(req, res, next) {
 
     stream.on('end', function() {
       var obj = JSON.parse(contents); // Parse the user's API data from steam
-      if(obj !== undefined && backpackitems !== undefined)
-      {
+      contents = null;
+      data = null;
+      if(obj !== undefined && backpackitems !== undefined) {
         var objLength = obj.items.length; // precache the length
         var bpItemsLength = backpackitems.length; // precache the length
         // Loop through TF2 Schema, backpack items, match data.
@@ -39,7 +40,7 @@ exports.backpack = function(req, res, next) {
             if (obj.items[i].defindex === backpackitems[x].defindex) {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
-              if(backpackitems[x].inventory !== 0) { //In some very rare cases 0 can be an inventory number.
+              if(backpackitems[x].inventory !== 0) { // In some very rare cases 0 can be an inventory number.
                 var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
                 var bpPosition = convertToNumber(binary[0]); // Get the backpack position of the item
                 var isItNew = findIfNumberIsNew(binary[1]); // Check if the item is brand new to the user
@@ -53,6 +54,7 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
+      obj = null;
 
       /**
        * Converts a TF2 Schema number into a binary number, which is used to get the backpack position
@@ -100,7 +102,7 @@ exports.backpack = function(req, res, next) {
       }
 
       // User is logged in
-      // Send the params for the title bar
+      // Send the params for the navbar
       // Add the backpack checkee to db if necessary
       if(req.user !== undefined) {
         require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
@@ -111,9 +113,10 @@ exports.backpack = function(req, res, next) {
             if (err) throw err;
             res.render('backpack', { title: 'Backpack', results: backpackitems,
               id: req.params.id, bpslots: backpackslots, user: doc, bpowner: backpackOwner, newItems: backpackHasNewIems });
+            doc = null;
           });
         });
-      } else { // Not a logged in user.
+      } else { // Not a logged in user; no navbar params
         require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
         require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
         require('../controllers/user_controller').get(req.params.id, function(err, backpackOwner) {
