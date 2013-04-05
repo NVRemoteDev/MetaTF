@@ -10,6 +10,7 @@ exports.index = function(req, res){
       if (err) throw err;
       res.render('index', { title: 'Meta.tf', user: doc });
     });
+  } else {
+    res.render('index', { title: 'Meta.tf', user: null });
   }
-  res.render('index', { title: 'Meta.tf', user: null });
 };
