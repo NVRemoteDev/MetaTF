@@ -9,7 +9,7 @@ exports.index = function(req, res, next) {
   if(action === 'updateSchema') {
     require('../controllers/downloadSchema_controller').download(); // Downloads and writes schema
     var message = 'Downloading and writing schema...';
-    require('./controllers/user_controller').get(steamID, function(err, doc) {
+    require('../controllers/user_controller').get(steamID, function(err, doc) {
       if (err) throw err;
         res.render('admin', { title: 'Admin Area', user: doc, message: message });
     });
