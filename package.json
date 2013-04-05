@@ -9,9 +9,9 @@
 		"mongoose" : "latest",
 		"connect-mongo" : "latest",
 		"mongodb" : "latest",
-		"newrelic" : "latest"
-	}
-	"engines": {
+    "newrelic" : "latest"
+  },
+  "engines" : {
     "node": "0.10.3",
     "npm": "latest"
   }
