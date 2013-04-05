@@ -12,7 +12,6 @@
     "newrelic" : "latest"
   },
   "engines" : {
-    "node": "0.10.3",
-    "npm": "latest"
+    "node": "0.10.3"
   }
 }
