@@ -54,7 +54,7 @@ exports.backpack = function(req, res, next) {
           }
         }
       }
-      //obj = null;
+      obj = null;
 
       /**
        * Converts a TF2 Schema number into a binary number, which is used to get the backpack position
