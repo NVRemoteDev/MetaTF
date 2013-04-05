@@ -1,14 +1,18 @@
 {
-	"name": "metatf-web",
+	"name" : "metatf-web",
 	"version" : "0.0.4",
-	"dependencies": {
-		"express": "latest",
-		"ejs": ">=0.4.2",
-		"passport": "latest",
-		"passport-steam": "latest",
+	"dependencies" : {
+		"express" : "latest",
+		"ejs" : ">=0.4.2",
+		"passport" : "latest",
+		"passport-steam" : "latest",
 		"mongoose" : "latest",
 		"connect-mongo" : "latest",
 		"mongodb" : "latest",
 		"newrelic" : "latest"
 	}
+	"engines": {
+    "node": "0.10.3",
+    "npm": "latest"
+  }
 }
