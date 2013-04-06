@@ -8,6 +8,12 @@
   src: url('/static/fonts/TF2.ttf');
 }
 
+@font-face
+{
+  font-family: tf2build;
+  src: url('/static/fonts/tf2build.ttf');
+}
+
 .brand
 {
   font-family: tf2;
