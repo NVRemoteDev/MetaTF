@@ -17,7 +17,7 @@ module.exports = function PullFromSteamApi(steamID, api, fn) {
                       break;
     case 'user'     : useApiString = '/ISteamUser/GetPlayerSummaries/v0002/?key=807715D1032417EF88DC269B03178CCA&steamids=' + steamID;
                       break;
-    case 'schema'   : useApiString = '/IEconItems_440/GetSchema/v0001/?key=807715D1032417EF88DC269B03178CCA';
+    case 'schema'   : useApiString = '/IEconItems_440/GetSchema/v0001/?key=807715D1032417EF88DC269B03178CCA&language=English';
                       break;
   }
 

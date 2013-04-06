@@ -9,7 +9,7 @@ var qs = require('querystring');
  */
 exports.download = function (req, res, next) {
   var PullFromSteamApi = require('../models/steamapi_model');
-  PullFromSteamApi(null, req, 'schema', function(err, schema) {
+  PullFromSteamApi(null, 'schema', function(err, schema) {
     var stream = fs.createWriteStream("./models/tf2item_schema.txt");
     try {
       stream.once('open', function(fd) {

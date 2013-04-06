@@ -41,6 +41,9 @@ exports.backpack = function(req, res, next) {
             if (obj.items[i].defindex === backpackitems[x].defindex) {
               backpackitems[x].name = obj.items[i].name;
               backpackitems[x].image_url = obj.items[i].image_url;
+              if(obj.items[i].item_description !== undefined) {
+                backpackitems[x].item_description = obj.items[i].item_description;
+              }
               if(backpackitems[x].inventory !== 0) { // In some very rare cases 0 can be an inventory number.
                 var binary = (convertToBinary(backpackitems[x].inventory)); // http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token 
                 var bpPosition = convertToNumber(binary[0]); // Get the backpack position of the item

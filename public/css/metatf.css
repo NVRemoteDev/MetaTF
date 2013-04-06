@@ -21,16 +21,18 @@
 }
 .show
 {
-  display:inline !important;
+  display:block !important;
 }
 
 /*iteminfo is the tooltips */
 
 .iteminfo { 
-  display:none;
   position:absolute;
+  display:none;
   padding:10px;
   background-color:#333;
+  max-width:370px;
+  min-width:150px;
 }
 #nodelogo {
   background-image:url('/static/images/nodejs.png');
