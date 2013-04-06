@@ -47,11 +47,11 @@
         <% var currentFound = 0; %>
         <% var currentPage = 1; %>
         <% var usedASlot = 0; %>
-        <% for (x = 0; x < resultLength; x++) { %>
           <% for (var i = 0; i < resultLength; i++) { %>
             <% if (results[i] !== undefined) { %>
-              <% if (results[i].bpposition === x && results[i].isnew !== 'new') { %>
+              <% if (results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
+                
                 <!-- Adds page number, accounts for empty slots between items -->
                 <% while(currentFound > (lastFound + 1)) { %>
                   <div class="span2 normal backgroundmodifiers"></div>
@@ -62,35 +62,36 @@
                   <% currentFound--; %>
                 <% } %>
                 <% usedASlot++ %>
+
                 <% switch(results[i].quality) { 
-                  case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastfound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url(<%= results[i].image_url %>);background-size: contain;">
+                  <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                 <%}%>
@@ -101,8 +102,6 @@
               <%}%>
             <%}%>
           <%}%>
-        <%}%>
-        <!-- Account for blank slots, add page breaks when necessary -->
         <% while(lastFound < bpslots) { %>
           <div class="span2 normal backgroundmodifiers"></div>
           <% usedASlot++; %>

@@ -32,7 +32,7 @@ exports.get = function (steamID, fn) {
 };
 
 // Update
-exports.update = function (steamID, whatToUpdate) {
+exports.update = function (steamID, whatToUpdate) { //whatToUpdate is JSON data that will be added to the user's database
   Users.findOne({ steamid: steamID }, function (err, doc) {
     if (err) return err;
     whatToUpdate = JSON.parse(JSON.stringify(whatToUpdate));

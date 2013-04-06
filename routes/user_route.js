@@ -11,6 +11,7 @@
  * Downloads user backpack items from Steam API
  */
 exports.backpack = function(req, res, next) {
+  console.log(req.headers.referer);
   var PullFromSteamApi = require('../models/steamapi_model');
   var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
 
@@ -101,6 +102,19 @@ exports.backpack = function(req, res, next) {
         return 'false';
       }
 
+      function dynamicSort(property) {
+        var sortOrder = 1;
+        if(property[0] === "-") {
+          sortOrder = -1;
+          property = property.substr(1, property.length - 1);
+        }
+        return function (a,b) {
+          var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+          return result * sortOrder;
+        };
+      }
+
+      backpackitems.sort(dynamicSort("bpposition"));
       // User is logged in
       // Send the params for the navbar
       // Add the backpack checkee to db if necessary

@@ -11,6 +11,7 @@ var qs = require('querystring')
 
 module.exports = function PullFromSteamApi(steamID, api, fn) {
   var useApiString = '';
+  console.log("api " + api)
   switch(api) {
     case 'backpack' : useApiString = '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + steamID;
                       break;
@@ -37,6 +38,7 @@ module.exports = function PullFromSteamApi(steamID, api, fn) {
 
     // request is finished, parse data to JSON, return JSON object
     res.on('end', function () {
+
       try {
         var obj = JSON.parse(body); // player object
       } catch (e) {
