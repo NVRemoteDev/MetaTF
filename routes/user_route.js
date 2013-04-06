@@ -40,6 +40,7 @@ exports.backpack = function(req, res, next) {
             if (obj.items[i].defindex === backpackitems[x].defindex) {
               backpackitems[x].name = obj.items[i].item_name;
               backpackitems[x].image_url = obj.items[i].image_url;
+              backpackitems[x].item_type_name = obj.items[i].item_type_name;
               if(obj.items[i].item_description !== undefined) {
                 backpackitems[x].item_description = obj.items[i].item_description;
               }
