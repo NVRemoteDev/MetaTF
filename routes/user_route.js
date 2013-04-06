@@ -38,7 +38,7 @@ exports.backpack = function(req, res, next) {
         for(var i = 0; i < objLength; i++) { // Schema
           for(var x = 0; x < bpItemsLength; x++) { // Backpack
             if (obj.items[i].defindex === backpackitems[x].defindex) {
-              backpackitems[x].name = obj.items[i].name;
+              backpackitems[x].name = obj.items[i].item_name;
               backpackitems[x].image_url = obj.items[i].image_url;
               if(obj.items[i].item_description !== undefined) {
                 backpackitems[x].item_description = obj.items[i].item_description;
