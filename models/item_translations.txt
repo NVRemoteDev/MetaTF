@@ -1,0 +1,25 @@
+Craft Bar Level 1: Scrap Metal
+Craft Bar Level 2: Reclaimed Metal
+Craft Bar Level 3: Refined Metal
+Engineer Earmuffs: Safe'n'Sound
+Decoder Ring: Mann Co. Supply Crate Key
+Upgradeable_TF_Weapon_Bonesaw: Bonesaw
+Upgradeable_TF_Weapon_Sniperrifle: Sniper Rifle
+Upgradeable_TF_Weapon_Rocketlauncher: Rocket Launcher
+Upgradeable_TF_Weapon_Shotgun_Primary: Shotgun
+Upgradeable_TF_Weapon_Fireaxe: Fireaxe
+Upgradeable_TF_Weapon_Minigun: Minigun
+Upgradeable_TF_Weapon_Bottle: Bottle
+Upgradeable_TF_Weapon_Flamethrower: Flamethrower
+Upgradeable_TF_Weapon_Scattergun: Scattergun
+Upgradeable_TF_Weapon_Knife: Knife
+Upgradeable_TF_Weapon_Wrench: Wrench
+Upgradeable_TF_Weapon_Pipebomblauncher: Stickybomb Launcher
+Worms Gear: Lumbricus Lid
+Autogrant Pyrovision Goggles: Pyrovision Goggles
+Demoman Tricorne: Tippler's Tricorne
+Scout Beanie: Troublemaker's Tossle
+The Huo Long Heatmaker: The Huo-Long Heater
+Osx Item: Earbuds
+L4D Hat: Bill's Hat
+TTG Max Hat: Max's Head

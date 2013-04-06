@@ -11,7 +11,6 @@
  * Downloads user backpack items from Steam API
  */
 exports.backpack = function(req, res, next) {
-  console.log(req.headers.referer);
   var PullFromSteamApi = require('../models/steamapi_model');
   var steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
 
@@ -39,7 +38,7 @@ exports.backpack = function(req, res, next) {
         for(var i = 0; i < objLength; i++) { // Schema
           for(var x = 0; x < bpItemsLength; x++) { // Backpack
             if (obj.items[i].defindex === backpackitems[x].defindex) {
-              backpackitems[x].name = obj.items[i].name;
+              backpackitems[x].name = translateItemNames(obj.items[i].name);
               backpackitems[x].image_url = obj.items[i].image_url;
               if(obj.items[i].item_description !== undefined) {
                 backpackitems[x].item_description = obj.items[i].item_description;
@@ -117,7 +116,68 @@ exports.backpack = function(req, res, next) {
         };
       }
 
+      // Sort items in order of their backpack position
       backpackitems.sort(dynamicSort("bpposition"));
+
+      function translateItemNames(item) {
+        switch(item) {
+          case "Craft Bar Level 1":
+            return "Scrap Metal";
+          case "Craft Bar Level 2":
+            return "Reclaimed Metal";
+          case "Craft Bar Level 3":
+            return "Refined Metal";
+          case "Engineer Earmuffs":
+            return "Safe'n'Sound";
+          case "Decoder Ring":
+            return "Mann Co. Supply Crate Key";
+          case "Upgradeable TF_WEAPON_BONESAW":
+            return "Bonesaw";
+          case "Upgradeable TF_WEAPON_SNIPERRIFLE":
+            return "Sniper Rifle";
+          case "Upgradeable TF_WEAPON_ROCKETLAUNCHER":
+            return "Rocket Launcher";
+          case "Upgradeable TF_WEAPON_SHOTGUN_PRIMARY":
+            return "Shotgun";
+          case "Upgradeable TF_WEAPON_FIREAXE":
+            return "Fireaxe";
+          case "Upgradeable TF_WEAPON_MINIGUN":
+            return "Minigun";
+          case "Upgradeable TF_WEAPON_BOTTLE":
+            return "Bottle";
+          case "Upgradeable TF_WEAPON_FLAMETHROWER":
+            return "Flamethrower";
+          case "Upgradeable TF_WEAPON_SCATTERGUN":
+            return "Scattergun";
+          case "Upgradeable TF_WEAPON_KNIFE":
+            return "Knife";
+          case "Upgradeable TF_WEAPON_WRENCH":
+            return "Wrench";
+          case "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER":
+            return "Stickybomb Launcher";
+          case "Worms Gear":
+            return "Lumbricus Lid";
+          case "Autogrant Pyrovision Goggles":
+            return "Pyrovision Goggles";
+          case "Demoman Tricorne":
+            return "Tippler's Tricorne";
+          case "Scout Beanie":
+            return "Troublemaker's Tossle";
+          case "The Huo Long Heatmaker":
+            return "The Huo-Long Heater";
+          case "OSX Item":
+            return "Earbuds";
+          case "L4D Hat":
+            return "Bill's Hat";
+          case "TTG Max Hat":
+            return "Max's Head";
+          case "Duel MiniGame":
+            return "Dueling Minigame";
+          default:
+            return item;
+        }
+      }
+
       // User is logged in
       // Send the params for the navbar
       // Add the backpack checkee to db if necessary
