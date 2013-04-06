@@ -15,25 +15,75 @@
         <% for (var y = 0; y < resultLength; y++) {
           if (results[y].isnew === 'new') {
             switch(results[y].quality) { 
-              case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              case 0: %> <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 8: %> <div class="span2 valve backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 6: %> <div class="span2 unique backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 7: %> <div class="span2 community backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 11: %> <div class="span2 strange backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
-              <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 13: %><div class="span2 haunted backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+                <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <div class="iteminfo">
+                  <p style="text-align:center;"><%= results[i].name %></p>
+                  <p>Level: <%= results[i].level %></p>
+                </div>
               <% break; %>
             <%}%>
             </div>
@@ -51,10 +101,10 @@
             <% if (results[i] !== undefined) { %>
               <% if (results[i].isnew !== 'new') { %>
                 <% currentFound = results[i].bpposition; %>
-                
+
                 <!-- Adds page number, accounts for empty slots between items -->
                 <% while(currentFound > (lastFound + 1)) { %>
-                  <div class="span2 normal backgroundmodifiers"></div>
+                  <div class="span2 normal backgroundmodifiers bpitem"></div>
                   <% ++usedASlot; %>
                   <% if (usedASlot % 50 === 0) { %>
                     <p>Page <%= ++currentPage %></p>
@@ -64,34 +114,84 @@
                 <% usedASlot++ %>
 
                 <% switch(results[i].quality) { 
-                  case 0: %> <div class="span2 normal backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  case 0: %> <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 3: %> <div class="span2 vintage backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 3: %> <div class="span2 vintage backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 8: %> <div class="span2 valve backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 8: %> <div class="span2 valve backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastfound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 5: %> <div class="span2 unusual backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 5: %> <div class="span2 unusual backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 6: %> <div class="span2 unique backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 6: %> <div class="span2 unique backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 7: %> <div class="span2 community backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 7: %> <div class="span2 community backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 1: %> <div class="span2 genuine backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 1: %> <div class="span2 genuine backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 11: %> <div class="span2 strange backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 11: %> <div class="span2 strange backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 13: %><div class="span2 haunted backgroundmodifiers" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 13: %><div class="span2 haunted backgroundmodifiers bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                    <% if(results[i].quantity !== undefined && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                    <div class="iteminfo">
+                      <p style="text-align:center;"><%= results[i].name %></p>
+                      <p>Level: <%= results[i].level %></p>
+                    </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
                 <%}%>
@@ -103,7 +203,7 @@
             <%}%>
           <%}%>
         <% while(lastFound < bpslots) { %>
-          <div class="span2 normal backgroundmodifiers"></div>
+          <div class="span2 normal backgroundmodifiers bpitem"></div>
           <% usedASlot++; %>
           <% if (usedASlot % 50 === 0) { %>
             <% if(lastFound + 1 !== bpslots) {%>

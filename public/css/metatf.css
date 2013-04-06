@@ -13,6 +13,26 @@
   font-family: tf2;
   font-size: x-large !important;
 }
+.show
+{
+  display:inline !important;
+}
+
+/*iteminfo is the tooltips */
+
+.iteminfo { 
+  display:none;
+  position:absolute;
+  padding:10px;
+  background-color:#333;
+}
+#nodelogo {
+  background-image:url('/static/images/nodejs.png');
+  width:130px;
+  height:48px;
+  background-size:contain;
+  display:inline-block;
+}
 
 /**
 * Item quality classes
@@ -98,7 +118,7 @@
 }
 .backpackrow {
   width:1024px !important;
-  margin-left:0px !important;
+  margin-left:20px !important;
 }
 .newitem {
   margin-bottom:20px;
