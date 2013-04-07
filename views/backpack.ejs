@@ -16,103 +16,103 @@
           if (results[y].isnew === 'new') {
             switch(results[y].quality) { 
               case 0: %> <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;"><%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;"><%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Vintage <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Vintage <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Valve <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Valve <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Unusual <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Unusual <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Unique <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Unique <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Community <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Community <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Self-made <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Self-made <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Genuine <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Genuine <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p class="itemname" style="">Strange <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p class="itemname" style="">Strange <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
               <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
-                <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
+                <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+                    <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
-                  <p style="text-align:center;">Haunted <%= results[i].name %></p>
-                  <p>Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
-                      <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+                  <p style="text-align:center;">Haunted <%= results[y].name %></p>
+                  <p>Level: <%= results[y].level %> <%= results[y].item_type_name %></p>
+                      <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
             <%}%>
