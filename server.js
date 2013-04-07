@@ -145,9 +145,13 @@ app.get('/schema', user.schema); // Shows current Schema
 /**
  * Trade routes
  */
-app.get('/trades/:action/:id?', trade.index);
-app.get('/trades', function(req, res, next) { // View most recent trades if no action specified
-  res.redirect('/trades/view');
+app.post('/trade/create/', ensureAuthenticated, function(req, res) {
+  console.log('post');
+  trade.index(req, res);
+});
+app.get('/trade/:action/:tradeid?', trade.index);
+app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
+  res.redirect('/trade/view');
 });
 
 /**
@@ -217,6 +221,13 @@ app.get('/logout', function(req, res){
 
 app.get('/login', function(req, res){
   res.redirect('/auth/steam');
+});
+
+/** 
+ * 404 Route
+ */
+app.get('*', function(req, res){
+  res.redirect('/static/404.html');
 });
 
 /**
