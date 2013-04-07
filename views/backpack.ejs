@@ -221,9 +221,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem 
-                  <% if (results[i].flag_cannot_trade) { %>notrade<% } %>" 
-                    style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
