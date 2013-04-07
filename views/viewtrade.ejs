@@ -1,0 +1,6 @@
+<% include header %>
+  <h1>Welcome to <%= title %></h1>
+  <%for(var i = 0; i < tradeinfo.items.length; i++) {
+    %><%= tradeinfo.items[i] %><%
+  }%>
+<% include footer %>
