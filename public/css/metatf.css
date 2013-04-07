@@ -56,8 +56,8 @@
 }
 /* Item Level */
 .iteminfo > p:nth-child(2) { 
-  display:inline;
   font-size:small;
+  margin-bottom:-3px;
 }
 /* Item Name */
 .iteminfo > p:nth-child(1) { 
@@ -82,6 +82,9 @@
   min-height:15px;
   margin-left:68px;
   margin-top:2px;
+}
+.nocraft {
+  border-style:dotted !important;
 }
 .strangekills {
   margin-bottom:-3px;

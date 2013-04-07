@@ -1,6 +1,6 @@
 <% include header %>
     <% if(bpowner) { %>
-      <h1><img src="<%= bpowner.avatarfull %>" /> <%= bpowner.personaname %>'s Backpack</h1>
+      <h1><img src="<%= bpowner.avatarmedium %>" /> <%= bpowner.personaname %>'s Backpack</h1>
     <%} else {%>
       <h1>Loading user's profile.</h1>
     <%}%>
@@ -25,7 +25,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -35,7 +35,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -45,7 +45,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -55,7 +55,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -65,7 +65,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -75,7 +75,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -85,7 +85,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -95,7 +95,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -110,7 +110,7 @@
                       <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                 </div>
               <% break; %>
-              <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+              <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem <%if (results[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
                 <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[y] && results[y].quantity && results[y].quantity !== 1) { %><%= results[y].quantity %><% } %>
                 <div class="iteminfo text-center">
@@ -139,7 +139,7 @@
 
                 <!-- Adds page number, accounts for empty slots between items -->
                 <% while(currentFound > (lastFound + 1)) { %>
-                  <div class="span2 normal backgroundmodifiers normal bpitem"></div>
+                  <div class="span2 normal backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>"></div>
                   <% ++usedASlot; %>
                   <% if (usedASlot % 50 === 0) { %>
                     <p>Page <%= ++currentPage %></p>
@@ -160,7 +160,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -171,7 +171,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -182,7 +182,7 @@
                     </div>
                     <% lastfound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -193,29 +193,31 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
                       <p class="itemname uniquefont"><%= results[i].name %></p>
                       <p class="tooltiptext">Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
                       <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <%if (results[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
                       <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
                       <p class="itemname communityfont">Community <%= results[i].name %></p>
                       <p class="tooltiptext">Level: <%= results[i].level %> <%= results[i].item_type_name %></p>
                       <% if (results[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                      <%if (results[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
                       <% if (results[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -226,7 +228,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -237,7 +239,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -253,7 +255,7 @@
                     </div>
                     <% lastFound = results[i].bpposition; %>
                   <% break; %>
-                  <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
+                  <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem <%if (results[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= results[i].image_url %>');background-size: contain;">
                     <% if (results[i] && results[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
                     <% if(results[i] && results[i].quantity && results[i].quantity !== 1) { %><%= results[i].quantity %><% } %>
                     <div class="iteminfo text-center">
@@ -283,7 +285,6 @@
           lastFound++;
         }%>
         <% results = null; %>
-        <% console.log("Finished rendering."); %>
       <% } else { %>
         <p>No results, or profile is private</p>
       <% } %>
