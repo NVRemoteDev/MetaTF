@@ -85,6 +85,12 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.bodyParser());
   app.use(express.cookieParser());
+  app.use(function(req, res, next) { // 301 redirect /foo/bar/ to /foo/bar
+   if(req.url.substr(-1) == '/' && req.url.length > 1)
+       res.redirect(301, req.url.slice(0, -1));
+   else
+       next();
+  });
   app.use('/static', express.static(__dirname + '/public'));
   app.use(express.session({
     secret: 'dont be walmarting',
@@ -140,7 +146,7 @@ var checkIfUserAddToDbIfNot = function(req, res, next) {
  */
 
 app.get('/', routes.index);
-app.get('/schema', user.schema); // Shows current Schema
+app.get('/schema', user.showschema); // Shows current Schema
 
 /**
  * Trade routes
@@ -148,6 +154,7 @@ app.get('/schema', user.schema); // Shows current Schema
 app.post('/trade/create/', ensureAuthenticated, function(req, res) {
   trade.index(req, res);
 });
+app.get('/trade/create/', ensureAuthenticated, user.createtrade);
 app.get('/trade/:action/:tradeid?', trade.index);
 app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trade/view');
@@ -177,7 +184,7 @@ app.get('/backpack', ensureAuthenticated, function(req, res, next) { // View SIT
   steamID = req.user.steamid;
   res.redirect('/backpack/' + steamID);
 });
-app.get('/backpack/:id', user.backpack); // View backpack of SteamID :id
+app.get('/backpack/:id', user.showbackpack); // View backpack of SteamID :id
 
 /**
  * Admin Routes

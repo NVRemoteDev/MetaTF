@@ -1,12 +1,4 @@
 <% include header %>
 <h1>Team Fortress 2 Schema</h1>
-<% if (results.length) { %>
-  <p>
-    <% for (var i = 31; i < results.length; i++) { %>
-      <span> <img src="<%= results[i].image_url %>" /> <%= results[i].name %> </span>
-    <% } %>
-  </p>
-<% } else { %>
-  <p>No results</p>
-<% } %>
+<% include schemaitems %>
     <% include footer %>

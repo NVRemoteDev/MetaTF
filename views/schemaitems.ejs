@@ -1,0 +1,17 @@
+<% if (results.length) { %>
+  <div class="row backpackrow">
+    <% for (var y = 0; y < results.length; y++) { %>
+      <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url(<%= results[y].image_url %>);background-size: contain;">
+      <% if (results[y] && results[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+      <div class="iteminfo text-center">
+        <p class="itemname"><%= results[y].name %></p>
+        <p class="tooltiptext"><%= results[y].item_type_name %></p>
+        <% if (results[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+        <% if (results[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
+      </div>
+    </div>
+    <% } %>
+<% } else { %>
+  <p>No results</p>
+<% } %>
+</div>
