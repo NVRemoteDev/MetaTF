@@ -19,9 +19,19 @@
   font-family: tf2;
   font-size: x-large !important;
 }
+
+/* Display hidden elements */
 .show
 {
   display:block !important;
+}
+/* Navbar create trade */
+.createtrade {
+  color:#0f0 !important;
+}
+/* Navbar dropdown items */
+.dropdown-menu > li > a {
+  color:#ccc !important;
 }
 
 #nodelogo {
