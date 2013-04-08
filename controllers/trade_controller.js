@@ -30,7 +30,7 @@ exports.create = function (steamID, items, fn) {
         trade.tradeid = ++aNumber;
         saveTrade(trade);
       } else if (!err) {
-        fn(null, 'created');
+        fn(null, trade);
       }
     });
   }

@@ -146,7 +146,6 @@ app.get('/schema', user.schema); // Shows current Schema
  * Trade routes
  */
 app.post('/trade/create/', ensureAuthenticated, function(req, res) {
-  console.log('post');
   trade.index(req, res);
 });
 app.get('/trade/:action/:tradeid?', trade.index);

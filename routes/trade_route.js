@@ -25,7 +25,6 @@ function View (req, res) {
       var tradeID = req.params.tradeid;
       require('../controllers/trade_controller').get(tradeID, function(err, tradeinfo) {
         if (err) throw err;
-        console.log(tradeinfo);
         if (tradeinfo) {
           if(req.user) { // User is logged in
             require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
@@ -72,11 +71,8 @@ function Create (req, res) {
   var items = req.body.items;
   var steamID = req.user.steamid;
   var tradeID = 4325;
-  require('../controllers/trade_controller.js').create(steamID, items, function(err, status) {
-    if (err && err.code !== 11000) throw err;
-    while(err !== null && err.code === 11000) {
-      tradeID += 1;
-    }
-    res.redirect('/');
+  require('../controllers/trade_controller.js').create(steamID, items, function(err, doc) {
+    var trade = doc.tradeid;
+    res.redirect('/trade/view/' + trade);
   });
 }
