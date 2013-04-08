@@ -1,7 +1,7 @@
 <% if (items) { %>
   <% var resultLength = items.length %>
+    <div class="span12">
       <% if(newItems === 'true') { %>
-        <div class="span12">
         <div class="row backpackrow newitem">
         <h3>New items:</h3>
         <% for (var y = 0; y < resultLength; y++) {
@@ -117,7 +117,7 @@
           <%}
         }
       }%>
-      </div>
+      
       <div class="row backpackrow">
       <h3>Backpack:</h3>
         <% var lastFound = 0; %>
