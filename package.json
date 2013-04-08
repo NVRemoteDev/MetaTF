@@ -8,6 +8,7 @@
 		"passport-steam" : "latest",
 		"mongoose" : "latest",
 		"connect-mongo" : "latest",
-		"mongodb" : "latest"
+		"mongodb" : "latest",
+		"ejs-shrink" : "latest"
   }
 }

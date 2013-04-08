@@ -154,11 +154,13 @@ exports.backpack = function(req, res, next, trade) {
  */
 exports.createtrade = function(req, res, next) {
   require('./user_route').schema(req, res, next, function(err, schema) {
-    require('./user_route').backpack(req, res, next, function(err, items) {
-      require('../controllers/user_controller').get(req.user.steamid, function(err, backpackOwner) {
+    require('./user_route').backpack(req, res, next, function(err, backpackitems, backpackHasNewIems) {
+      require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
         if (err) throw err;
-        res.render('backpack', { title: 'Backpack', items: bpitems,
-          id: req.params.id, bpslots: backpackslots, user: doc, bpowner: backpackOwner, newItems: backpackHasNewIems });
+        var backpackslots = backpackitems.num_backpack_slots;
+        var bpitems = backpackitems.items;
+        res.render('createtrade', { title: 'Create Trade', items: bpitems,
+          id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems, results: schema.items });
       });
     });
   });
@@ -230,11 +232,9 @@ exports.schema = function(req, res, next, trade) {
 
   stream.on('end', function() {
     var obj = JSON.parse(contents); // Parse the user's API data from steam
-    if (trade) {
-      trade(null, obj);
-      return;
-    }
+    trade(null, obj);
     contents = null;
     data = null;
+    return;
   });
 };

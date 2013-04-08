@@ -4,5 +4,11 @@
     <%} else {%>
       <h1>Loading user's profile.</h1>
     <%}%>
+    <% if (items) { %>
+      <% var resultLength = items.length %>
+      <p>
+        Backpack Used/Total Slots: <%= resultLength %>/<%= bpslots %>
+      </p>
+    <% } %>
     <% include backpackitems %>
 <% include footer %>

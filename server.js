@@ -23,6 +23,8 @@ var express = require('express')
 require('./db/connect').connectToMongoose();
 console.log('Schemas initialized');
 
+require('ejs-shrink');
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -150,11 +152,11 @@ app.get('/schema', user.showschema); // Shows current Schema
 
 /**
  * Trade routes
- */
+ *
 app.post('/trade/create/', ensureAuthenticated, function(req, res) {
   trade.index(req, res);
-});
-app.get('/trade/create/', ensureAuthenticated, user.createtrade);
+});*/
+app.get('/trade/create', ensureAuthenticated, user.createtrade);
 app.get('/trade/:action/:tradeid?', trade.index);
 app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trade/view');
@@ -164,7 +166,7 @@ app.get('/trade', function(req, res, next) { // View most recent trades if no ac
  * User routes
  */
 
-app.get('/user/', function(req, res, next) { // View SITE profile of logged in user
+app.get('/user', function(req, res, next) { // View SITE profile of logged in user
   res.redirect('/account');
 });
 app.get('/user/:id', user.profile); // View SITE profile of SteamID :id

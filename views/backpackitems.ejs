@@ -1,9 +1,7 @@
 <% if (items) { %>
-      <% var resultLength = items.length %>
-      <p>
-        Backpack Used/Total Slots: <%= resultLength %>/<%= bpslots %>
-      </p>
+  <% var resultLength = items.length %>
       <% if(newItems === 'true') { %>
+        <div class="span12">
         <div class="row backpackrow newitem">
         <h3>New items:</h3>
         <% for (var y = 0; y < resultLength; y++) {
