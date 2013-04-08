@@ -6,6 +6,28 @@
    , user = new Users()
    , fs = require('fs');
 
+exports.profile = function(req, res, next) {
+  var PullFromSteamApi = require('../models/steamapi_model');
+  if(req.user !== undefined) {
+    require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
+      if (err) throw err;
+      require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id); // Add owner of checked backpack to database if necessary
+      require('../models/user_models').pullUserDataFromSteamAPI(req.params.id); // Get the user's information, add it to database
+      require('../controllers/user_controller').get(req.params.id, function(err, profileowner) {
+        if (err) throw err;
+        res.render('profile', { title: 'Profile', id: req.params.id, user: doc, profileowner: profileowner });
+      });
+    });
+  } else { // Not a logged in user; no navbar params
+    require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
+    require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
+    require('../controllers/user_controller').get(req.params.id, function(err, doc) {
+      if (err) throw err;
+      res.render('profile', { title: 'Profile', id: req.params.id, user: null, profileowner: doc });
+    });
+  }
+};
+
 /**
  * GET /backpack/:id? (:id being 64bit steam id)
  * Downloads user backpack items from Steam API
@@ -31,7 +53,7 @@ exports.backpack = function(req, res, next) {
       var obj = JSON.parse(contents); // Parse the user's API data from steam
       contents = null;
       data = null;
-      if(obj !== undefined && backpackitems !== undefined) {
+      if(obj && backpackitems) {
         var objLength = obj.items.length; // precache the length
         var bpItemsLength = backpackitems.length; // precache the length
         // Loop through TF2 Schema, backpack items, match data.
@@ -41,7 +63,7 @@ exports.backpack = function(req, res, next) {
               backpackitems[x].name = obj.items[i].item_name;
               backpackitems[x].image_url = obj.items[i].image_url;
               backpackitems[x].item_type_name = obj.items[i].item_type_name;
-              if(obj.items[i].item_description !== undefined) {
+              if(obj.items[i].item_description) {
                 backpackitems[x].item_description = obj.items[i].item_description;
               }
               if(backpackitems[x].inventory !== 0) { // In some very rare cases 0 can be an inventory number.

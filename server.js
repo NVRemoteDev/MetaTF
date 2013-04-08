@@ -43,10 +43,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy( {
-    returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
-    //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    //returnURL: 'http://www.meta.tf/auth/steam/return',
+    //realm: 'http://www.meta.tf'
+    returnURL: 'http://localhost:3000/auth/steam/return',
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification
@@ -160,7 +160,7 @@ app.get('/trade', function(req, res, next) { // View most recent trades if no ac
 app.get('/user/', function(req, res, next) { // View SITE profile of logged in user
   res.redirect('/account');
 });
-app.get('/user/:id', user.backpack); // View SITE profile of SteamID :id
+app.get('/user/:id', user.profile); // View SITE profile of SteamID :id
 app.get('/account', ensureAuthenticated, pullUserDataFromSteamAPI, function(req, res) {
   steamID = req.user.steamid;
   require('./controllers/user_controller').get(steamID, function(err, doc) {

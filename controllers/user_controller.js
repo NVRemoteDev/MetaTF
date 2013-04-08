@@ -36,11 +36,14 @@ exports.update = function (steamID, whatToUpdate) { //whatToUpdate is JSON data 
   Users.findOne({ steamid: steamID }, function (err, doc) {
     if (err) return err;
     whatToUpdate = JSON.parse(JSON.stringify(whatToUpdate));
-
-    if (doc && whatToUpdate !== undefined) {
+    if (doc && whatToUpdate) {
       for (var propertyName in whatToUpdate)
       {
-        doc[propertyName] = whatToUpdate[propertyName];
+        if(propertyName == 'tradeids') {
+            doc[propertyName].push(whatToUpdate[propertyName]);
+        } else {
+          doc[propertyName] = whatToUpdate[propertyName];
+        }
       }
       doc.save(function (err, callback) {
         if (err) throw err;

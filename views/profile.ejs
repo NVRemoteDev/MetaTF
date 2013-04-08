@@ -1,0 +1,16 @@
+<% include header %>
+  <h1>Profile for <%= profileowner.personaname %></h1>
+  <div class="row">
+    <div class="span12">
+    <% if (profileowner.tradeids.length > 0) {
+      for (var i = 0; i < profileowner.tradeids.length; i++) {
+        %><a href="/trade/view/<%= profileowner.tradeids[i] %>">
+            Trade <%= profileowner.tradeids[i] %>
+          </a>
+          <br />
+      <%
+      }
+    } else { 
+      %>No trades<%
+    }%>
+<% include footer %>

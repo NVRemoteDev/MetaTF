@@ -71,8 +71,11 @@ function Create (req, res) {
   var items = req.body.items;
   var steamID = req.user.steamid;
   var tradeID = 4325;
+
   require('../controllers/trade_controller.js').create(steamID, items, function(err, doc) {
     var trade = doc.tradeid;
     res.redirect('/trade/view/' + trade);
+    var addData = { "tradeids" : trade };
+    require('../controllers/user_controller.js').update(steamID, addData);
   });
 }
