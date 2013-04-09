@@ -1,10 +1,35 @@
 <% include header %>
   <h1>Welcome to <%= title %></h1>
-  <p>Did I submit my resume to you, and you see this website listed as a sample of skill? Dont't or can't log in? Check out the backpack viewer: 
-  <a href="http://www.meta.tf/backpack/76561197991291041">Backpack 1</a><br />
-  <a href="http://www.meta.tf/backpack/76561197993753022">Backpack 2</a><br />
-  This site is made completely with server-side javascript utilizing Node.js<br />
-  If you found us just by browsing, like our facebook page!  <a href="https://www.facebook.com/metatf">Meta.tf facebook page</a><br /><br />
-  Some things may not work correctly yet, we'<span style="display:none">'</span>re still in pre-alpha.  Please check back later.
+  <hr />
+  <div class="row-fluid">
+  <div class="span7"</div>
+  <h3>My code in action <small>If you'<span style="display:none">'</span>re here because of my resume.</small></h3>
+  <p>Did I submit my resume to you, and you see this website listed as a sample of skill? Don't want to log in or can't log in? Check out the backpack viewer: <br />
+  <a href="http://www.meta.tf/backpack/76561197991291041" style="color:#09c;text-decoration:underline;">Backpack 1</a><br />
+  <a href="http://www.meta.tf/backpack/76561197993753022" style="color:#09c;text-decoration:underline;">Backpack 2</a></p>
+  <p class="text-warning">Explanation:<bold></p>
+  The backpack viewer utilizes an asynchronous file read to read into memory what the video game Team Fortress 2 calls an item schema.  The item schema is a JSON object
+  which provides information on all of the items in the video game.  We then pull from the Steam API another schema holding all of the player'<span style="display:none">'</span>s items. By comparing the two, we get things such as the item names, properties, and customizations players have made to their items. 
   </p>
+  <p>The player item API also provides an inventory token, which
+  explains where the item resides, position wise, in the player'<span style="display:none">'</span>s backpack. To get the position of the item into a readable position, we first 
+  convert it to a binary number. </p>
+  <p class="text-warning">Example:<br /></p>
+  <p>
+     Given inventory token: 2147483<br />
+     We convert it to binary: 10000000000000000000000000110010<br />
+     Then we split it in half, to two 16 digit binary numbers.  
+     This is done because the last 16 digits in the binary number above equals the inventory position.<br /><br />
+     Given the last 16 digits of the binary number, 0000000000110010, we convert it back into an integer using the formula n=digitCount (16 in this case); The total is then calculated with the formula "total = total + 2^(16 - (i+1)) * array[i]"<br />
+     The first calculation would therefore be: "total = 0 + (2^15) * array_digit".<br />
+     The calculation in the example given above would equal slot 50.
+     You can see the two functions used here: <a href="http://pastebin.com/vPf9x101">pastebin.com/vPf9x101</a>
+  </p>
+  <p class="text-warning">More information on the site:</p>
+    This site is made completely with server-side javascript utilizing Node.js<br />
+    If you found us just by browsing, like our facebook page!  <a href="https://www.facebook.com/metatf">Meta.tf facebook page</a><br /><br />
+    Some things may not work correctly yet, we'<span style="display:none">'</span>re still in pre-alpha.  Please check back soon.
+  </p>
+  </div>
+  </div>
 <% include footer %>

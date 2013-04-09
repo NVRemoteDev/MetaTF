@@ -85,17 +85,51 @@ exports.backpack = function(req, res, next, trade) {
       obj = null;
 
       /**
-       * Converts a TF2 Schema number into a binary number, which is used to get the backpack position
+       * Converts a TF2 PlayerItem inventory token into a binary number, which is used to get the backpack position
        * This is used to get the position of the item in the backpack 
-      */
+       * It splits the binary number into two 16 digit arrays: array[0] = 16 numbers, array[1] = 16 numbers
+       * We use 16, because the inventory position is a 16 digit binary number
+       * array[0] contains the position, array[1] contains other data, like what character it is equipped by, and if the item is new 
+       */
       function convertToBinary(binaryNumber) {
         var binary = '';
         while(binaryNumber > 0) {
           binary += (binaryNumber % 2).toString();
           binaryNumber = Math.floor(binaryNumber / 2);
         }
-        binary = binary.match(/.{1,16}/g); // Splits the binary number into two 16 digit: array[0] = 16, array[1] = 16
+        binary = binary.match(/.{1,16}/g); // 
         return binary;
+      }
+
+      /**
+       * Converts a binary number to a real number
+       * This is used to get the position of the item in the backpack
+       * The total is calculated with formula total = total + 2^(16 - (i+1)) * array_digit
+       * The first calculation would be total = 0 + (2^15) * array_digit
+       */
+      function convertToNumber(number) {
+        number = number.split("").reverse().join(""); // Reverse the array for accurate calculation in this scenario
+        var total = 0;
+        var a = number.split(""); // Splits the binary number into an array, each index contains one digit
+        for(var i = 0; i < a.length; i++) {
+          total += (Math.pow(2, (a.length - (i+1) )) * a[i]);
+        }
+        return total;
+      }
+
+      /**
+       * Checks if the item is 'new', i.e. not placed in backpack.
+       * The item is new if a[1] = 1, not new if a[1] = 0
+       * More information: http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerItems#Inventory_token
+       */
+      function findIfNumberIsNew(number) {
+        number = number.split("").reverse().join(""); // Reverse the array
+        var a = number.split(""); // Splits the binary number into one array, each index is one number
+        if(a[1] == 1) {
+          backpackHasNewIems = 'true';
+          return 'new';
+        }
+        return 'false';
       }
 
       /*
@@ -116,34 +150,6 @@ exports.backpack = function(req, res, next, trade) {
           case 13: return 'haunted';
           default: return 'normal';
         }
-      }
-
-      /**
-       * Converts a binary number to a real number
-       * This is used to get the position of the item in the backpack 
-       */
-      function convertToNumber(number) {
-        number = number.split("").reverse().join(""); // Reverse the array
-        var total = 0;
-        var a = number.match(/.{1,1}/g); // Splits the binary number into one array, each index is one number
-        for(var y = 0; y < a.length; y++)
-        {
-          total += (Math.pow(2, (a.length - (y+1) )) * a[y]);
-        }
-        return total;
-      }
-
-      /**
-       * Checks if the item is 'new', i.e. not placed in backpack.
-       */
-      function findIfNumberIsNew(number) {
-        number = number.split("").reverse().join(""); // Reverse the array
-        var a = number.match(/.{1,1}/g); // Splits the binary number into one array, each index is one number
-        if(a[1] == 1) { // The item is new if a[1] = 1, not new if a[1] = 0
-          backpackHasNewIems = 'true';
-          return 'new';
-        }
-        return 'false';
       }
 
       /**
