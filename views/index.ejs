@@ -20,8 +20,8 @@
      We convert it to binary: 10000000000000000000000000110010<br />
      Then we split it in half, to two 16 digit binary numbers.  
      This is done because the last 16 digits in the binary number above equals the inventory position.<br /><br />
-     Given the last 16 digits of the binary number, 0000000000110010, we convert it back into an integer using the formula n=digitCount (16 in this case); The total is then calculated with the formula "total = total + 2^(16 - (i+1)) * array[i]"<br />
-     The first calculation would therefore be: "total = 0 + (2^15) * array_digit".<br />
+     Given the last 16 digits of the binary number, 0000000000110010, we convert it back into an integer using the formula n=digitCount (16 in this case); The total is then calculated with the formula "total = total + (2^(16 - (i+1)) * array[i])"<br />
+     The first calculation would therefore be: "total = 0 + ((2^15) * array_digit)".<br />
      The calculation in the example given above would equal slot 50.
      You can see the two functions used here: <a href="http://pastebin.com/vPf9x101">pastebin.com/vPf9x101</a>
   </p>
