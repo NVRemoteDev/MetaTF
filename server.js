@@ -15,7 +15,8 @@ var express = require('express')
   , mongoose = require('mongoose') // Mongoose includes below
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
-  , MongoStore = require('connect-mongo')(express);
+  , MongoStore = require('connect-mongo')(express)
+  , gzippo = require('gzippo');
 
 /**
  * Connect to MongoDB/Mongoose
@@ -93,7 +94,9 @@ app.configure(function(){
    else
        next();
   });
-  app.use('/static', express.static(__dirname + '/public'));
+  //app.use('/static', express.static(__dirname + '/public'));
+  app.use('/static', gzippo.staticGzip(__dirname + '/public'));
+  app.use(gzippo.compress());
   app.use(express.session({
     secret: 'dont be walmarting',
     store: new MongoStore(sess_conf.db),

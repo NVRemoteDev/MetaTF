@@ -9,6 +9,7 @@
 		"mongoose" : "latest",
 		"connect-mongo" : "latest",
 		"mongodb" : "latest",
-		"ejs-shrink" : "latest"
+		"ejs-shrink" : "latest",
+		"gzippo" : "latest"
   }
 }
