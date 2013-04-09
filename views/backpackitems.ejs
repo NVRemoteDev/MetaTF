@@ -1,271 +1,101 @@
 <% if (items) { %>
   <% var resultLength = items.length %>
+    <% if(newItems === 'true') { %>
     <div class="span12">
-      <% if(newItems === 'true') { %>
-        <div class="row backpackrow newitem">
-        <h3>New items:</h3>
-        <% for (var y = 0; y < resultLength; y++) {
-          if (items[y].isnew === 'new') {
-            switch(items[y].quality) { 
-              case 0: %> <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname"><%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname vintagefont">Vintage <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname valvefont">Valve <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname unusualfont">Unusual <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname uniquefont">Unique <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname communityfont">Community <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname selfmadefont">Self-made <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname genuinefont">Genuine <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname strangefont">Strange <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                  <p class="strangekills">Kills: <% for (var m = 0; m < items[y].attributes.length; m++) {
-                    if (items[y].attributes[m].defindex == 214) {
-                      %><%= items[y].attributes[m].value %><%
-                    }
-                  } %>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-              <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem <%if (items[y].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url(<%= items[y].image_url %>);background-size: contain;">
-                <% if (items[y] && items[y].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[y] && items[y].quantity && items[y].quantity !== 1) { %><%= items[y].quantity %><% } %>
-                <div class="iteminfo text-center">
-                  <p class="itemname hauntedfont">Haunted <%= items[y].name %></p>
-                  <p class="tooltiptext">Level: <%= items[y].level %> <%= items[y].item_type_name %></p>
-                      <% if (items[y].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[y].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                </div>
-              <% break; %>
-            <%}%>
-            </div>
-          <%}
-        }
-      }%>
-      
       <div class="row backpackrow">
-      <h3>Backpack:</h3>
-        <% var lastFound = 0; %>
-        <% var currentFound = 0; %>
-        <% var currentPage = 1; %>
-        <% var usedASlot = 0; %>
-          <% for (var i = 0; i < resultLength; i++) { %>
-            <% if (items[i]) { %>
-              <% if (items[i].isnew !== 'new') { %>
-                <% currentFound = items[i].bpposition; %>
+        <h3>New items:</h3>
+        <% for (var i = 0; i < resultLength; i++) { %>
+          <% if (items[i] && items[i].isnew === 'new') { %>
+            <div class="span2 normal <%= items[i].quality %> <% if (items[i].flag_cannot_craft) { %>nocraft<% } %> backgroundmodifiers bpitem" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
+              <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+              <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
+              <div class="iteminfo text-center">
+                <p class="itemname <%=items[i].quality%>font">
+                  <% if(items[i].quality !== 'normal' && items[i].quality !== 'unique') { %><span style="text-transform:capitalize"><%=items[i].quality%><%}%> <%= items[i].name %>
+                </p>
+                <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
+                <!-- Strange Kills -->
+                <% if(items[i].quality === 'strange') { %>
+                  <p class="strangekills">
+                  <% if(items[i].name === "Spirit Of Giving") { %>Gifts Given:<% } else { %>Kills: <% } for (var m = 0; m < items[i].attributes.length; m++) {
+                    if (items[i].attributes[m].defindex == 214) {
+                      %><%= items[i].attributes[m].value %>
+                    <% }
+                  }
+                }%>
+                <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                <% if (items[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
+                <% if (items[i].equipped) { %> <p class="equippedtext">Equipped</p> <% } %>
+              </div>
+              <!-- End item tooltip div -->
+            </div>
+            <!-- End item div -->
 
-                <!-- Adds page number, accounts for empty slots between items -->
-                <% while(currentFound > (lastFound + 1)) { %>
-                  <div class="span2 normal backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>"></div>
-                  <% ++usedASlot; %>
-                  <% if (usedASlot % 50 === 0) { %>
-                    <p>Page <%= ++currentPage %></p>
-                  <%}%>
-                  <% currentFound--; %>
-                <% } %>
-                <% usedASlot++ %>
+            <% lastFound = items[i].bpposition; %>
+            <% if (usedASlot % 50 === 0 && lastFound !== bpslots) { %>
+              <p>Page <%= ++currentPage %></p>
+            <%}%>
+          <%}%>
+        <%}%>
+      </div>
+    </div>
+    <%}%>
+    <!-- End new items -->
+    <!-- Begin backpack -->
+    <div class="span12">
+      <div class="row backpackrow">
+        <h3>Backpack:</h3>
+        <% var lastFound = 0,
+               currentFound = 0,
+               currentPage = 1,
+               usedASlot = 0; %>
+        <% for (var i = 0; i < resultLength; i++) { %>
+          <% if (items[i] && items[i].isnew !== 'new') { %>
+            <% currentFound = items[i].bpposition; %>
 
-                <% switch(items[i].quality) { 
-                  case 0: %> <div class="span2 normal backgroundmodifiers bpitem" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname "><%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 3: %> <div class="span2 vintage backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname vintagefont">Vintage <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 8: %> <div class="span2 valve backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname valvefont">Valve <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastfound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 5: %> <div class="span2 unusual backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname unusualfont">Unusual <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 6: %> <div class="span2 unique backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname uniquefont"><%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <%if (items[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 7: %> <div class="span2 community backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname communityfont">Community <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <%if (items[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 9: %> <div class="span2 selfmade backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname selfmadefont">Self-made <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 1: %> <div class="span2 genuine backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname genuinefont">Genuine <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 11: %> <div class="span2 strange backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname strangefont">Strange <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <p class="strangekills"><% if(items[i].name === "Spirit Of Giving") { %>Gifts Given:<% } else { %>Kills: <% } for (var m = 0; m < items[i].attributes.length; m++) {
-                        if (items[i].attributes[m].defindex == 214) {
-                          %><%= items[i].attributes[m].value %><%
-                        }
-                      } %>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                  <% case 13: %><div class="span2 haunted backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
-                    <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
-                    <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
-                    <div class="iteminfo text-center">
-                      <p class="itemname hauntedfont">Haunted <%= items[i].name %></p>
-                      <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
-                      <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
-                      <% if (items[i].equipped !== undefined) { %> <p class="equippedtext">Equipped</p> <% } %>
-                    </div>
-                    <% lastFound = items[i].bpposition; %>
-                  <% break; %>
-                <%}%>
-                </div>
+            <!-- Adds page number, accounts for empty slots between items -->
+            <% while(currentFound > (lastFound + 1)) { %>
+              <div class="span2 normal backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>"></div>
+                <% ++usedASlot; %>
                 <% if (usedASlot % 50 === 0) { %>
                   <p>Page <%= ++currentPage %></p>
                 <%}%>
-              <%}%>
+              <% currentFound--; %>
+            <% } %>
+            <% usedASlot++ %>
+
+            <div class="span2 normal <%= items[i].quality %> <% if (items[i].flag_cannot_craft) { %>nocraft<% } %> backgroundmodifiers bpitem" style="background-image:url('<%= items[i].image_url %>');background-size: contain;">
+              <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
+              <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
+              <div class="iteminfo text-center">
+                <p class="itemname <%=items[i].quality%>font">
+                  <% if(items[i].quality !== 'normal' && items[i].quality !== 'unique') { %><span style="text-transform:capitalize"><%=items[i].quality%><%}%> <%= items[i].name %>
+                </p>
+                <p class="tooltiptext">Level: <%= items[i].level %> <%= items[i].item_type_name %></p>
+                <!-- Strange Kills -->
+                <% if(items[i].quality === 'strange') { %>
+                  <p class="strangekills">
+                  <% if(items[i].name === "Spirit Of Giving") { %>Gifts Given:<% } else { %>Kills: <% } for (var m = 0; m < items[i].attributes.length; m++) {
+                    if (items[i].attributes[m].defindex == 214) {
+                      %><%= items[i].attributes[m].value %>
+                    <% }
+                  }
+                }%>
+                <% if (items[i].flag_cannot_trade) { %> <p class="notradetext">Cannot trade</p> <% } %>
+                <% if (items[i].flag_cannot_craft) {%><p class="tooltiptext">Uncraftable</p><%}%>
+                <% if (items[i].equipped) { %> <p class="equippedtext">Equipped</p> <% } %>
+              </div>
+              <!-- End item tooltip div -->
+            </div>
+            <!-- End item div -->
+
+            <% lastFound = items[i].bpposition; %>
+            <% if (usedASlot % 50 === 0 && lastFound !== bpslots) { %>
+              <p>Page <%= ++currentPage %></p>
             <%}%>
           <%}%>
+        <%}%>
+        <!-- add blank slots at end of backpack -->
         <% while(lastFound < bpslots) { %>
           <div class="span2 normal backgroundmodifiers normal bpitem"></div>
           <% usedASlot++; %>
@@ -276,8 +106,8 @@
           }
           lastFound++;
         }%>
-        <% items = null; %>
-      <% } else { %>
-        <p>No items, or profile is private</p>
-      <% } %>
-    </div>
+      <% items = null; %>
+<% } else { %>
+  <p>No items, or profile is private</p>
+<% } %>
+  </div>

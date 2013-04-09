@@ -73,6 +73,7 @@ exports.backpack = function(req, res, next, trade) {
                 var isItNew = findIfNumberIsNew(binary[1]); // Check if the item is brand new to the user
                 backpackitems[x].bpposition = bpPosition;
                 backpackitems[x].isnew = isItNew;
+                backpackitems[x].quality = convertQualityToString(backpackitems[x].quality);
               } else {
                 backpackitems[x].bpposition = 300;
                 backpackitems[x].isnew = 'new';
@@ -95,6 +96,26 @@ exports.backpack = function(req, res, next, trade) {
         }
         binary = binary.match(/.{1,16}/g); // Splits the binary number into two 16 digit: array[0] = 16, array[1] = 16
         return binary;
+      }
+
+      /*
+       * Converts item.quality int to a human readable string
+       * We do this to avoid long switch statements in backpackitems.ejs
+       */
+      function convertQualityToString(quality) {
+        switch(quality) {
+          case 0: return 'normal';
+          case 1: return 'genuine';
+          case 3: return 'vintage';
+          case 5: return 'unusual';
+          case 6: return 'unique';
+          case 7: return 'community';
+          case 8: return 'valve';
+          case 9: return 'selfmade';
+          case 11: return 'strange';
+          case 13: return 'haunted';
+          default: return 'normal';
+        }
       }
 
       /**
