@@ -169,7 +169,9 @@ exports.backpack = function(req, res, next, trade) {
       }
 
       // Sort items in order of their backpack position
-      backpackitems.sort(dynamicSort("bpposition"));
+      if(backpackitems) {
+        backpackitems.sort(dynamicSort("bpposition"));
+      }
 
       trade(null, backpack.result, backpackHasNewIems);
     });
@@ -183,11 +185,15 @@ exports.createtrade = function(req, res, next) {
   require('./user_route').schema(req, res, next, function(err, schema) {
     require('./user_route').backpack(req, res, next, function(err, backpackitems, backpackHasNewIems) {
       require('../controllers/user_controller').get(req.user.steamid, function(err, doc) {
-        if (err) throw err;
-        var backpackslots = backpackitems.num_backpack_slots;
-        var bpitems = backpackitems.items;
-        res.render('createtrade', { title: 'Create Trade', items: bpitems,
-          id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems, results: schema.items });
+        if(backpackitems && doc && backpackHasNewIems) {
+          if (err) throw err;
+          var backpackslots = backpackitems.num_backpack_slots;
+          var bpitems = backpackitems.items;
+          res.render('createtrade', { title: 'Create Trade', items: bpitems,
+            id: req.params.id, bpslots: backpackslots, user: doc, newItems: backpackHasNewIems, results: schema.items });
+        } else {
+          res.render('/');
+        }
       });
     });
   });
