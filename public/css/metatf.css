@@ -25,6 +25,10 @@
 {
   display:block !important;
 }
+.hide
+{
+  display:none !important;
+}
 /* Navbar create trade */
 .createtrade {
   color:#0f0 !important;

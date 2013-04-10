@@ -1,10 +1,27 @@
 <% include header %>
   <h1><%= title %></h1>
-  <form action="/trade/create/" method="post">
-    <input type="text" name="items" style="display:none;">
-    <input type="submit">
-  </form>
   <div class="row">
+    <div class="span12" style="margin-left:65px;">
+      <form action="/trade/create/" method="post">
+        <input type="text" name="items" style="display:none;">
+        <!-- Create has items trade boxes -->
+        <% for(var i = 0; i < 8; i++) { %>
+          <% if (i === 4) { %> <br style="line-height:110px;" /> <% } %>
+          <div class="span2 normal backgroundmodifiers bpitem hasitems"></div>
+        <%}%>
+        <button type="submit" class="btn" style="margin-top:100px;margin-left:25px">Add Trade</button>
+      </form>
+      <!-- Create wants items trade boxes -->
+      <div class="pull-right" style="margin-top:-257px;">
+      <% for(var i = 0; i < 8; i++) { %>
+        <% if (i === 4) { %> <br style="line-height:110px;" /> <% } %>
+        <div class="span2 normal backgroundmodifiers bpitem wantsitems"></div>
+      <%}%>
+      </div>
+    </div>
+  </div>
+
+  <div class="row create_trade">
     <div class="span6">
       <% include schemaitems %>
     </div>
@@ -12,4 +29,5 @@
       <% include backpackitems %>
     </div>
   </div>
+</div>
 <% include footer %>

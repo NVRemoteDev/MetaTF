@@ -18,13 +18,14 @@ var express = require('express')
   , MongoStore = require('connect-mongo')(express)
   , gzippo = require('gzippo');
 
+
+require('ejs-shrink');
+
 /**
  * Connect to MongoDB/Mongoose
  */
 require('./db/connect').connectToMongoose();
 console.log('Schemas initialized');
-
-require('ejs-shrink');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -155,10 +156,7 @@ app.get('/schema', user.showschema); // Shows current Schema
 
 /**
  * Trade routes
- *
-app.post('/trade/create/', ensureAuthenticated, function(req, res) {
-  trade.index(req, res);
-});*/
+ */
 app.get('/trade/create', ensureAuthenticated, user.createtrade);
 app.get('/trade/:action/:tradeid?', trade.index);
 app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
@@ -168,7 +166,6 @@ app.get('/trade', function(req, res, next) { // View most recent trades if no ac
 /**
  * User routes
  */
-
 app.get('/user', function(req, res, next) { // View SITE profile of logged in user
   res.redirect('/account');
 });
@@ -184,7 +181,6 @@ app.get('/account', ensureAuthenticated, pullUserDataFromSteamAPI, function(req,
 /**
  * Backpack routes
  */
-
 app.get('/backpack', ensureAuthenticated, function(req, res, next) { // View SITE profile of logged in user
   steamID = req.user.steamid;
   res.redirect('/backpack/' + steamID);
@@ -194,13 +190,11 @@ app.get('/backpack/:id', user.showbackpack); // View backpack of SteamID :id
 /**
  * Admin Routes
  */
-
 app.get('/admin/:action?/:user?', ensureAuthenticated, ensureAdmin, adminroutes.index);
 
 /**
 * Steam Passport Routes
 */
-
 // GET /auth/steam
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Steam authentication will involve redirecting
@@ -249,6 +243,9 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+/**
+ * Route AuthenticationMiddleware
+ */
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
 //   the request is authenticated (typically via a persistent login session),
