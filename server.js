@@ -18,7 +18,7 @@ var express = require('express')
   , MongoStore = require('connect-mongo')(express)
   , gzippo = require('gzippo');
 
-
+http.Agent.defaultMaxSockets = 50;
 require('ejs-shrink');
 
 /**

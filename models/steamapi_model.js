@@ -23,7 +23,10 @@ module.exports = function PullFromSteamApi(steamID, api, fn) {
   var options = {
     hostname: 'api.steampowered.com',
     path: useApiString,
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      "Connection": "keep-alive"
+    }
   };
 
   // Pull the backpack
