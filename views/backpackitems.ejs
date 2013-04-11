@@ -18,7 +18,7 @@
                 <% if(items[i].quality === 'strange') { %>
                   <p class="strangekills">
                   <% if(items[i].name === "Spirit Of Giving") { %>Gifts Given:<% } else { %>Kills: <% } for (var m = 0; m < items[i].attributes.length; m++) {
-                    if (items[i].attributes[m].defindex == 214) {
+                    if (items[i].attributes[m].defindex === 214) {
                       %><%= items[i].attributes[m].value %>
                     <% }
                   }
