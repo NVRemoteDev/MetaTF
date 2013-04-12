@@ -86,6 +86,14 @@
 }
 
 /**
+ * Change mouse cursor when hovering an item
+ */
+.boxselected {
+  border-color:#26ff00 !important;
+}
+
+
+/**
 * Item quality classes
 */
 /* notrade is for image on item, notrade text is for tooltip text */

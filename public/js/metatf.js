@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(".iteminfo", this).removeClass('show');
   });
 
-  // Hide backpack under create a trade
+  // Hide schema under create a trade
   $(".create_trade > div:nth-child(1)").addClass('hide');
 
   // Hide schema when user clicks left side of trades
@@ -28,4 +28,35 @@ $(document).ready(function() {
     $(".create_trade > div:nth-child(1)").removeClass('hide');
     $(".create_trade > div:nth-child(1)").addClass('show');
   });
+
+  // Add boxselected to the first hasitems box
+  $(".hasitems:eq(0)").addClass('boxselected');
+
+  // Functionality to add UI feedback.  Adds background border for has items
+  $(".hasitems").click(function () {
+    $("*").removeClass('boxselected');
+    $(this).addClass('boxselected');
+  });
+
+  // Functionality to add UI feedback on trade page.  Adds background border for has items
+  $(".wantsitems").click(function () {
+    $("*").removeClass('boxselected');
+    $(this).addClass('boxselected');
+  });
+
+  // Add item to box of hasitems when clicked
+  $(".create_trade").find('.bpitem').click(function () {
+    var background = $(this).css('background-image');
+    var backgroundsize = $(this).css('background-size');
+    $(".boxselected").css('background-image', background);
+    $(".boxselected").css('background-size', backgroundsize);
+    $(".boxselected + div").addClass('temp');
+    if(! $(".boxselected + div")) {
+      $("br + div").addClass('temp');
+    }
+    $(".boxselected").attr("class", $(this).attr("class"));
+    $(".temp").addClass('boxselected').removeClass('temp');
+    $(this).addClass('disabled');
+  });
+
 });
