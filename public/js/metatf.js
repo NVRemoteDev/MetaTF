@@ -44,17 +44,21 @@ $(document).ready(function() {
     $(this).addClass('boxselected');
   });
 
-  // Add item to box of hasitems when clicked
+  // Add item to box of hasitems and wantsitems when clicked
   $(".create_trade").find('.bpitem').click(function () {
     var background = $(this).css('background-image');
     var backgroundsize = $(this).css('background-size');
     $(".boxselected").css('background-image', background);
     $(".boxselected").css('background-size', backgroundsize);
     $(".boxselected + div").addClass('temp');
-    if(! $(".boxselected + div")) {
-      $("br + div").addClass('temp');
+    if(! $(".boxselected + div").length) {
+      if( $(".hasitems", ".boxselected")) {
+        $("br + .hasitems").addClass('temp');
+      } else if( $(".wantsitems", ".boxselected")) {
+        $("br + .wantsitems").addClass('temp');
+      }
     }
-    $(".boxselected").attr("class", $(this).attr("class"));
+    $(".boxselected").attr("class", $(this).attr("class")).addClass('hasitems');
     $(".temp").addClass('boxselected').removeClass('temp');
     $(this).addClass('disabled');
   });
