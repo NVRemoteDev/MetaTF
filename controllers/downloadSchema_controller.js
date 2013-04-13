@@ -61,20 +61,8 @@ function DownloadItemIcons (req, res, next) {
       });
 
       res.on('end', function(){
-        var currentdir = process.cwd();
-        process.chdir(__dirname + '/../public/item_icons');
         fs.writeFile(imagePath + defindex + '.png', imagedata, 'binary', function(err) {
           if (err) throw err;
-          // Resize with imagemagick
-          im.resize({
-            srcPath: defindex + '.png',
-            dstPath: defindex + '.png1',
-            width:   80
-          }, function(err, stdout, stderr){
-            if (err) throw err;
-            console.log('resized');
-          });
-
           console.log('File saved.');
         });
       });
