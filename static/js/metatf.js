@@ -31,6 +31,10 @@ $(document).ready(function() {
 
   // Backpack filter function
   $('.bpfilter').change(function () {
+    filterbyquality();
+  });
+
+  function filterbyquality() {
     var filter = '';
     $(".bpfilter option:selected").each(function () {
       filter = $(this).text().toLowerCase();
@@ -42,6 +46,18 @@ $(document).ready(function() {
       $('.pagenumber').addClass('hide');
       $('.backpackrow').find('.bpitem').addClass('hide');
       $('.' + filter).removeClass('hide');
+    }
+  }
+  // Backpack item search filter function
+  $('.search-query').keyup(function () {
+    var filter = $(".search-query").val();
+    if(filter && filter !== ' ') {
+      $('.pagenumber').addClass('hide');
+      $('.backpackrow').find('.bpitem').addClass('hide');
+      $('.backpackrow').find('.itemname:contains("' + filter + '")').closest('.bpitem').removeClass('hide');
+    } else {
+      $('.backpackrow').find('.bpitem').removeClass('hide');
+      $('.pagenumber').removeClass('hide');
     }
   });
 

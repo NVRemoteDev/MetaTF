@@ -37,6 +37,15 @@
 .create_trade {
   margin-top:45px;
 }
+
+.itemsearchfilter {
+  position:absolute;
+  margin-left:250px;
+  margin-top:-67px;
+}
+.itemsearchfilter label {
+  margin-bottom:0px;
+}
 /* Navbar dropdown items */
 .dropdown-menu > li > a {
   color:#ccc !important;
