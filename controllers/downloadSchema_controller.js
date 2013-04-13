@@ -44,6 +44,7 @@ function DownloadItemIcons (req, res, next) {
         try {
           if(items[i].image_url) {
             ConnectAndGet(req, res, next, items[i].defindex, items[i].image_url); // Download the items
+            //ResizeItemIcons(items[i].defindex);
           }
         } catch (e) {
           //return fn(new Error('Error code: #48102'));
@@ -68,19 +69,21 @@ function DownloadItemIcons (req, res, next) {
           if (err) throw err;
           // Resize with imagemagick
           //im.convert.path = "C:\\ImageMagick\\convert.exe";
-          process.chdir(__dirname + '/../public/item_icons');
-          im.resize({
-            srcPath: defindex + '.png',
-            dstPath: defindex + '.png',
-            width:   80
-          }, function(err, stdout, stderr){
-            if (err) throw err;
-            console.log('resized ' + defindex + '.png');
-          });
-
           console.log('File saved. ' + defindex + '.png');
         });
       });
     });
   }
+}
+
+function ResizeItemIcons(defindex) {
+  process.chdir(__dirname + '/../public/item_icons');
+    im.resize({
+      srcPath: defindex + '.png',
+      dstPath: defindex + '.png',
+      width:   80
+    }, function(err, stdout, stderr){
+      if (err) throw err;
+      console.log('resized ' + defindex + '.png');
+    });
 }
