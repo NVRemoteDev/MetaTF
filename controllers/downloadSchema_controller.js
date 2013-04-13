@@ -82,8 +82,8 @@ exports.resizeitems = function(req, res, next) {
       var items = doc.items;
       var currentdir = process.cwd();
       process.chdir(__dirname + '/../public/item_icons');
-      console.log(length);
       for(var i = 0; i < length; i++) {
+        var defindex = doc.items[i].defindex;
         try {
           if(items[i].image_url) {
             im.resize({
