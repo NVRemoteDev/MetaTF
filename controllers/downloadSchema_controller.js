@@ -42,7 +42,9 @@ function DownloadItemIcons (req, res, next) {
       console.log(length);
       for(var i = 0; i < length; i++) {
         try {
-          ConnectAndGet(req, res, next, items[i].defindex, items[i].image_url); // Download the items
+          if(items[i].image_url) {
+            ConnectAndGet(req, res, next, items[i].defindex, items[i].image_url); // Download the items
+          }
         } catch (e) {
           //return fn(new Error('Error code: #48102'));
           console.log(e);
@@ -61,8 +63,20 @@ function DownloadItemIcons (req, res, next) {
       });
 
       res.on('end', function(){
+        var currentdir = process.cwd();
+        process.chdir(__dirname + '/../public/item_icons');
         fs.writeFile(imagePath + defindex + '.png', imagedata, 'binary', function(err) {
           if (err) throw err;
+          // Resize with imagemagick
+          im.resize({
+            srcPath: defindex + '.png',
+            dstPath: defindex + '.png1',
+            width:   80
+          }, function(err, stdout, stderr){
+            if (err) throw err;
+            console.log('resized');
+          });
+
           console.log('File saved.');
         });
       });
