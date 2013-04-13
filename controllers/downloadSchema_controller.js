@@ -68,6 +68,7 @@ function DownloadItemIcons (req, res, next) {
         fs.writeFile(imagePath + defindex + '.png', imagedata, 'binary', function(err) {
           if (err) throw err;
           // Resize with imagemagick
+          //im.convert.path = "C:\\ImageMagick\\convert.exe";
           im.resize({
             srcPath: defindex + '.png',
             dstPath: defindex + '.png',
