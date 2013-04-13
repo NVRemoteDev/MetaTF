@@ -33,11 +33,16 @@ $(document).ready(function() {
   $('.bpfilter').change(function () {
     var filter = '';
     $(".bpfilter option:selected").each(function () {
-      filter = $(this).text();
-      alert(filter);
+      filter = $(this).text().toLowerCase();
     });
-    $('.bpitem').addClass('hide');
-    $(filter).removeClass('hide');
+    if(filter === 'none') {
+      $('.backpackrow').find('.bpitem').removeClass('hide');
+      $('.pagenumber').removeClass('hide');
+    } else {
+      $('.pagenumber').addClass('hide');
+      $('.backpackrow').find('.bpitem').addClass('hide');
+      $('.' + filter).removeClass('hide');
+    }
   });
 
   // Functionality to add UI feedback on trade page.  Adds background border for has items
