@@ -45,18 +45,22 @@
       <div class="row backpackrow">
         <h3>Backpack:</h3>
         <!-- Backpack Filter and search box -->
-        <label>Filter by item type:</label>
-        <select class="bpfilter">
-          <option value="none">None</option>
-          <option value="unusual">Unusual</option>
-          <option value="genuine">Genuine</option>
-          <option value="vintage">Vintage</option>
-          <option value="unique">Unique</option>
-          <option value="valve">Valve</option>
-          <option value="community">Community</option>
-          <option value="self-made">Self-made</option>
-          <option value="haunted">Haunted</option>
-        </select>
+        <div class="filters">
+          <div class="itemtypefilter">
+            <label>Filter by item type: </label>
+            <select class="bpfilter">
+              <option value="none">None</option>
+              <option value="unusual">Unusual</option>
+              <option value="genuine">Genuine</option>
+              <option value="vintage">Vintage</option>
+              <option value="unique">Unique</option>
+              <option value="valve">Valve</option>
+              <option value="community">Community</option>
+              <option value="self-made">Self-made</option>
+              <option value="haunted">Haunted</option>
+            </select>
+          </div>
+        </div>
         <br />
         <% var lastFound = 0,
                currentFound = 0,

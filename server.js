@@ -96,7 +96,7 @@ app.configure(function(){
        next();
   });
   //app.use('/static', express.static(__dirname + '/public'));
-  app.use('/static', gzippo.staticGzip(__dirname + '/public'));
+  app.use('/static', gzippo.staticGzip(__dirname + '/static'));
   app.use(gzippo.compress());
   app.use(express.session({
     secret: 'dont be walmarting',
