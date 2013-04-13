@@ -64,21 +64,21 @@ function DownloadItemIcons (req, res, next) {
 
       res.on('end', function(){
         var currentdir = process.cwd();
-        process.chdir(__dirname + '/../public/item_icons');
         fs.writeFile(imagePath + defindex + '.png', imagedata, 'binary', function(err) {
           if (err) throw err;
           // Resize with imagemagick
           //im.convert.path = "C:\\ImageMagick\\convert.exe";
+          process.chdir(__dirname + '/../public/item_icons');
           im.resize({
             srcPath: defindex + '.png',
             dstPath: defindex + '.png',
             width:   80
           }, function(err, stdout, stderr){
             if (err) throw err;
-            console.log('resized');
+            console.log('resized ' + defindex + '.png');
           });
 
-          console.log('File saved.');
+          console.log('File saved. ' + defindex + '.png');
         });
       });
     });
