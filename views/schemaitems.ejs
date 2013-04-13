@@ -1,5 +1,13 @@
 <div class="row backpackrow">
 <h3>All Items:</h3>
+<div class="filters">
+  <div class="itemsearchfilter" style="margin-left:150px;">
+    <label>Filter by name: </label>
+    <form class="navbar-search pull-left">
+      <input type="text" class="search-query" placeholder="Search">
+    </form>
+  </div>
+</div>
 <% if (results.length) { %>
     <% for (var y = 0; y < results.length; y++) { %>
       <% if (results[y].image_url) { %>

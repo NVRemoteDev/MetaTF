@@ -37,6 +37,10 @@
 .create_trade {
   margin-top:45px;
 }
+.addeditem {
+  filter:alpha(opacity=50); 
+  opacity:0.5;
+}
 
 .itemsearchfilter {
   position:absolute;
