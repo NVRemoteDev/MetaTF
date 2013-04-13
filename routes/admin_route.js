@@ -7,14 +7,14 @@ exports.index = function(req, res, next) {
   var steamID = req.user.steamid;
   var message = null;
   if(action === 'updateSchema') {
-    require('../controllers/downloadSchema_controller').download(); // Downloads and writes schema
+    require('../controllers/downloadSchema_controller').download(req, res, next); // Downloads and writes schema
     message = 'Downloading and writing schema...';
     require('../controllers/user_controller').get(steamID, function(err, doc) {
       if (err) throw err;
         res.render('admin', { title: 'Admin Area', user: doc, message: message });
     });
   } else if(action === 'resizeImages') {
-    require('../controllers/downloadSchema_controller').resizeitems(); // Downloads and writes schema
+    require('../controllers/downloadSchema_controller').resizeitems(req, res, next); // Downloads and writes schema
     message = 'Resizing images...';
     require('../controllers/user_controller').get(steamID, function(err, doc) {
       if (err) throw err;
