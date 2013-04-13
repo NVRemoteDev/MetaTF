@@ -61,7 +61,7 @@ $(document).ready(function() {
     var filter = $(this).val();
     if(filter && filter !== ' ') {
       $('.pagenumber').addClass('hide');
-      $('.bpitem').addClass('hide');
+      $('.backpackrow').find('.bpitem').addClass('hide');
       $('.backpackrow').find('.itemname:icontains("' + filter + '")').closest('.bpitem').removeClass('hide');
     } else {
       $('.backpackrow').find('.bpitem').removeClass('hide');
