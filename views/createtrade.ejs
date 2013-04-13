@@ -4,25 +4,32 @@
     <div class="span12" style="margin-left:65px;">
       <form action="/trade/create/" method="post">
         <input type="text" name="items" style="display:none;">
-        <!-- Create has items trade boxes -->
+        <button type="submit" class="btn btn-danger" style="margin-top:190px;margin-left:425px;position:absolute;">Add Trade</button>
+      </form>
+
+      <!-- Clear has items button -->
+      <button class="btn btn-link btn-mini clearhasitems" style="margin-top:215px;margin-left:168px;position:absolute;">Clear Items</button>
+      <!-- Create has items trade boxes -->
+      <div class="hasitems" style="margin-top:0px;">
         <% for(var i = 0; i < 8; i++) { %>
           <% if (i === 4) { %> <br style="line-height:110px;" /> <% } %>
-          <div class="span2 normal backgroundmodifiers bpitem hasitems"></div>
+          <div class="span2 normal backgroundmodifiers bpitem itembox"></div>
         <%}%>
-        <button type="submit" class="btn" style="margin-top:100px;margin-left:25px">Add Trade</button>
-      </form>
+      </div>
+      <!-- Clear wants items button -->
+      <button class="btn btn-link btn-mini wantsitems" style="margin-top:105px;margin-left:300px;position:absolute;">Clear Items</button>
       <!-- Create wants items trade boxes -->
-      <div class="pull-right" style="margin-top:-257px;">
+      <div class="pull-right wantsitems" style="margin-top:-110px;">
       <% for(var i = 0; i < 8; i++) { %>
         <% if (i === 4) { %> <br style="line-height:110px;" /> <% } %>
-        <div class="span2 normal backgroundmodifiers bpitem wantsitems"></div>
+        <div class="span2 normal backgroundmodifiers bpitem itembox"></div>
       <%}%>
       </div>
     </div>
   </div>
 
   <div class="row create_trade">
-    <div class="span6">
+    <div class="span6 hide">
       <% include schemaitems %>
     </div>
     <div class="span6">

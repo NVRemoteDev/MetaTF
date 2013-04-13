@@ -44,6 +44,20 @@
     <!-- Begin backpack -->
       <div class="row backpackrow">
         <h3>Backpack:</h3>
+        <!-- Backpack Filter and search box -->
+        <label>Filter by</label>
+        <select class="bpfilter">
+          <option value="none">None</option>
+          <option value="unusual">Unusual</option>
+          <option value="genuine">Genuine</option>
+          <option value="vintage">Vintage</option>
+          <option value="unique">Unique</option>
+          <option value="valve">Valve</option>
+          <option value="community">Community</option>
+          <option value="self-made">Self-made</option>
+          <option value="haunted">Haunted</option>
+        </select>
+        <br />
         <% var lastFound = 0,
                currentFound = 0,
                currentPage = 1,
@@ -57,7 +71,7 @@
               <div class="span2 normal backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>"></div>
                 <% ++usedASlot; %>
                 <% if (usedASlot % 50 === 0) { %>
-                  <p>Page <%= ++currentPage %></p>
+                  <p class="pagenumber">Page <%= ++currentPage %></p>
                 <%}%>
               <% currentFound--; %>
             <% } %>
@@ -90,7 +104,7 @@
 
             <% lastFound = items[i].bpposition; %>
             <% if (usedASlot % 50 === 0 && lastFound !== bpslots) { %>
-              <p>Page <%= ++currentPage %></p>
+              <p class="pagenumber">Page <%= ++currentPage %></p>
             <%}%>
           <%}%>
         <%}%>
@@ -100,7 +114,7 @@
           <% usedASlot++; %>
           <% if (usedASlot % 50 === 0) { %>
             <% if(lastFound + 1 !== bpslots) {%>
-              <p>Page <%= ++currentPage %></p>
+              <p class="pagenumber">Page <%= ++currentPage %></p>
             <%}
           }
           lastFound++;

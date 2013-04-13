@@ -33,11 +33,17 @@
 .createtrade {
   color:#0f0 !important;
 }
+/* Create trade page create_trade */
+.create_trade {
+  margin-top:45px;
+}
 /* Navbar dropdown items */
 .dropdown-menu > li > a {
   color:#ccc !important;
 }
-
+select {
+  color: #333 !important;
+}
 #nodelogo {
   background-image:url('/static/images/nodejs.png');
   width:130px;
