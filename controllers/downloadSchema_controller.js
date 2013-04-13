@@ -70,7 +70,7 @@ function DownloadItemIcons (req, res, next) {
           // Resize with imagemagick
           im.resize({
             srcPath: defindex + '.png',
-            dstPath: defindex + '.png1',
+            dstPath: defindex + '.png',
             width:   80
           }, function(err, stdout, stderr){
             if (err) throw err;
