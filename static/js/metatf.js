@@ -48,17 +48,20 @@ $(document).ready(function() {
       $('.' + filter).removeClass('hide');
     }
   }
+
+  // Creates icontains which is case insensitive contains
   $.expr[":"].icontains = $.expr.createPseudo(function(arg) {
     return function( elem ) {
         return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
     };
   });
+
   // Backpack item search filter function
   $('.search-query').keyup(function () {
-    var filter = $(".search-query").val();
+    var filter = $(this).val();
     if(filter && filter !== ' ') {
       $('.pagenumber').addClass('hide');
-      $('.backpackrow').find('.bpitem').addClass('hide');
+      $('.bpitem').addClass('hide');
       $('.backpackrow').find('.itemname:icontains("' + filter + '")').closest('.bpitem').removeClass('hide');
     } else {
       $('.backpackrow').find('.bpitem').removeClass('hide');
