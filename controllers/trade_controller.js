@@ -21,6 +21,7 @@ exports.create = function (steamID, items, fn) {
     trade.tradeid = Number(4325);
   }
   saveTrade(trade);
+
   // Recursivly call this function until we get a good tradeid
   // Mongoose/mongodb doesn't have an auto incrementing type by default
   function saveTrade(trade) {

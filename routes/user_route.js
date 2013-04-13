@@ -260,7 +260,7 @@ exports.showschema = function(req, res, next) {
 };
 
 /**
- * Renders complete schema
+ * Reads TF2 item schema, then returns the schema via trade
  */
 exports.schema = function(req, res, next, trade) {
   var fileName = './models/tf2item_schema.txt';
@@ -272,7 +272,7 @@ exports.schema = function(req, res, next, trade) {
   });
 
   stream.on('end', function() {
-    var obj = JSON.parse(contents); // Parse the user's API data from steam
+    var obj = JSON.parse(contents);
     trade(null, obj);
     contents = null;
     data = null;
