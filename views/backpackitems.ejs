@@ -63,7 +63,7 @@
             <% } %>
             <% usedASlot++ %>
 
-            <div class="span2 normal <%= items[i].quality %> <% if (items[i].flag_cannot_craft) { %>nocraft<% } %> backgroundmodifiers bpitem" style="background-image:url('/static/item_icons/<%= items[i].defindex %>');background-size: contain;">
+            <div class="span2 normal <%= items[i].quality %> <% if (items[i].flag_cannot_craft) { %>nocraft<% } %> backgroundmodifiers bpitem" style="background-image:url('/static/item_icons/<%= items[i].defindex %>.png');background-size: contain;">
               <% if (items[i] && items[i].flag_cannot_trade) { %> <div class="notrade"></div> <% } %>
               <% if(items[i] && items[i].quantity && items[i].quantity !== 1) { %><%= items[i].quantity %><% } %>
               <div class="iteminfo text-center">
