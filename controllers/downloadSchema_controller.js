@@ -75,7 +75,7 @@ function DownloadItemIcons (req, res, next) {
   }
 }
 
-exports.ResizeItemIcons = function() {
+exports.resizeitems = function() {
   require('../routes/user_route').schema (req, res, next, function(err, doc) {
     if(doc) {
       var length = doc.items.length;

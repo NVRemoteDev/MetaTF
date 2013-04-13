@@ -14,7 +14,7 @@ exports.index = function(req, res, next) {
         res.render('admin', { title: 'Admin Area', user: doc, message: message });
     });
   } else if(action === 'resizeImages') {
-    require('../controllers/downloadSchema_controller').ResizeItemIcons(); // Downloads and writes schema
+    require('../controllers/downloadSchema_controller').resizeitems(); // Downloads and writes schema
     message = 'Resizing images...';
     require('../controllers/user_controller').get(steamID, function(err, doc) {
       if (err) throw err;
