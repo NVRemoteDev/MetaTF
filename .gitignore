@@ -1,4 +1,3 @@
 *.bak
 .git/
 node_modules/
-public/item_icons/
