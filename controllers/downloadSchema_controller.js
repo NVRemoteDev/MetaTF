@@ -44,7 +44,7 @@ function DownloadItemIcons (req, res, next) {
         try {
           if(items[i].image_url) {
             ConnectAndGet(req, res, next, items[i].defindex, items[i].image_url); // Download the items
-            //ResizeItemIcons(items[i].defindex);
+            //ResizeItemIcons(items[i].defindex); Crashing the server here
           }
         } catch (e) {
           //return fn(new Error('Error code: #48102'));
@@ -75,14 +75,32 @@ function DownloadItemIcons (req, res, next) {
   }
 }
 
-function ResizeItemIcons(defindex) {
-  process.chdir(__dirname + '/../public/item_icons');
-  im.resize({
-    srcPath: defindex + '.png',
-    dstPath: defindex + '.png',
-    width:   80
-  }, function(err, stdout, stderr){
-    if (err) throw err;
-    console.log('resized ' + defindex + '.png');
+exports.ResizeItemIcons = function() {
+  require('../routes/user_route').schema (req, res, next, function(err, doc) {
+    if(doc) {
+      var length = doc.items.length;
+      var items = doc.items;
+      var currentdir = process.cwd();
+      process.chdir(__dirname + '/../public/item_icons');
+      console.log(length);
+      for(var i = 0; i < length; i++) {
+        try {
+          if(items[i].image_url) {
+            im.resize({
+              srcPath: defindex + '.png',
+              dstPath: defindex + '.png',
+              width:   80
+            }, function(err, stdout, stderr) {
+              if (err) throw err;
+              console.log('resized ' + defindex + '.png');
+            });
+          }
+        } catch (e) {
+          //return fn(new Error('Error code: #48102'));
+          console.log(e);
+        }
+      }
+      process.chdir(currentdir);
+    }
   });
-}
+};
