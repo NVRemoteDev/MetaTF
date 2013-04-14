@@ -28,20 +28,20 @@ It also contains common functions such as CRUD
 
 Model Files (models/):
 * steamapi_model.js - Connects to SteamAPI, returns function with API data in JSON
-** user - Returns userdata from Steam, such as username and avatar
-** backpack - Returns players' items from Steam
-** schema - Returns latest tf2item schema from Steam
+	- user - Returns userdata from Steam, such as username and avatar
+	- backpack - Returns players' items from Steam
+	- schema - Returns latest tf2item schema from Steam
 * download_schema_model.js
-** exports.download - Downloads the item schema to models/tf2item_schema.txt, calls function DownloadItemIcons 
-** function DownloadItemIcons - Downloads item icons to static/item_icons/$(defindex).png
-** exports.resizeitems - Should use imagemagick to resize item icons. Currently buggy.  Library problem?
+	- exports.download - Downloads the item schema to models/tf2item_schema.txt, calls function DownloadItemIcons 
+	- function DownloadItemIcons - Downloads item icons to static/item_icons/$(defindex).png
+	- exports.resizeitems - Should use imagemagick to resize item icons. Currently buggy.  Library problem?
 * item_model.js
-** exports.getbackpack - Hosts the backpack function.  Parses SteamAPI getplayeritems and models/tf2item_schema.txt to extract relevant backpack data.  Returns player backpack.
-** exports.getschema - Parses our downloaded item schema to JSON, and returns the JSON object.
+	- exports.getbackpack - Hosts the backpack function.  Parses SteamAPI getplayeritems and models/tf2item_schema.txt to extract relevant backpack data.  Returns player backpack.
+	- exports.getschema - Parses our downloaded item schema to JSON, and returns the JSON object.
 * trade_model.js
-** CRUD functions for trades
+	- CRUD functions for trades
 * user_model.js
-** CRUD functions for users
+	- CRUD functions for users
 
 ## License
 All rights reserved.  Code may be used for reference, and educational purposes only.
