@@ -3,12 +3,10 @@
 To run locally, you will need a MongoDB / Mongoose instance.
 If using Heroku with the MongoLab or MongoHQ addons, the server will automatically connect.
 
-Overview
-========
+## Overview
 The Meta.tf code utilizes an MVC architecture as much as possible.
 
-Database
---------
+### Database
 The database configuration is in db/connect.js
 Database schemas are present in the db/models folder
 
@@ -17,12 +15,10 @@ db/models/foo.js will define the schemas
 
 The actual schema initialization is called in server.js
 
-Controllers
------------
+### Controllers
 The controllers folder contains all of the controller functions.
 
-Models
-------
+### Models
 The models folder contains all of functions that pull data from the database, or the steam API.
 It also contains common functions such as CRUD
 
