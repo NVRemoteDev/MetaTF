@@ -20,7 +20,7 @@ exports.index = function(req, res, next) {
 };
 
 /**
- * ViewTrade shows us the create template
+ * ShowCreateATrade shows us the create template
  */
 function ShowCreateATrade (req, res, next) {
   require('../models/item_model').getschema(req, res, next, function (err, schema) {
@@ -48,7 +48,7 @@ function ShowCreateATrade (req, res, next) {
 }
 
 /**
- * View trade/tradeID
+ * GET view/trade/tradeID
  */
 function ViewTrade (req, res) {
   if (req.params.tradeid) {
