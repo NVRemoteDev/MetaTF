@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  // Handler for .ready() called.
 
   // Add BPitem tooltips
   $('.bpitem').mousemove(function (e) {
@@ -69,7 +68,7 @@ $(document).ready(function() {
     }
   });
 
-  // Functionality to add UI feedback on trade page.  Adds background border for has items
+  // Adds a selected cue to our trade boxes
   $('.itembox').click(function () {
     $('*').removeClass('boxselected');
     $(this).addClass('boxselected');
@@ -84,16 +83,19 @@ $(document).ready(function() {
       $('.boxselected').css('background-image', background);
       $('.boxselected').css('background-size', backgroundsize);
       $('.boxselected + div').addClass('temp');
-      if(! $('.boxselected + div').length) {
+      if(! $('.boxselected + div').length) { // Finds past the <br> in view
         if( $('.hasitems').find('.boxselected').length) {
           $('.hasitems > br + .itembox').addClass('temp');
         } else if ($('.wantsitems').find('.boxselected').length) {
           $('.wantsitems > br + .itembox').addClass('temp');
         }
       }
-      $('.boxselected').attr('class', $(this).attr('class')).addClass('hasitems');
+      $('.boxselected').attr('class', $(this).attr('class'));
       $('.temp').addClass('boxselected').removeClass('temp');
-      $(this).addClass('addeditem');
+      //Gray out backpack items after they're click
+      if( $('.hasitems').find('.boxselected').length) {
+        $(this).addClass('addeditem');
+      }
     }
   });
 });
