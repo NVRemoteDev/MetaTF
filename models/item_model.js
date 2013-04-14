@@ -1,72 +1,29 @@
-/**
- * Module Dependencies
- */
-var mongoose = require('mongoose'),
-  Users = mongoose.model("Users"),
-  user = new Users(),
-  fs = require('fs');
 
-exports.profile = function (req, res, next) {
-  var PullFromSteamApi = require('../models/steamapi_model');
-  if (req.user !== undefined) {
-    require('../controllers/user_controller').get(req.user.steamid, function (err, doc) {
-      if (err) throw err;
-      require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id); // Add owner of checked backpack to database if necessary
-      require('../models/user_models').pullUserDataFromSteamAPI(req.params.id); // Get the user's information, add it to database
-      require('../controllers/user_controller').get(req.params.id, function (err, profileowner) {
-        if (err) throw err;
-        res.render('profile', {
-          title: 'Profile',
-          id: req.params.id,
-          user: doc,
-          profileowner: profileowner
-        });
-      });
-    });
-  } else { // Not a logged in user; no navbar params
-    require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
-    require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
-    require('../controllers/user_controller').get(req.params.id, function (err, doc) {
-      if (err) throw err;
-      res.render('profile', {
-        title: 'Profile',
-        id: req.params.id,
-        user: null,
-        profileowner: doc
-      });
-    });
-  }
-};
+/**
+ * Handles tf2 item schema, and the backpack
+ */
+
+/**
+ * Module dependencies
+ */
+var fs = require('fs');
 
 /**
  * Downloads user backpack items from Steam API
  * Matches items to schema to get names, backpack positions
  * And all other schema properties we want
  */
-exports.backpack = function (req, res, next, trade) {
-  var PullFromSteamApi = require('../models/steamapi_model'),
+exports.getbackpack = function (req, res, next, trade) {
+  var PullFromSteamApi = require('./steamapi_model'),
     steamID = req.params.id || req.user.steamid; // If no :id param use the logged in user's SteamID (required to see without :id)
 
-  PullFromSteamApi(steamID, 'backpack', function (err, backpack) { //.result.items,
+  PullFromSteamApi(steamID, 'backpack', function (err, backpack) { // returns the user's backpack
     if (err) return next(err);
-    var fileName = './models/tf2item_schema.txt',
-      contents = '',
-      backpackHasNewIems = 'false',
-      backpackitems = backpack.result.items,
-      backpackslots = backpack.result.num_backpack_slots;
+    var backpackHasNewIems = 'false',
+        backpackitems = backpack.result.items,
+        backpackslots = backpack.result.num_backpack_slots;
 
-    var stream = fs.createReadStream(fileName, {
-      flags: 'r',
-      encoding: 'utf-8'
-    });
-    stream.on('data', function (data) {
-      contents += data;
-    });
-
-    stream.on('end', function () {
-      var obj = JSON.parse(contents); // Parse the user's API data from steam
-      contents = null;
-      data = null;
+    require('./item_model').getschema(req, res, next, function(err, obj) {
       if (obj && backpackitems) {
         var objLength = obj.items.length; // precache the length
         var bpItemsLength = backpackitems.length; // precache the length
@@ -203,119 +160,9 @@ exports.backpack = function (req, res, next, trade) {
 };
 
 /**
- * Renders schema and backpack items for trade creation
- */
-exports.createtrade = function (req, res, next) {
-  require('./user_route').schema(req, res, next, function (err, schema) {
-    require('./user_route').backpack(req, res, next, function (err, backpackitems, backpackHasNewIems) {
-      require('../controllers/user_controller').get(req.user.steamid, function (err, doc) {
-        if (backpackitems && doc && backpackHasNewIems) {
-          if (err) throw err;
-          var backpackslots = backpackitems.num_backpack_slots;
-          var bpitems = backpackitems.items;
-          res.render('createtrade', {
-            title: 'Create Trade',
-            items: bpitems,
-            id: req.params.id,
-            bpslots: backpackslots,
-            user: doc,
-            newItems: backpackHasNewIems,
-            results: schema.items
-          });
-        } else {
-          res.render('/');
-        }
-      });
-    });
-  });
-};
-
-/**
- * Renders a user's backpack
- */
-exports.showbackpack = function (req, res, next) {
-  require('./user_route').backpack(req, res, next, function (err, backpackitems, backpackHasNewIems) {
-    var bpitems = backpackitems.items;
-    var backpackslots = backpackitems.num_backpack_slots;
-
-    // User is logged in
-    // Send the params for the navbar
-    // Add the backpack checkee to db if necessary
-    if (req.user) {
-      require('../controllers/user_controller').get(req.user.steamid, function (err, doc) {
-        if (err) throw err;
-        require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id); // Add owner of checked backpack to database if necessary
-        require('../models/user_models').pullUserDataFromSteamAPI(req.params.id); // Get the user's information, add it to database
-        require('../controllers/user_controller').get(req.params.id, function (err, backpackOwner) {
-          if (doc && backpackOwner) {
-            if (err) throw err;
-            res.render('backpack', {
-              title: 'Backpack',
-              items: bpitems,
-              id: req.params.id,
-              bpslots: backpackslots,
-              user: doc,
-              bpowner: backpackOwner,
-              newItems: backpackHasNewIems
-            });
-          } else {
-            res.render('/');
-          }
-        });
-      });
-    } else { // Not a logged in user; no navbar params
-      require('../models/user_models').checkIfUserAddToDbIfNot(req.params.id);
-      require('../models/user_models').pullUserDataFromSteamAPI(req.params.id);
-      require('../controllers/user_controller').get(req.params.id, function (err, backpackOwner) {
-        if (backpackOwner) {
-          if (err) throw err;
-          res.render('backpack', {
-            title: 'Backpack',
-            items: bpitems,
-            id: req.params.id,
-            bpslots: backpackslots,
-            user: null,
-            bpowner: backpackOwner,
-            newItems: backpackHasNewIems
-          });
-        } else {
-          res.render('/');
-        }
-      });
-    }
-  });
-};
-
-/**
- * Renders a user's backpack
- */
-exports.showschema = function (req, res, next) {
-  require('./user_route').schema(req, res, next, function (err, obj) {
-    var steamID = '';
-    if (req.user) steamID = req.user.steamid;
-    require('../controllers/user_controller').get(steamID, function (err, doc) {
-      if (err) throw err;
-      if (!doc) {
-        res.render('schema', {
-          title: 'Schema',
-          results: obj.items,
-          user: null
-        });
-      } else {
-        res.render('schema', {
-          title: 'Schema',
-          results: obj.items,
-          user: doc
-        });
-      }
-    });
-  });
-};
-
-/**
  * Reads TF2 item schema, then returns the schema via trade
  */
-exports.schema = function (req, res, next, trade) {
+exports.getschema = function (req, res, next, trade) {
   var fileName = './models/tf2item_schema.txt';
   var contents = '';
 
@@ -329,7 +176,7 @@ exports.schema = function (req, res, next, trade) {
 
   stream.on('end', function () {
     var obj = JSON.parse(contents);
-    trade(null, obj);
+    trade(null, obj); // callback
     contents = null;
     data = null;
     return;

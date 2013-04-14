@@ -1,6 +1,6 @@
 {
 	"name" : "metatf-web",
-	"version" : "0.0.6",
+	"version" : "0.1.1",
 	"dependencies" : {
 		"express" : "latest",
 		"ejs" : ">=0.4.2",

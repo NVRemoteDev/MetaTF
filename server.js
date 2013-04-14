@@ -2,21 +2,22 @@
  * Module requirements.
  */
 
-require('./models/schemas.js').initialize(); // initialize Mongoose schema models
+require('./db/models/schemas.js').initialize(); // initialize Mongoose schema models
 
-var express = require('express')
-  , routes = require('./routes/index')
-  , trade = require('./routes/trade_route')
-  , user = require('./routes/user_route')
-  , adminroutes = require('./routes/admin_route')
-  , http = require('http')
-  , passport = require('passport')
-  , SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy
-  , mongoose = require('mongoose') // Mongoose includes below
-  , Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId
-  , MongoStore = require('connect-mongo')(express)
-  , gzippo = require('gzippo');
+var express = require('express'),
+    homepage = require('./controllers/homepage_controller'),
+    trades = require('./controllers/trade_controller'),
+    users = require('./controllers/user_controller'),
+    items = require('./controllers/item_controller'),
+    admins = require('./controllers/admin_controller'),
+    http = require('http'),
+    passport = require('passport'),
+    SteamStrategy = require('./node_modules/passport-steam/lib/passport-steam').Strategy,
+    mongoose = require('mongoose'), // Mongoose includes below
+    Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId,
+    MongoStore = require('connect-mongo')(express),
+    gzippo = require('gzippo');
 
 http.globalAgent.defaultMaxSockets = 9999;
 require('ejs-shrink');
@@ -129,7 +130,7 @@ var pullUserDataFromSteamAPI = function(req, res, next) {
       "avatarfull" : playerData.avatarfull,
       "personaname" : playerData.personaname
     };
-    require('./controllers/user_controller').update(steamID, addData); // Send data as JSON
+    require('./models/user_model').update(steamID, addData); // Send data as JSON
   });
   return next();
 };
@@ -139,9 +140,9 @@ var pullUserDataFromSteamAPI = function(req, res, next) {
 // THAT IS USED FOR ALL OTHER INSTANCES OUTSIDE server.js
 var checkIfUserAddToDbIfNot = function(req, res, next) {
   var steamID = req.user.steamid;
-  require('./controllers/user_controller').get(steamID, function(err, doc) {
+  require('./models/user_model').get(steamID, function(err, doc) {
     if (!doc) { // User not found
-      require('./controllers/user_controller').create(steamID);
+      require('./models/user_model').create(steamID);
     }
   });
   return next();
@@ -151,14 +152,14 @@ var checkIfUserAddToDbIfNot = function(req, res, next) {
  * Routes
  */
 
-app.get('/', routes.index);
-app.get('/schema', user.showschema); // Shows current Schema
+app.get('/', homepage.index);
+app.get('/schema', items.showschema); // Shows current Schema
 
 /**
  * Trade routes
  */
-app.get('/trade/create', ensureAuthenticated, user.createtrade);
-app.get('/trade/:action/:tradeid?', trade.index);
+app.post('/trade/create', ensureAuthenticated, trades.index);
+app.get('/trade/:action/:tradeid?', trades.index);
 app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trade/view');
 });
@@ -169,10 +170,10 @@ app.get('/trade', function(req, res, next) { // View most recent trades if no ac
 app.get('/user', function(req, res, next) { // View SITE profile of logged in user
   res.redirect('/account');
 });
-app.get('/user/:id', user.profile); // View SITE profile of SteamID :id
+app.get('/user/:id', users.profile); // View SITE profile of SteamID :id
 app.get('/account', ensureAuthenticated, pullUserDataFromSteamAPI, function(req, res) {
   steamID = req.user.steamid;
-  require('./controllers/user_controller').get(steamID, function(err, doc) {
+  require('./models/user_model').get(steamID, function(err, doc) {
     if (err) throw err;
     res.render('account', { title: 'Account', user: doc });
   });
@@ -185,12 +186,12 @@ app.get('/backpack', ensureAuthenticated, function(req, res, next) { // View SIT
   steamID = req.user.steamid;
   res.redirect('/backpack/' + steamID);
 });
-app.get('/backpack/:id', user.showbackpack); // View backpack of SteamID :id
+app.get('/backpack/:id', items.showbackpack); // View backpack of SteamID :id
 
 /**
  * Admin Routes
  */
-app.get('/admin/:action?/:user?', ensureAuthenticated, ensureAdmin, adminroutes.index);
+app.get('/admin/:action?/:user?', ensureAuthenticated, ensureAdmin, admins.index);
 
 /**
 * Steam Passport Routes
@@ -260,7 +261,7 @@ function ensureAuthenticated(req, res, next) {
 //   See ensureAuthenticated() for more information
 function ensureAdmin(req, res, next) {
   var steamID = req.user.steamid;
-  require('./controllers/user_controller').get(steamID, function(err, doc) {
+  require('./models/user_model').get(steamID, function(err, doc) {
     if (err) return next(err);
     if (doc.isadmin === "yes") { return next(); }
     res.redirect('/');

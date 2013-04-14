@@ -1,83 +1,75 @@
-/**
- * Module dependencies.
- */
-
- var mongoose = require('mongoose')
-   , Trades = mongoose.model("Trades");
 
 /**
- * Create a new trade
- * Increments tradeID every time a trade is created to ensure we have
- * unique URLs
- *
- * @param steamID SteamID of the trade creator
- * @param items   Item array, uses steam API for user's items
+ * Route Trades
+ * GET /trade/:action/:tradeid?
+ * POST /trade/create
  */
-exports.create = function (steamID, items, fn) {
-  var trade = new Trades();
-  if(steamID && items) {
-    trade.steamid = steamID;
-    trade.items = items;
-    trade.tradeid = Number(4325);
+
+exports.index = function(req, res, next) {
+  if (req.body.items) {
+    require('../models/trade_model').create(req, res); // Process the post data from create template
+  } else if (req.params.action) {
+    var action = req.params.action;
+    if(action == 'view') {
+      ViewTrade(req, res, next);
+    }
+    if (action == 'create') {
+      ShowCreateATrade(req, res, next); // Forward them to the create template
+    }
   }
-  saveTrade(trade);
+};
 
-  // Recursivly call this function until we get a good tradeid
-  // Mongoose/mongodb doesn't have an auto incrementing type by default
-  function saveTrade(trade) {
-    trade.save(function (err, callback) {
-      if (err && err.code === 11000) { // duplicate tradeid, increment until we don't get an error
-        var aNumber = parseInt(trade.tradeid, 10);
-        trade.tradeid = ++aNumber;
-        saveTrade(trade);
-      } else if (!err) {
-        fn(null, trade);
+/**
+ * ViewTrade shows us the create template
+ */
+function ShowCreateATrade (req, res, next) {
+  require('../models/item_model').getschema(req, res, next, function (err, schema) {
+    require('../models/item_model').getbackpack(req, res, next, function (err, backpackitems, backpackHasNewIems) {
+      require('../models/user_model').get(req.user.steamid, function (err, doc) {
+        if (backpackitems && doc && backpackHasNewIems) {
+          if (err) throw err;
+          var backpackslots = backpackitems.num_backpack_slots;
+          var bpitems = backpackitems.items;
+          res.render('createtrade', {
+            title: 'Create Trade',
+            items: bpitems,
+            id: req.params.id,
+            bpslots: backpackslots,
+            user: doc,
+            newItems: backpackHasNewIems,
+            results: schema.items
+          });
+        } else {
+          res.render('/');
+        }
+      });
+    });
+  });
+}
+
+/**
+ * View trade/tradeID
+ */
+function ViewTrade (req, res) {
+  if (req.params.tradeid) {
+    var tradeID = req.params.tradeid;
+    require('../models/trade_model').get(tradeID, function(err, tradeinfo) {
+      if (err) throw err;
+      if (tradeinfo) {
+        if (req.user) { // User is logged in
+          require('../models/trade_model').get(req.user.steamid, function(err, doc) {
+            if (err) throw err;
+            res.render('viewtrade', { title: 'View Trade', tradeinfo: tradeinfo, user: doc });
+          });
+        } else { // User viewing trade isn't logged in
+          res.render('viewtrade', { title: 'View Trade', tradeinfo: tradeinfo, user: null });
+        }
+      } else {
+        // ERROR
+        res.redirect('/');
       }
     });
+  } else {
+    // View last 10 trades/last 10 bumped trades
   }
-};
-
-/**
- * View a trade
- *
- * @param tradeID The trade id to view
- * @param fn      Function callback: (error, data)
- */
-exports.get = function (tradeID, fn) {
-  Trades.findOne({ tradeid: tradeID }, function (err, doc) {
-    if (err) return err;
-    if (doc) {
-      fn(null, doc);
-    } else {
-      fn(null, null); // Trade not found
-    }
-  });
-};
-
-/**
- * Update a trade
- *
- * @param tradeID The trade id to update
- * @param whatToUpdate  JSON data telling us what to update
- */
-exports.update = function (tradeID, whatToUpdate) { //whatToUpdate is JSON data that will be added to the user's database
-  Users.findOne({ steamid: steamID }, function (err, doc) {
-    if (err) return err;
-    whatToUpdate = JSON.parse(JSON.stringify(whatToUpdate));
-
-    if (doc && whatToUpdate !== undefined) {
-      for (var propertyName in whatToUpdate)
-      {
-        doc[propertyName] = whatToUpdate[propertyName];
-      }
-      doc.save(function (err, callback) {
-        if (err) throw err;
-      });
-    }
-  });
-};
-
-// Destroy
-exports.destroy = function (steamID) {
-  //TODO
-};
+}

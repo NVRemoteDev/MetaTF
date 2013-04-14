@@ -5,54 +5,34 @@
  var mongoose = require('mongoose')
    , Users = mongoose.model("Users");
 
-// Create
-exports.create = function (steamID, callback) {
-  var user = new Users();
-  if (steamID == 76561197991291041) { // Add me as an admin for when database resets.
-    user.isadmin = 'yes';
-  } else {
-    user.isadmin = 'no';
-  }
-  user.steamid = steamID;
-  user.save(function (err, callback) {
-    if (err) throw err;
-  });
-};
-
-// Read
-exports.get = function (steamID, fn) {
-  Users.findOne({ steamid: steamID }, function (err, doc) {
-    if (err) return err;
-    if (doc) {
-      fn(null, doc);
-    } else {
-      fn(null, null); // User not found
-    }
-  });
-};
-
-// Update
-exports.update = function (steamID, whatToUpdate) { //whatToUpdate is JSON data that will be added to the user's database
-  Users.findOne({ steamid: steamID }, function (err, doc) {
-    if (err) return err;
-    whatToUpdate = JSON.parse(JSON.stringify(whatToUpdate));
-    if (doc && whatToUpdate) {
-      for (var propertyName in whatToUpdate)
-      {
-        if(propertyName == 'tradeids') {
-            doc[propertyName].push(whatToUpdate[propertyName]);
-        } else {
-          doc[propertyName] = whatToUpdate[propertyName];
-        }
-      }
-      doc.save(function (err, callback) {
+exports.profile = function (req, res, next) {
+  var PullFromSteamApi = require('../models/steamapi_model');
+  if (req.user !== undefined) {
+    require('../models/user_model').get(req.user.steamid, function (err, doc) {
+      if (err) throw err;
+      require('../models/user_model').checkIfUserAddToDbIfNot(req.params.id); // Add owner of checked backpack to database if necessary
+      require('../models/user_model').pullUserDataFromSteamAPI(req.params.id); // Get the user's information, add it to database
+      require('../models/user_model').get(req.params.id, function (err, profileowner) {
         if (err) throw err;
+        res.render('profile', {
+          title: 'Profile',
+          id: req.params.id,
+          user: doc,
+          profileowner: profileowner
+        });
       });
-    }
-  });
-};
-
-// Destroy
-exports.destroy = function (steamID) {
-  //TODO
+    });
+  } else { // Not a logged in user; no navbar params
+    require('../models/user_model').checkIfUserAddToDbIfNot(req.params.id);
+    require('../models/user_model').pullUserDataFromSteamAPI(req.params.id);
+    require('../models/user_model').get(req.params.id, function (err, doc) {
+      if (err) throw err;
+      res.render('profile', {
+        title: 'Profile',
+        id: req.params.id,
+        user: null,
+        profileowner: doc
+      });
+    });
+  }
 };
