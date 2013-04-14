@@ -24,4 +24,4 @@ The models folder contains all of functions that pull data from the database, or
 It also contains common functions such as CRUD
 
 ## License
-All rights reserved.  Code may be used for educational purposes only.
+All rights reserved.  Code may be used for reference, and educational purposes only.
