@@ -6,6 +6,7 @@
 
 /**
  * Renders a user's backpack
+ * GET /backpack/:id
  */
 exports.showbackpack = function (req, res, next) {
   require('../models/item_model').getbackpack(req, res, next, function (err, backpackitems, backpackHasNewIems) {
@@ -49,7 +50,7 @@ exports.showbackpack = function (req, res, next) {
 };
 
 /**
- * Renders a user's backpack
+ * Renders schema page GET /schema
  * vars: obj = schema, doc = user
  */
 exports.showschema = function (req, res, next) {
