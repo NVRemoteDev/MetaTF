@@ -1,7 +1,7 @@
 
 /**
  * Trade Controller
- * Renders schema and backpack items
+ * Renders schema and backpack items via calling models
  */
 
 /**
