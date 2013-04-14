@@ -6,7 +6,17 @@ Backpack viewer: http://www.meta.tf/backpack/76561197991291041
 Create a trade: http://www.meta.tf/trade/create
 
 ## Overview
-The Meta.tf code utilizes an MVC architecture as much as possible.
+Architecture: The Meta.tf code utilizes an MVC architecture as much as possible.
+Working features: 
+* Backpack viewer of any Steam ID
+* Basic trade creation (in development)
+* User profiles, dashboards
+* Database calls
+* Steam OpenID login
+* Steam API calls
+* Persistent session storage through database
+* And more...
+
 <b>This code is still in pre-alpha.  Many features are still being implemented, written, and tested.</b>
 
 ### Database
