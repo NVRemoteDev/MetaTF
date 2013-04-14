@@ -20,7 +20,7 @@ exports.showbackpack = function (req, res, next) {
       require('../models/user_model').checkIfUserAddToDbIfNot(req.params.id); // Add owner of checked backpack to database if necessary
       require('../models/user_model').pullUserDataFromSteamAPI(req.params.id); // Get the user's information, add it to database
       require('../models/user_model').get(req.params.id, function (err, backpackOwner) {
-        if (doc) {
+        if (doc && backpackOwner) {
           res.render('backpack', {
                 title: 'Backpack',
                 items: bpitems,
@@ -30,7 +30,7 @@ exports.showbackpack = function (req, res, next) {
                 bpowner: backpackOwner,
                 newItems: backpackHasNewIems
               });
-        } else {
+        } else if (backpackOwner) {
           res.render('backpack', {
                 title: 'Backpack',
                 items: bpitems,
@@ -40,6 +40,8 @@ exports.showbackpack = function (req, res, next) {
                 bpowner: backpackOwner,
                 newItems: backpackHasNewIems
               });
+        } else { // Error
+          res.redirect('/');
         }
       });
     });
