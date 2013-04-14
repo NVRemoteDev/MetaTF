@@ -1,6 +1,8 @@
 # Meta.TF README
 Website: http://www.meta.tf/
+
 Backpack viewer: http://www.meta.tf/backpack/76561197991291041
+
 Create a trade: http://www.meta.tf/trade/create
 
 ## Overview
@@ -28,7 +30,6 @@ The controllers folder contains all of the controller functions.
 Controller Files (controllers/):
 * admin_controller.js - Routes admin functions; renders admin.ejs
 	- updateSchema - calls ../models/download_schema_model to download the new tf2 item schema, and item icons to the file system
-		- Sends a message as a status update to admin.ejs view
 	- resizeItems - BUGGY - calls ../models/download_schema_model to resize images
 	- AddAnAdmin - In development
 	- AddAModerator - In development
@@ -38,9 +39,9 @@ Controller Files (controllers/):
 	- showschema will render the whole item schema
 * trade_controller.js - Handles POST and GET to /trade/create, and pulls data to render $url.com/trade/view/$id
 	- exports.index - routes calls to following functions
-		- ShowCreateATrade - GET /trade/create/ - Pulls backpack, and schema data from ../models/item_model.js, renders view createtrade.ejs
-		- ViewTrade - GET /trade/view/$id - Pulls trade information from trade_model, renders viewtrade.ejs
-		- POST /trade/create - Sends data to trade_model for creation
+	- ShowCreateATrade - GET /trade/create/ - Pulls backpack, and schema data from ../models/item_model.js, renders view createtrade.ejs
+	- ViewTrade - GET /trade/view/$id - Pulls trade information from trade_model, renders viewtrade.ejs
+	- POST /trade/create - Sends data to trade_model for creation
 * user_controller.js - Routes user functions
 	- exports.profile - shows the user's profile with trades
 	
