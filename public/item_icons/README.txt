@@ -1,1 +1,0 @@
-Image names are simply the defindex of the items.  All images here are resized to be smaller than their original version on Steam.
