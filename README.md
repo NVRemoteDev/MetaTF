@@ -22,3 +22,6 @@ The controllers folder contains all of the controller functions.
 ### Models
 The models folder contains all of functions that pull data from the database, or the steam API.
 It also contains common functions such as CRUD
+
+## License
+All rights reserved.  Code may be used for educational purposes only.
