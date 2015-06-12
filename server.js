@@ -20,6 +20,7 @@ var express = require('express'),
     gzippo = require('gzippo');
 
 http.globalAgent.defaultMaxSockets = 9999;
+require('ejs');
 require('ejs-shrink');
 
 /**
@@ -49,9 +50,9 @@ passport.deserializeUser(function(obj, done) {
 //   callback with a user object.
 passport.use(new SteamStrategy( {
     returnURL: 'http://www.meta.tf/auth/steam/return',
-    realm: 'http://www.meta.tf'
+    //realm: 'http://www.meta.tf'
     //returnURL: 'http://localhost:3000/auth/steam/return',
-    //realm: 'http://localhost:3000/'
+    realm: 'http://localhost:3000/'
   },
   function(identifier, profile, done) {
     // asynchronous verification
@@ -158,7 +159,7 @@ app.get('/schema', items.showschema); // Shows current Schema
 /**
  * Trade routes
  */
-app.post('/trade/create', ensureAuthenticated, trades.index);
+//app.post('/trade/create', ensureAuthenticated, trades.index);
 app.get('/trade/:action/:tradeid?', trades.index);
 app.get('/trade', function(req, res, next) { // View most recent trades if no action specified
   res.redirect('/trade/view');

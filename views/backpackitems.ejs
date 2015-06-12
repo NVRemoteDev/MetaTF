@@ -32,7 +32,7 @@
             <!-- End item div -->
 
             <% lastFound = items[i].bpposition; %>
-            <% if (usedASlot % 50 === 0 && lastFound !== bpslots) { %>
+            <% if (usedASlot % 50 === 0) { %>
               <p>Page <%= ++currentPage %></p>
             <%}%>
           <%}%>
@@ -77,9 +77,9 @@
             <% currentFound = items[i].bpposition; %>
 
             <!-- Adds page number, accounts for empty slots between items -->
-            <% while(currentFound > (lastFound + 1)) { %>
+            <% while(currentFound > (lastFound + 10000)) { %>
+              <% usedASlot++; %>
               <div class="span2 normal backgroundmodifiers normal bpitem <%if (items[i].flag_cannot_craft) {%>nocraft<%}%>"></div>
-                <% ++usedASlot; %>
                 <% if (usedASlot % 50 === 0) { %>
                   <p class="pagenumber">Page <%= ++currentPage %></p>
                 <%}%>

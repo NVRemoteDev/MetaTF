@@ -2,15 +2,15 @@
 	"name" : "metatf-web",
 	"version" : "0.1.1",
 	"dependencies" : {
-		"express" : "latest",
-		"ejs" : ">=0.4.2",
-		"passport" : "latest",
-		"passport-steam" : "latest",
-		"mongoose" : "latest",
-		"connect-mongo" : "latest",
-		"mongodb" : "latest",
+		"express" : "3.1.2",
+		"ejs" : "latest",
+		"passport" : "0.1.16",
+		"passport-steam" : "0.1.3",
+		"mongoose" : "3.6.4",
+		"connect-mongo" : "0.3.2",
+		"mongodb" : "1.2.14",
 		"ejs-shrink" : "latest",
-		"gzippo" : "latest",
-		"imagemagick" : "latest"
+		"gzippo" : "0.2.0",
+		"imagemagick" : "0.1.3"
   }
 }

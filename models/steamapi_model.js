@@ -12,11 +12,11 @@ var qs = require('querystring')
 module.exports = function PullFromSteamApi(steamID, api, fn) {
   var useApiString = '';
   switch(api) {
-    case 'backpack' : useApiString = '/IEconItems_440/GetPlayerItems/v0001/?key=807715D1032417EF88DC269B03178CCA&SteamID=' + steamID;
+    case 'backpack' : useApiString = '/IEconItems_440/GetPlayerItems/v0001/?key=FB2DAA80803E34E760188B487B0BA8D9&SteamID=' + steamID;
                       break;
-    case 'user'     : useApiString = '/ISteamUser/GetPlayerSummaries/v0002/?key=807715D1032417EF88DC269B03178CCA&steamids=' + steamID;
+    case 'user'     : useApiString = '/ISteamUser/GetPlayerSummaries/v0002/?key=FB2DAA80803E34E760188B487B0BA8D9&steamids=' + steamID;
                       break;
-    case 'schema'   : useApiString = '/IEconItems_440/GetSchema/v0001/?key=807715D1032417EF88DC269B03178CCA&language=English';
+    case 'schema'   : useApiString = '/IEconItems_440/GetSchema/v0001/?key=FB2DAA80803E34E760188B487B0BA8D9&language=English';
                       break;
   }
 
@@ -44,7 +44,7 @@ module.exports = function PullFromSteamApi(steamID, api, fn) {
       try {
         var obj = JSON.parse(body); // player object
       } catch (e) {
-        return fn(new Error('Bad Steam response'));
+        return fn(new Error('Bad Steam response: ' + body));
       }
 
       fn(null, obj);
